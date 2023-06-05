@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  backend:
+    container_name: schedule_kun_backend
+    env_file:
+      - schedule_kun_backend/docker/app/docker_local.env
+    build:
+      context: schedule_kun_backend
+      dockerfile: docker/app/Dockerfile
+    volumes:
+      - ./schedule_kun_backend:/app/rails
+    tty: true
+    ports:
+      - 3011:3000
+    networks:
+      - backend_network
+      - frontend_network
+    command: bash -C "/app/rails/docker/app/init_local.sh"
+  frontend:
+    container_name: schedule_kun_frontend
+    build:
+      context: schedule_kun_frontend
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./schedule_kun_frontend:/app/frontend
+      - ./schedule_kun_frontend/node_modules:/app/frontend/node_modules
+    tty: true
+    ports:
+      - 3010:3000
+    networks:
+      - frontend_network
+    command: bash -C "/app/frontend/docker/frontend_local.sh"
+  db:
+    container_name: schedule_kun_database
+    env_file:
+      - schedule_kun_backend/docker/app/docker_local.env
+    build:
+      context: database/postgres
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./database/postgres/data:/var/lib/postgresql/data
+    ports:
+      - 35432:5432
+    networks:
+      - backend_network
+networks:
+  frontend_network:
+  backend_network:
