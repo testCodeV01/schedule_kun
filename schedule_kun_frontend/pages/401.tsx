@@ -7,7 +7,7 @@ const Error401: NextPage = () => {
         <span>401エラーです。</span>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Error401;
