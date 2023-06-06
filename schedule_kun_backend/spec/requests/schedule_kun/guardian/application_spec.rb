@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "ScheduleKun::Guardian::Applications", type: :request do
   describe "GET /index" do
