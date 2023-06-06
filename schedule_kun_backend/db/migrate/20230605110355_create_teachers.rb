@@ -12,5 +12,8 @@ class CreateTeachers < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :teachers, [:email, :deleted_at], unique: true
+    add_index :teachers, :email, name: "idx_teachers_1"
   end
 end

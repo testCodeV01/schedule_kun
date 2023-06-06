@@ -1,0 +1,19 @@
+ja:
+  activerecord:
+    models:
+      teacher: 先生
+      student: 生徒
+      guardian: 保護者
+    attributes:
+      student:
+        email: Eメール
+        name: 名前
+        password: パスワード
+      teacher:
+        email: Eメール
+        name: 名前
+        password: パスワード
+      guardian:
+        email: Eメール
+        name: 名前
+        password: パスワード
