@@ -139,7 +139,7 @@ ScheduleKunApiClient.put = function put<T = any, D = any>(
 
 ScheduleKunApiClient.delete = function deleteFunc<T = any, D = any>(
   path: string,
-  requestBody: any
+  config: AxiosRequestConfig<D> = {}
 ) {
   return new Promise<AxiosResponse<T, D>>((resolve, reject) => {
     axios({
@@ -149,8 +149,8 @@ ScheduleKunApiClient.delete = function deleteFunc<T = any, D = any>(
         'Content-Type': 'application/json',
         'X-Csrf-Token': cookies.get(CookieKeys.csrf_cookie_key),
       },
-      data: requestBody,
       withCredentials: true,
+      ...config,
     })
     .then((res) => {
       cookies.set(

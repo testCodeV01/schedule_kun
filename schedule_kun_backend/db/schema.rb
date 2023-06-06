@@ -24,6 +24,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_115128) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email", "deleted_at"], name: "index_guardians_on_email_and_deleted_at", unique: true
+    t.index ["email"], name: "idx_guardians_1"
   end
 
   create_table "student_guardians", force: :cascade do |t|
@@ -49,6 +51,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_115128) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email", "deleted_at"], name: "index_students_on_email_and_deleted_at", unique: true
+    t.index ["email"], name: "idx_studnets_1"
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -61,6 +65,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_115128) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email", "deleted_at"], name: "index_teachers_on_email_and_deleted_at", unique: true
+    t.index ["email"], name: "idx_teachers_1"
   end
 
   add_foreign_key "student_guardians", "guardians"

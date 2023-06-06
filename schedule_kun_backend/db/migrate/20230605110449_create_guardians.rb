@@ -12,5 +12,8 @@ class CreateGuardians < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :guardians, [:email, :deleted_at], unique: true
+    add_index :guardians, :email, name: "idx_guardians_1"
   end
 end

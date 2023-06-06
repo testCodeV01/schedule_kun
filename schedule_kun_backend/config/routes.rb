@@ -6,4 +6,27 @@ Rails.application.routes.draw do
 
   root "sessions#new"
   post "/" => "sessions#create"
+
+  namespace :schedule_kun do
+    namespace :student do
+      get "/" => "sessions#new"
+      post "login" => "sessions#login"
+      delete "logout" => "sessions#logout"
+      get "auth" => "sessions#auth"
+    end
+
+    namespace :guardian do
+      get "/" => "sessions#new"
+      post "login" => "sessions#login"
+      delete "logout" => "sessions#logout"
+      get "auth" => "sessions#auth"
+    end
+
+    namespace :teacher do
+      get "/" => "sessions#new"
+      post "login" => "sessions#login"
+      delete "logout" => "sessions#logout"
+      get "auth" => "sessions#auth"
+    end
+  end
 end
