@@ -1,6 +1,5 @@
 import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
 import type { NextPage } from 'next';
-import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 const Login: NextPage = () => {
@@ -31,9 +30,9 @@ const Login: NextPage = () => {
   return (
     <>
       <div>wellcome!!</div>
-      <TextField required label="メールアドレスです" onChange={(e) => setEmail(e.target.value)} className='ml-4'/>
-      <TextField required label="パスワード" type='password' onChange={(e) => setPassword(e.target.value)} className='ml-4'/>
-      <TextField required label="パスワード確認" type='password' onChange={(e) => setPasswordConfirmation(e.target.value)} className='ml-4'/>
+      <input required onChange={(e) => setEmail(e.target.value)} className='ml-4'/>
+      <input required onChange={(e) => setPassword(e.target.value)} className='ml-4'/>
+      <input required onChange={(e) => setPasswordConfirmation(e.target.value)} className='ml-4'/>
       <div><button onClick={submit}>クリック</button></div>
       <div><button onClick={auth}>クリック２</button></div>
       <div><button onClick={logout}>ログアウト</button></div>
