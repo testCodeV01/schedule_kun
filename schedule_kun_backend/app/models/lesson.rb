@@ -4,6 +4,7 @@ class Lesson < ApplicationRecord
   belongs_to :branch
   belongs_to :teacher, optional: true
   belongs_to :lesson_room, optional: true
+  belongs_to :subject, optional: true
   has_many :absences, dependent: :destroy
   has_many :lesson_students, dependent: :destroy
   has_many :students, through: :lesson_students
