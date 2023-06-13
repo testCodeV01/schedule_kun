@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_05_115128) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_12_062750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "branches", force: :cascade do |t|
+    t.bigint "school_id", null: false
+    t.string "name", default: "", null: false
+    t.string "zip_code", default: "", null: false
+    t.string "address", default: "", null: false
+    t.string "phone_number", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_id"], name: "index_branches_on_school_id"
+  end
 
   create_table "guardians", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,6 +37,53 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_115128) do
     t.datetime "updated_at", null: false
     t.index ["email", "deleted_at"], name: "index_guardians_on_email_and_deleted_at", unique: true
     t.index ["email"], name: "idx_guardians_1"
+  end
+
+  create_table "holidays", force: :cascade do |t|
+    t.bigint "school_id"
+    t.datetime "day", precision: nil, default: "2023-06-12 00:00:00", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_id", "day"], name: "index_holidays_on_school_id_and_day", unique: true
+    t.index ["school_id"], name: "idx_holidays_1"
+    t.index ["school_id"], name: "index_holidays_on_school_id"
+  end
+
+  create_table "lesson_rooms", force: :cascade do |t|
+    t.bigint "branch_id", null: false
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_lesson_rooms_on_branch_id"
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.bigint "teacher_id"
+    t.bigint "lesson_room_id"
+    t.bigint "branch_id", null: false
+    t.string "name", default: "", null: false
+    t.string "description", default: "", null: false
+    t.datetime "start_time", precision: nil, default: "2023-06-12 17:14:22", null: false
+    t.datetime "end_time", precision: nil, default: "2023-06-12 17:14:22", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_lessons_on_branch_id"
+    t.index ["end_time"], name: "idx_lessons_2"
+    t.index ["lesson_room_id"], name: "idx_lessons_4"
+    t.index ["lesson_room_id"], name: "index_lessons_on_lesson_room_id"
+    t.index ["start_time"], name: "idx_lessons_1"
+    t.index ["teacher_id"], name: "idx_lessons_3"
+    t.index ["teacher_id"], name: "index_lessons_on_teacher_id"
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.string "zip_code", default: "", null: false
+    t.string "address", default: "", null: false
+    t.string "phone_number", default: "", null: false
+    t.string "description", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "student_guardians", force: :cascade do |t|
@@ -69,6 +127,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_05_115128) do
     t.index ["email"], name: "idx_teachers_1"
   end
 
+  add_foreign_key "branches", "schools"
+  add_foreign_key "holidays", "schools"
+  add_foreign_key "lesson_rooms", "branches"
+  add_foreign_key "lessons", "branches"
+  add_foreign_key "lessons", "lesson_rooms"
+  add_foreign_key "lessons", "teachers"
   add_foreign_key "student_guardians", "guardians"
   add_foreign_key "student_guardians", "students"
 end
