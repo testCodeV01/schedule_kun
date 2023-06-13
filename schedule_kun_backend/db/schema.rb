@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_12_062750) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_13_062041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "absences", force: :cascade do |t|
+    t.bigint "student_id"
+    t.bigint "lesson_id"
+    t.string "description", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_absences_on_lesson_id"
+    t.index ["student_id"], name: "index_absences_on_student_id"
+  end
 
   create_table "branches", force: :cascade do |t|
     t.bigint "school_id", null: false
@@ -23,6 +33,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_062750) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_branches_on_school_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "lesson_room_id"
+    t.bigint "teacher_id"
+    t.string "name", default: "", null: false
+    t.string "description", default: "", null: false
+    t.string "place", default: "", null: false
+    t.datetime "start_time", precision: nil, default: "2023-06-13 15:22:29", null: false
+    t.datetime "end_time", precision: nil, default: "2023-06-13 15:22:29", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_room_id"], name: "index_events_on_lesson_room_id"
+    t.index ["teacher_id"], name: "index_events_on_teacher_id"
   end
 
   create_table "guardians", force: :cascade do |t|
@@ -127,7 +151,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_062750) do
     t.index ["email"], name: "idx_teachers_1"
   end
 
+  add_foreign_key "absences", "lessons"
+  add_foreign_key "absences", "students"
   add_foreign_key "branches", "schools"
+  add_foreign_key "events", "lesson_rooms"
+  add_foreign_key "events", "teachers"
   add_foreign_key "holidays", "schools"
   add_foreign_key "lesson_rooms", "branches"
   add_foreign_key "lessons", "branches"

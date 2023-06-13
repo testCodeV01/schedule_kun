@@ -1,5 +1,6 @@
 class Teacher < ApplicationRecord
   has_many :lessons, dependent: :destroy
+  has_many :events
 
   validates :email, presence: true
   validates :password, presence: true
