@@ -18,6 +18,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
     t.bigint "student_id"
     t.bigint "lesson_id"
     t.string "description", default: "", null: false
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lesson_id"], name: "idx_absences_2"
@@ -32,6 +36,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
     t.string "zip_code", default: "", null: false
     t.string "address", default: "", null: false
     t.string "phone_number", default: "", null: false
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_branches_on_school_id"
@@ -43,8 +51,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
     t.string "place", default: "", null: false
-    t.datetime "start_time", precision: nil, default: "2023-06-13 15:38:46", null: false
-    t.datetime "end_time", precision: nil, default: "2023-06-13 15:38:46", null: false
+    t.datetime "start_time", precision: nil, default: "2023-06-13 16:26:45", null: false
+    t.datetime "end_time", precision: nil, default: "2023-06-13 16:26:45", null: false
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lesson_room_id"], name: "idx_events_1"
@@ -56,6 +68,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
   create_table "groups", force: :cascade do |t|
     t.bigint "branch_id"
     t.string "name", default: "", null: false
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_groups_on_branch_id"
@@ -77,7 +93,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
 
   create_table "holidays", force: :cascade do |t|
     t.bigint "school_id"
-    t.datetime "day", precision: nil, default: "2023-06-12 00:00:00", null: false
+    t.datetime "day", precision: nil, default: "2023-06-13 00:00:00", null: false
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id", "day"], name: "index_holidays_on_school_id_and_day", unique: true
@@ -88,6 +108,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
   create_table "lesson_rooms", force: :cascade do |t|
     t.bigint "branch_id", null: false
     t.string "name", default: "", null: false
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_lesson_rooms_on_branch_id"
@@ -96,6 +120,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
   create_table "lesson_students", force: :cascade do |t|
     t.bigint "lesson_id"
     t.bigint "student_id"
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lesson_id"], name: "index_lesson_students_on_lesson_id"
@@ -108,8 +136,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
     t.bigint "branch_id", null: false
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
-    t.datetime "start_time", precision: nil, default: "2023-06-12 17:14:22", null: false
-    t.datetime "end_time", precision: nil, default: "2023-06-12 17:14:22", null: false
+    t.datetime "start_time", precision: nil, default: "2023-06-13 16:26:45", null: false
+    t.datetime "end_time", precision: nil, default: "2023-06-13 16:26:45", null: false
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "subject_id"
@@ -129,6 +161,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
     t.string "address", default: "", null: false
     t.string "phone_number", default: "", null: false
     t.string "description", default: "", null: false
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -136,6 +172,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
   create_table "student_groups", force: :cascade do |t|
     t.bigint "student_id"
     t.bigint "group_id"
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_student_groups_on_group_id"
@@ -172,6 +212,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
   create_table "subjects", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
