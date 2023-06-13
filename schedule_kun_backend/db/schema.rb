@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_065613) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -112,11 +112,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_065613) do
     t.datetime "end_time", precision: nil, default: "2023-06-12 17:14:22", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "subject_id"
     t.index ["branch_id"], name: "index_lessons_on_branch_id"
     t.index ["end_time"], name: "idx_lessons_2"
     t.index ["lesson_room_id"], name: "idx_lessons_4"
     t.index ["lesson_room_id"], name: "index_lessons_on_lesson_room_id"
     t.index ["start_time"], name: "idx_lessons_1"
+    t.index ["subject_id"], name: "index_lessons_on_subject_id"
     t.index ["teacher_id"], name: "idx_lessons_3"
     t.index ["teacher_id"], name: "index_lessons_on_teacher_id"
   end
@@ -167,6 +169,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_065613) do
     t.index ["email"], name: "idx_studnets_1"
   end
 
+  create_table "subjects", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.string "description", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "teachers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "password", default: "", null: false
@@ -193,6 +202,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_065613) do
   add_foreign_key "lesson_students", "students"
   add_foreign_key "lessons", "branches"
   add_foreign_key "lessons", "lesson_rooms"
+  add_foreign_key "lessons", "subjects"
   add_foreign_key "lessons", "teachers"
   add_foreign_key "student_groups", "groups"
   add_foreign_key "student_groups", "students"
