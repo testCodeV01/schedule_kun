@@ -11,5 +11,8 @@ class CreateEvents < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :events, :lesson_room_id, name: "idx_events_1"
+    add_index :events, :teacher_id, name: "idx_events_2"
   end
 end

@@ -7,5 +7,8 @@ class CreateAbsences < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :absences, :student_id, name: "idx_absences_1"
+    add_index :absences, :lesson_id, name: "idx_absences_2"
   end
 end

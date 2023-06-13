@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_062041) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_13_065613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,7 +20,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_062041) do
     t.string "description", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "idx_absences_2"
     t.index ["lesson_id"], name: "index_absences_on_lesson_id"
+    t.index ["student_id"], name: "idx_absences_1"
     t.index ["student_id"], name: "index_absences_on_student_id"
   end
 
@@ -41,12 +43,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_062041) do
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
     t.string "place", default: "", null: false
-    t.datetime "start_time", precision: nil, default: "2023-06-13 15:22:29", null: false
-    t.datetime "end_time", precision: nil, default: "2023-06-13 15:22:29", null: false
+    t.datetime "start_time", precision: nil, default: "2023-06-13 15:38:46", null: false
+    t.datetime "end_time", precision: nil, default: "2023-06-13 15:38:46", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["lesson_room_id"], name: "idx_events_1"
     t.index ["lesson_room_id"], name: "index_events_on_lesson_room_id"
+    t.index ["teacher_id"], name: "idx_events_2"
     t.index ["teacher_id"], name: "index_events_on_teacher_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.bigint "branch_id"
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_groups_on_branch_id"
   end
 
   create_table "guardians", force: :cascade do |t|
@@ -81,6 +93,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_062041) do
     t.index ["branch_id"], name: "index_lesson_rooms_on_branch_id"
   end
 
+  create_table "lesson_students", force: :cascade do |t|
+    t.bigint "lesson_id"
+    t.bigint "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_lesson_students_on_lesson_id"
+    t.index ["student_id"], name: "index_lesson_students_on_student_id"
+  end
+
   create_table "lessons", force: :cascade do |t|
     t.bigint "teacher_id"
     t.bigint "lesson_room_id"
@@ -108,6 +129,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_062041) do
     t.string "description", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "student_groups", force: :cascade do |t|
+    t.bigint "student_id"
+    t.bigint "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_student_groups_on_group_id"
+    t.index ["student_id"], name: "index_student_groups_on_student_id"
   end
 
   create_table "student_guardians", force: :cascade do |t|
@@ -156,11 +186,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_062041) do
   add_foreign_key "branches", "schools"
   add_foreign_key "events", "lesson_rooms"
   add_foreign_key "events", "teachers"
+  add_foreign_key "groups", "branches"
   add_foreign_key "holidays", "schools"
   add_foreign_key "lesson_rooms", "branches"
+  add_foreign_key "lesson_students", "lessons"
+  add_foreign_key "lesson_students", "students"
   add_foreign_key "lessons", "branches"
   add_foreign_key "lessons", "lesson_rooms"
   add_foreign_key "lessons", "teachers"
+  add_foreign_key "student_groups", "groups"
+  add_foreign_key "student_groups", "students"
   add_foreign_key "student_guardians", "guardians"
   add_foreign_key "student_guardians", "students"
 end
