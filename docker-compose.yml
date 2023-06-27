@@ -25,6 +25,8 @@ services:
     volumes:
       - ./schedule_kun_frontend:/app/frontend
       - ./schedule_kun_frontend/node_modules:/app/frontend/node_modules
+    environment:
+      - WATCHPACK_POLLING=true
     tty: true
     ports:
       - 3010:3000
