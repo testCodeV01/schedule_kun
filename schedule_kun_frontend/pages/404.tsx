@@ -7,7 +7,7 @@ const Error404: NextPage = () => {
         <span>404エラーです。</span>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Error404;

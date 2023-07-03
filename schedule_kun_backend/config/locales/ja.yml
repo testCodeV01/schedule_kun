@@ -1,0 +1,41 @@
+ja:
+  activerecord:
+    models:
+      teacher: 先生
+      student: 生徒
+      guardian: 保護者
+    attributes:
+      student:
+        email: Eメール
+        name: 名前
+        password: パスワード
+      teacher:
+        email: Eメール
+        name: 名前
+        password: パスワード
+      guardian:
+        email: Eメール
+        name: 名前
+        password: パスワード
+      school:
+        name: 学校名
+        zip_code: 郵便番号
+        address: 住所
+        phone_number: 電話番号
+        description: 詳細
+      branch:
+        name: 教室名
+        zip_code: 郵便番号
+        address: 住所
+        phone_number: 電話番号
+      lesson:
+        name: レッスン名
+        start_time: 開始時間
+        end_time: 終了時間
+        description: 詳細
+      lesson_room:
+        name: レッスン部屋名
+      holiday:
+        day: 休日
+
+
