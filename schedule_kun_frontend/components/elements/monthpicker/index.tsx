@@ -5,9 +5,11 @@ import { Button } from 'react-bootstrap';
 export const MonthPicker = ({
   date,
   onChangeDate,
+  disable,
 }: {
   date: Date;
   onChangeDate: (value: any) => void;
+  disable?: boolean;
 }) => {
   // const [date, setDate] = useState<Date>(new Date());
   const [year, setYear] = useState(date.getFullYear());
@@ -57,7 +59,7 @@ export const MonthPicker = ({
   return (
     <>
       <div className="row flatpickr-months w-100">
-        <Button className={`col-2 ${styles.monthpicker_prev_month}`} onClick={prevClick}>
+        <Button className={`col-2 ${styles.monthpicker_prev_month}`} onClick={prevClick} disabled={disable}>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
             <g></g>
             <path d="M5.207 8.471l7.146 7.147-0.707 0.707-7.853-7.854 7.854-7.853 0.707 0.707-7.147 7.146z"></path>
@@ -72,13 +74,14 @@ export const MonthPicker = ({
                 type="number"
                 value={year}
                 onChange={(e: any) => changeYear(e.target.value)}
+                disabled={disable}
               />
               <span className="arrowUp" onClick={yearUp}></span>
               <span className="arrowDown" onClick={yearDown}></span>
             </div>
           </div>
         </div>
-        <Button className={`col-2 ${styles.monthpicker_next_month}`} onClick={nextClick}>
+        <Button className={`col-2 ${styles.monthpicker_next_month}`} onClick={nextClick} disabled={disable}>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
             <g></g>
             <path d="M13.207 8.472l-7.854 7.854-0.707-0.707 7.146-7.146-7.146-7.148 0.707-0.707 7.854 7.854z"></path>
