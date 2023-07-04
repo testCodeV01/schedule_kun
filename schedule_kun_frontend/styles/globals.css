@@ -12,6 +12,10 @@ body,
   --sidebar-width: 180px;
 }
 
+.fs-7 {
+  font-size: 0.75rem !important;
+}
+
 /* スマホ版で横から出てくるサイドメニューの横幅 */
 .offcanvas-size-xl {
   --bs-offcanvas-width: min(95vw, 600px) !important;

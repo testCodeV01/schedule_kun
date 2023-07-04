@@ -23,9 +23,7 @@ const onErrorOccurred = (e: any, reject: any) => {
       return;
     }
 
-    if (e.message === 'canceled') {
-      return;
-    }
+    if (e.message === 'canceled') return;
 
     Router.push('/500');
     return;
