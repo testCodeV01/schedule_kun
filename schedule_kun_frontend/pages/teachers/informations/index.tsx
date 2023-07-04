@@ -1,13 +1,26 @@
+import { DatePicker } from '@/components/elements/datepicker';
+import { MonthPicker } from '@/components/elements/monthpicker';
 import Dashboard from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
-import { Button } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 
 const Informations: NextPage = () => {
+  const [date, setDate] = useState(new Date());
+
   return (
     <>
       <Dashboard>
         <span>OK!</span>
+        <input type="number" value="1" />
         <Button>ボタン</Button>
+        <div style={{ width: '700px' }}>
+          <DatePicker
+            date={date}
+            onChange={setDate}
+          />
+          <MonthPicker date={date} onChangeDate={setDate}/>
+        </div>
         <div><span>1</span></div>
         <div><span>2</span></div>
         <div>

@@ -1,0 +1,16 @@
+.monthpicker_prev_month,
+.monthpicker_next_month,
+.monthpicker_prev_month:focus,
+.monthpicker_next_month:focus,
+.monthpicker_prev_month:active,
+.monthpicker_next_month:active {
+  background-color: inherit !important;
+  border: none !important;
+}
+
+
+.monthpicker_prev_month svg,
+.monthpicker_next_month svg {
+  width: 17px;
+  height: 17px;
+}
