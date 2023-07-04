@@ -16,7 +16,7 @@ export const MonthPicker = ({
   const prevClick = () => {
     date.setMonth(date.getMonth() - 1);
 
-    onChangeDate(date);
+    onChangeDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
@@ -24,7 +24,7 @@ export const MonthPicker = ({
   const nextClick = () => {
     date.setMonth(date.getMonth() + 1);
 
-    onChangeDate(date);
+    onChangeDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
@@ -33,7 +33,7 @@ export const MonthPicker = ({
     date.setFullYear(value);
     console.log(value);
 
-    onChangeDate(date);
+    onChangeDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
@@ -41,7 +41,7 @@ export const MonthPicker = ({
   const yearUp = () => {
     date.setFullYear(year + 1);
 
-    onChangeDate(date);
+    onChangeDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
@@ -49,26 +49,26 @@ export const MonthPicker = ({
   const yearDown = () => {
     date.setFullYear(year - 1);
 
-    onChangeDate(date);
+    onChangeDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
 
   return (
     <>
-      <div className="flatpickr-months">
-        <Button className={styles.monthpicker_prev_month} onClick={prevClick}>
+      <div className="row flatpickr-months w-100">
+        <Button className={`col-2 ${styles.monthpicker_prev_month}`} onClick={prevClick}>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
             <g></g>
             <path d="M5.207 8.471l7.146 7.147-0.707 0.707-7.853-7.854 7.854-7.853 0.707 0.707-7.147 7.146z"></path>
           </svg>
         </Button>
-        <div className="flatpickr-month">
+        <div className="flatpickr-month col-8 overflow-auto">
           <div className="flatpickr-current-month">
             <span className="cur-month">{month}月 </span>
             <div className="numInputWrapper">
               <input
-                className="numInput cur-year"
+                className={`numInput cur-year ${styles.numInput}`}
                 type="number"
                 value={year}
                 onChange={(e: any) => changeYear(e.target.value)}
@@ -78,7 +78,7 @@ export const MonthPicker = ({
             </div>
           </div>
         </div>
-        <Button className={styles.monthpicker_next_month} onClick={nextClick}>
+        <Button className={`col-2 ${styles.monthpicker_next_month}`} onClick={nextClick}>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
             <g></g>
             <path d="M13.207 8.472l-7.854 7.854-0.707-0.707 7.146-7.146-7.146-7.148 0.707-0.707 7.854 7.854z"></path>
@@ -86,5 +86,5 @@ export const MonthPicker = ({
         </Button>
       </div>
     </>
-  )
+  );
 };

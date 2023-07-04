@@ -14,3 +14,10 @@
   width: 17px;
   height: 17px;
 }
+
+.numInput {
+  border: none;
+  width: 70px;
+  font-weight: 300 !important;
+  padding-top: 4px;
+}

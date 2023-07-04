@@ -5,28 +5,34 @@ import { Button, Card, ListGroup } from 'react-bootstrap';
 import styles from './styles.module.css';
 import { Key, useEffect, useState } from 'react';
 import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
-import { ChangeViewMode } from '../changeViewMode';
+import { ChangeViewMode } from '../ChangeViewMode';
+import { MonthPicker } from '@/components/elements/monthpicker';
+import { DatePicker } from '@/components/elements/datepicker';
 
 const MonthSchedule: NextPage = () => {
-  const today = new Date();
-  const [year, setYear] = useState(today.getFullYear());
-  const [month, setMonth] = useState(today.getMonth() + 1);
+  const [date, setDate] = useState<Date>(new Date());
 
   const [lessonDatas, setLessonDatas] = useState([]);
 
   useEffect(() => {
-    if (!year) return;
-    if (!month) return;
+    if (!date) return;
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
 
     ScheduleKunApiClient.get(`/schedule_kun/teacher/calendars/month?year=${year}&month=${month}`).then((res) => {
       setLessonDatas(res.data);
     });
-  }, [year, month]);
+  }, [date]);
 
   return (
     <>
       <Dashboard>
         <ChangeViewMode mode="month" />
+        {/* <DatePicker date={date} onChange={setDate} /> */}
+        <div style={{ width: '300px' }}>
+          <MonthPicker date={date} onChangeDate={setDate} />
+        </div>
         <ListGroup>
           <ListGroup.Item className="pt-0 pb-0">
             <div className="row">
