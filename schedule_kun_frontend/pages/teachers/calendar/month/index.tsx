@@ -10,6 +10,7 @@ import { MonthPicker } from '@/components/elements/monthpicker';
 import { DatePicker } from '@/components/elements/datepicker';
 
 const MonthSchedule: NextPage = () => {
+  const [loading, setLoading] = useState<boolean|undefined>(false);
   const [date, setDate] = useState<Date>(new Date());
 
   const [lessonDatas, setLessonDatas] = useState([]);
@@ -17,11 +18,15 @@ const MonthSchedule: NextPage = () => {
   useEffect(() => {
     if (!date) return;
 
+    setLoading(true);
+
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
 
     ScheduleKunApiClient.get(`/schedule_kun/teacher/calendars/month?year=${year}&month=${month}`).then((res) => {
       setLessonDatas(res.data);
+    }).then(() => {
+      setLoading(false);
     });
   }, [date]);
 
@@ -31,7 +36,7 @@ const MonthSchedule: NextPage = () => {
         <ChangeViewMode mode="month" />
         {/* <DatePicker date={date} onChange={setDate} /> */}
         <div style={{ width: '300px' }}>
-          <MonthPicker date={date} onChangeDate={setDate} />
+          <MonthPicker date={date} onChangeDate={setDate} disable={loading} />
         </div>
         <ListGroup>
           <ListGroup.Item className="pt-0 pb-0">
@@ -59,12 +64,12 @@ const MonthSchedule: NextPage = () => {
                           )}
                           {columnData.lessons && (
                             columnData.lessons.map((lesson: any, lessonIndex: Key) => {
-                              return lesson.id < 2 ? (
+                              return lesson.id < 2 && (
                                 <Card key={lessonIndex} className="p-1 mb-2">
                                   <div>{lesson.start_time}~{lesson.end_time}</div>
                                   <div>{lesson.name}</div>
                                 </Card>
-                              ) : <></>;
+                              );
                             })
                           )}
                           {columnData.lessons_count > 2 && (
