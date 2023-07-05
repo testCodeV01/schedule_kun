@@ -8,6 +8,8 @@ interface ChangeViewModeProps {
 }
 
 export const ChangeViewMode = ({ mode }: ChangeViewModeProps) => {
+  const today = new Date();
+
   return (
     <>
       <ButtonGroup className="mb-3">
@@ -19,7 +21,10 @@ export const ChangeViewMode = ({ mode }: ChangeViewModeProps) => {
           variant='outline-success'
           checked={mode === 'month'}
           onClick={() => {
-            Router.push(Route.teacherCalendarMonthPath);
+            Router.push({
+              pathname: Route.teacherCalendarMonthPath,
+              query: { year: today.getFullYear(), month: today.getMonth() + 1 }
+            });
           }}
         >
           月

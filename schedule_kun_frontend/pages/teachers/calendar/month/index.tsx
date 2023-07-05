@@ -9,6 +9,7 @@ import { CookieKeys } from '@/config/CookieKeys';
 import { Cookies } from 'react-cookie';
 import { useRouter } from 'next/router';
 import { Route } from '@/config/Route';
+import ArrowButton from '@/components/elements/arrowButton';
 
 const MonthSchedule: NextPage = () => {
   const [loading, setLoading] = useState<boolean|undefined>(false);
@@ -48,7 +49,6 @@ const MonthSchedule: NextPage = () => {
   return (
     <>
       <Dashboard>
-        <ChangeViewMode mode="month" />
         {/* <DatePicker date={date} onChange={setDate} /> */}
         <div style={{ width: '300px' }}>
           <MonthPicker
@@ -62,6 +62,7 @@ const MonthSchedule: NextPage = () => {
         <ListGroup>
           <ListGroup.Item className="pt-0 pb-0">
             <div className="row">
+              <div className='border-end' style={{ width: '50px' }}></div>
               <div className='col-sm border-end'>月</div>
               <div className='col-sm border-end'>火</div>
               <div className='col-sm border-end'>水</div>
@@ -75,6 +76,9 @@ const MonthSchedule: NextPage = () => {
             return (
               <ListGroup.Item className="pt-0 pb-0" key={rowIndex}>
                 <div className="row">
+                  <div className='p-0 border-end' style={{ width: '50px' }}>
+                    <ArrowButton direction='right' className='h-100 w-100 p-0' />
+                  </div>
                   {rowData.map((columnData: any, colIndex: Key) => {
                     return (
                       <div className={`col-sm ${columnData.column < 6 && 'border-end'}`} key={colIndex}>
