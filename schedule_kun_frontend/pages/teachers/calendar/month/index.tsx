@@ -1,34 +1,49 @@
 import Dashboard from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
-import { Button, Card, ListGroup } from 'react-bootstrap';
-
-import styles from './styles.module.css';
-import { Key, useEffect, useState } from 'react';
+import { Card, ListGroup } from 'react-bootstrap';
+import { Key, useContext, useEffect, useState } from 'react';
 import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
 import { ChangeViewMode } from '../ChangeViewMode';
 import { MonthPicker } from '@/components/elements/monthpicker';
-import { DatePicker } from '@/components/elements/datepicker';
+import { CookieKeys } from '@/config/CookieKeys';
+import { Cookies } from 'react-cookie';
+import { useRouter } from 'next/router';
+import { Route } from '@/config/Route';
 
 const MonthSchedule: NextPage = () => {
   const [loading, setLoading] = useState<boolean|undefined>(false);
-  const [date, setDate] = useState<Date>(new Date());
-
   const [lessonDatas, setLessonDatas] = useState([]);
+  const router = useRouter();
+  const today = new Date();
+  const [year, setYear] = useState<number>(today.getFullYear());
+  const [month, setMonth] = useState<number>(today.getMonth() + 1);
+  const [onset, setOnset] = useState(false);
 
   useEffect(() => {
-    if (!date) return;
+    if (!router.query.year) return;
+    if (!router.query.month) return;
+
+    setYear(Number(router.query.year));
+    setMonth(Number(router.query.month));
 
     setLoading(true);
 
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
+    ScheduleKunApiClient.get('/schedule_kun/teacher/calendars/month',
+      { year: router.query.year, month: router.query.month }
+    )
+      .then((res) => {
+        setLessonDatas(res.data);
+        setOnset(true);
+      }).then(() => {
+        setLoading(false);
+      });
+  }, [router.query.year, router.query.month]);
 
-    ScheduleKunApiClient.get(`/schedule_kun/teacher/calendars/month?year=${year}&month=${month}`).then((res) => {
-      setLessonDatas(res.data);
-    }).then(() => {
-      setLoading(false);
-    });
-  }, [date]);
+  useEffect(() => {
+    if (!onset) return;
+
+    router.push({ pathname: Route.teacherCalendarMonthPath, query: { year: year, month: month } });
+  }, [onset, year, month]);
 
   return (
     <>
@@ -36,7 +51,13 @@ const MonthSchedule: NextPage = () => {
         <ChangeViewMode mode="month" />
         {/* <DatePicker date={date} onChange={setDate} /> */}
         <div style={{ width: '300px' }}>
-          <MonthPicker date={date} onChangeDate={setDate} disable={loading} />
+          <MonthPicker
+            year={year}
+            month={month}
+            setYear={setYear}
+            setMonth={setMonth}
+            disable={loading}
+          />
         </div>
         <ListGroup>
           <ListGroup.Item className="pt-0 pb-0">

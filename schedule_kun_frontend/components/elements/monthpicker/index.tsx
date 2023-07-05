@@ -1,24 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 import { Button } from 'react-bootstrap';
 
 export const MonthPicker = ({
-  date,
-  onChangeDate,
+  year,
+  month,
+  setYear,
+  setMonth,
   disable,
 }: {
-  date: Date;
-  onChangeDate: (value: any) => void;
+  year: number;
+  month: number,
+  setYear: (value: number) => void;
+  setMonth: (value: number) => void;
   disable?: boolean;
 }) => {
-  // const [date, setDate] = useState<Date>(new Date());
-  const [year, setYear] = useState(date.getFullYear());
-  const [month, setMonth] = useState(date.getMonth() + 1);
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    const newDate = new Date(`${year}/${month}/1`);
+    setDate(newDate);
+  }, [year, month]);
 
   const prevClick = () => {
     date.setMonth(date.getMonth() - 1);
 
-    onChangeDate(new Date(date));
+    setDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
@@ -26,7 +33,7 @@ export const MonthPicker = ({
   const nextClick = () => {
     date.setMonth(date.getMonth() + 1);
 
-    onChangeDate(new Date(date));
+    setDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
@@ -35,23 +42,23 @@ export const MonthPicker = ({
     date.setFullYear(value);
     console.log(value);
 
-    onChangeDate(new Date(date));
+    setDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
 
   const yearUp = () => {
-    date.setFullYear(year + 1);
+    date.setFullYear(date.getFullYear() + 1);
 
-    onChangeDate(new Date(date));
+    setDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
 
   const yearDown = () => {
-    date.setFullYear(year - 1);
+    date.setFullYear(date.getFullYear() - 1);
 
-    onChangeDate(new Date(date));
+    setDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
@@ -72,7 +79,7 @@ export const MonthPicker = ({
               <input
                 className={`numInput cur-year ${styles.numInput}`}
                 type="number"
-                value={year}
+                value={`${year}`}
                 onChange={(e: any) => changeYear(e.target.value)}
                 disabled={disable}
               />

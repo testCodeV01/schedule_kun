@@ -16,6 +16,10 @@ export const ScheduleKunApiUrl = (path: string) => {
     : `${ApiConfig.domain}/${path}`;
 };
 
+const queryString = (hash: any) => {
+  return Object.keys(hash).map((key) => `${key}=${hash[key]}`).join('&');
+};
+
 const onErrorOccurred = (e: any, reject: any) => {
   if (!e.response) {
     if (!navigator.onLine) {
@@ -51,12 +55,13 @@ export const ScheduleKunApiClient = () => {};
 
 ScheduleKunApiClient.get = function get<T = any, D = any>(
   path: string,
+  query: Object = {},
   config: AxiosRequestConfig<D> = {}
 ) {
   return new Promise<AxiosResponse<T, D>>((resolve, reject) => {
     axios({
       method: 'GET',
-      url: ScheduleKunApiUrl(path),
+      url: `${ScheduleKunApiUrl(path)}?${queryString(query)}`,
       headers: {
         'Content-Type': 'application/json'
       },
