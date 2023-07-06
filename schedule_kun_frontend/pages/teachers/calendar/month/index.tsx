@@ -45,18 +45,15 @@ const MonthSchedule: NextPage = () => {
   useEffect(() => {
     if (!onset) return;
 
-    router.push({ pathname: Route.teacherCalendarMonthPath, query: { year: year, month: month } });
+    router.push(Route.teacherCalendarMonthPath({ year: year, month: month }));
   }, [onset, year, month]);
 
   const changeToWeek = (day: number) => {
-    router.push({
-      pathname: Route.teacherCalendarWeekPath,
-      query: { year: year, month: month, day: day }
-    });
+    router.push(Route.teacherCalendarWeekPath({ year: year, month: month, day: day }));
   };
 
-  const toInformation = () => {
-    router.push(Route.teacherInformationsPath);
+  const toDaySchedule = (day: number) => {
+    router.push(Route.daySchedulePath({ year: year, month: month, day: day }));
   };
 
   return (
@@ -73,7 +70,7 @@ const MonthSchedule: NextPage = () => {
           />
         </div>
         <ListGroup className="shadow">
-          <ListGroup.Item className={`pt-0 pb-0 ${styles.weekButtonArea} ${styles.sundayArrea}`}>
+          <ListGroup.Item className={`pt-0 pb-0 ${styles.monthArea}`}>
             <div className="row">
               <div className='border-end' style={{ width: '50px' }}></div>
               <div className='col-sm border-end color-combo-option'>月</div>
@@ -87,7 +84,7 @@ const MonthSchedule: NextPage = () => {
           </ListGroup.Item>
           {lessonDatas.map((rowData: any, rowIndex: Key) => {
             return (
-              <ListGroup.Item className={`pt-0 pb-0 ${styles.weekButtonArea} ${styles.sundayArrea}`} key={rowIndex}>
+              <ListGroup.Item className={`pt-0 pb-0 ${styles.monthArea}`} key={rowIndex}>
                 <div className="row">
                   <div className='p-0 border-end color-combo-sub' style={{ width: '50px' }}>
                     <ArrowButton direction='right' className='h-100 w-100 p-0' onClick={() => changeToWeek(rowData[0].day)} arrowColor="var(--color-font-sub)" />
@@ -97,8 +94,8 @@ const MonthSchedule: NextPage = () => {
                       <div className={
                         `col-sm
                         ${columnData.column < 6 && 'border-end'}
-                        ${columnData.month !== month ? 'color-combo-disabled' : (columnData.column === 6 && 'color-sunday') || (columnData.column === 5 && 'color-saturday')}
-                      `} key={colIndex} role='button' onClick={toInformation}>
+                        ${columnData.month !== month ? 'color-combo-disabled' : ((columnData.year === today.getFullYear() && columnData.month === today.getMonth()+1 && columnData.day === today.getDate() ? 'color-combo-sub' : (columnData.column === 6 && 'color-sunday') || (columnData.column === 5 && 'color-saturday')))}
+                      `} key={colIndex} role='button' onClick={() => toDaySchedule(columnData.day)}>
                         <div>{columnData.day}</div>
                         <div className="fs-7">
                           {columnData.lessons_count === 0 && (

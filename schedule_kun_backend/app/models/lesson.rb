@@ -12,6 +12,7 @@ class Lesson < ApplicationRecord
   validates :start_time, :end_time, presence: true
   validate :validate_end_after_start
   validate :validate_start_and_end_same_day
+  validate :validate_schedule_span
 
   scope :between_date, -> (start_date, end_date) {
     where(start_time: Range.new(start_date.beginning_of_day, end_date.end_of_day))
@@ -20,4 +21,27 @@ class Lesson < ApplicationRecord
   scope :between_time, -> (start_time, end_time) {
     where("start_time >= ?", start_time).where("end_time <= ?", end_time)
   }
+
+  scope :overlap_time, -> (start_time, end_time) {
+    where("end_time >= ?", start_time).where("start_time <= ?", start_time)
+    .or(Lesson.where("start_time >= ?", start_time).where("end_time <= ?", end_time))
+    .or(Lesson.where("start_time <= ?", end_time).where("end_time >= ?", end_time))
+  }
+
+  scope :when, -> (date) {
+    where("start_time >= ?", date.beginning_of_day).where("end_time <= ?", date.end_of_day)
+  }
+
+  def client_attributes
+    default_client_attributes
+    .except(:start_time, :end_time, :teacher_id, :lesson_room_id, :branch_id, :subject_id)
+    .merge!(start_time: start_time.strftime("%H:%M"), end_time: end_time.strftime("%H:%M"))
+  end
+
+  private
+
+    def validate_schedule_span
+      overlap_lessons = self.class.enabled.where(teacher_id: teacher_id).overlap_time(start_time, end_time)
+      errors.add(:between_time, "にすでに登録済みのレッスンがあります。") if overlap_lessons.present?
+    end
 end

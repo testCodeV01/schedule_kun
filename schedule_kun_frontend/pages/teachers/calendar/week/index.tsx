@@ -41,17 +41,15 @@ const WeekSchedule: NextPage = () => {
   useEffect(() => {
     if (!onset) return;
 
-    router.push({
-      pathname: Route.teacherCalendarWeekPath,
-      query: { year: year, month: month, day: day }
-    });
+    router.push(Route.teacherCalendarWeekPath({ year: year, month: month, day: day }));
   }, [onset, year, month, day]);
 
   const changeToMonth = () => {
-    router.push({
-      pathname: Route.teacherCalendarMonthPath,
-      query: { year: year, month: month }
-    });
+    router.push(Route.teacherCalendarMonthPath({ year: year, month: month }));
+  };
+
+  const toDaySchedule = (selectedDay: number) => {
+    router.push(Route.daySchedulePath({ year: year, month: month, day: selectedDay }));
   };
 
   return (
@@ -86,12 +84,20 @@ const WeekSchedule: NextPage = () => {
             <div className="row">
               {lessonDatas.map((colData: any, colIndex: Key) => {
                 return (
-                  <div key={colIndex} className={`col-sm ${colData.column < 6 && 'border-end'} ${colData.column === 5 && 'color-saturday'} ${colData.column === 6 && 'color-sunday'}`}>
+                  <div
+                    key={colIndex}
+                    className={`col-sm ${colData.column < 6 && 'border-end'} ${colData.year === today.getFullYear() && colData.month === today.getMonth()+1 && colData.day === today.getDate() ? 'color-combo-sub' : ((colData.column === 5 && 'color-saturday') || (colData.column === 6 && 'color-sunday'))}`}
+                    role='button'
+                    onClick={() => toDaySchedule(colData.day)}
+                  >
                     <div>{colData.month !== month && `${colData.month}/`}{colData.day}</div>
                     <div className="fs-7">
+                      {!colData.lessons && (
+                        <div className="mb-2" style={{ height: '300px' }}></div>
+                      )}
                       {colData.lessons && colData.lessons.map((lesson: any, lessonIndex: Key) => {
                         return (
-                          <Card key={lessonIndex} className="p-1 mb-2 shadow-sm">
+                          <Card key={lessonIndex} className="p-1 mb-2 shadow-sm color-combo-default">
                             <div>{lesson.start_time}~{lesson.end_time}</div>
                             <div>{lesson.name}</div>
                           </Card>

@@ -1,6 +1,10 @@
+import Dashboard from '@/components/layouts/dashboard';
+import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { Button, Card } from 'react-bootstrap';
+import AddScheduleArea from './addScheduleArea';
 
 const DaySchedule: NextPage = () => {
   const router = useRouter();
@@ -8,6 +12,11 @@ const DaySchedule: NextPage = () => {
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth() + 1);
   const [day, setDay] = useState(today.getDate());
+  const [onset, setOnset] = useState(false);
+
+  const [lessonDatas, setLessonDatas] = useState([]);
+
+  const [addMode, setAddMode] = useState(false);
 
   useEffect(() => {
     if (!router.query.year) return;
@@ -17,14 +26,45 @@ const DaySchedule: NextPage = () => {
     setYear(Number(router.query.year));
     setMonth(Number(router.query.month));
     setDay(Number(router.query.day));
+
+    setOnset(true);
   }, [router.query.year, router.query.month, router.query.day]);
 
   useEffect(() => {
+    if (!onset) return;
+    if (addMode) return;
 
-  }, [year, month, day]);
+    ScheduleKunApiClient.get(
+      '/schedule_kun/teacher/lessons',
+      { year: year, month: month, day: day }
+    ).then((res) => {
+      setLessonDatas(res.data);
+    });
+  }, [year, month, day, onset, addMode]);
 
   return (
-    <></>
+    <>
+      <Dashboard>
+        {addMode && (
+          <AddScheduleArea endAddMode={() => setAddMode(false)} />
+        )}
+        {!addMode && (
+          <>
+            {lessonDatas.map((lessonData: any, lessonIndex: number) => {
+              return (
+                <Card key={lessonIndex} className="p-1 mb-2 color-combo-default shadow-sm">
+                  <div>{lessonData.start_time}~{lessonData.end_time}</div>
+                  <div>教科：{lessonData.subject?.name} {lessonData.name}</div>
+                  <div>{lessonData.description}</div>
+                  <div>教室：{lessonData.branch?.name}校 {lessonData.lesson_room?.name}</div>
+                </Card>
+              );
+            })}
+            <Button className='me-3' onClick={() => setAddMode(true)}>追加</Button>
+          </>
+        )}
+      </Dashboard>
+    </>
   );
 };
 

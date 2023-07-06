@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
     t.index ["lesson_id"], name: "index_absences_on_lesson_id"
     t.index ["student_id"], name: "idx_absences_1"
     t.index ["student_id"], name: "index_absences_on_student_id"
+  end
+
+  create_table "branch_teachers", force: :cascade do |t|
+    t.bigint "branch_id", null: false
+    t.bigint "teacher_id", null: false
+    t.integer "delf", limit: 2, default: 0
+    t.integer "deleted_account_type", limit: 2, default: 0
+    t.datetime "deleted_at"
+    t.integer "deleted_account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_branch_teachers_on_branch_id"
+    t.index ["teacher_id"], name: "index_branch_teachers_on_teacher_id"
   end
 
   create_table "branches", force: :cascade do |t|
@@ -218,6 +231,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "school_id"
+    t.index ["school_id"], name: "idx_subjects_school_id"
+    t.index ["school_id"], name: "index_subjects_on_school_id"
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -230,12 +246,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "school_id"
     t.index ["email", "deleted_at"], name: "index_teachers_on_email_and_deleted_at", unique: true
     t.index ["email"], name: "idx_teachers_1"
+    t.index ["school_id"], name: "idx_teachers_school_id"
+    t.index ["school_id"], name: "index_teachers_on_school_id"
   end
 
   add_foreign_key "absences", "lessons"
   add_foreign_key "absences", "students"
+  add_foreign_key "branch_teachers", "branches"
+  add_foreign_key "branch_teachers", "teachers"
   add_foreign_key "branches", "schools"
   add_foreign_key "events", "lesson_rooms"
   add_foreign_key "events", "teachers"
@@ -252,4 +273,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_070745) do
   add_foreign_key "student_groups", "students"
   add_foreign_key "student_guardians", "guardians"
   add_foreign_key "student_guardians", "students"
+  add_foreign_key "subjects", "schools"
+  add_foreign_key "teachers", "schools"
 end

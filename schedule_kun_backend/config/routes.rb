@@ -32,6 +32,8 @@ Rails.application.routes.draw do
         get "month"
         get "week"
       end
+
+      resources :lessons, only: [:index, :create, :new]
     end
   end
 end

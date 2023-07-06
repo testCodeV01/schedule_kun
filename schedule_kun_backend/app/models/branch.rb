@@ -3,4 +3,10 @@ class Branch < ApplicationRecord
   has_many :lessons, dependent: :destroy
   has_many :lesson_rooms, dependent: :destroy
   has_many :groups
+  has_many :branch_teachers, dependent: :destroy
+  has_many :teachers, through: :branch_teachers
+
+  def client_attributes
+    default_client_attributes.except(:school_id)
+  end
 end

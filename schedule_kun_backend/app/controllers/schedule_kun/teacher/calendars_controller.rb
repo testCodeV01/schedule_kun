@@ -23,11 +23,11 @@ class ScheduleKun::Teacher::CalendarsController < ScheduleKun::Teacher::Applicat
 
       if ind.zero?
         (0...column).each do |col|
-          arr[row] << { row: row, column: col, day: (start_date - (column - col).day).day, month: date.month - 1 }
+          arr[row] << { row: row, column: col, day: (start_date - (column - col).day).day, month: (date - 1.month).month, year: (date - 1.month).year }
         end
       end
 
-      data = { row: row, column: column, day: date.day, month: date.month }
+      data = { row: row, column: column, day: date.day, month: date.month, year: date.year }
       data.merge!(lessons: []) if lessons.present?
 
       data.merge!(lessons_count: lessons.count)
@@ -47,7 +47,7 @@ class ScheduleKun::Teacher::CalendarsController < ScheduleKun::Teacher::Applicat
 
       if ind == end_date.day - 1
         ((column + 1)..6).each do |col|
-          arr[row] << { row: row, column: col, day: col - column, month: date.month + 1 }
+          arr[row] << { row: row, column: col, day: col - column, month: (date + 1.month).month, year: (date + 1.month).year }
         end
       end
     end
@@ -73,7 +73,7 @@ class ScheduleKun::Teacher::CalendarsController < ScheduleKun::Teacher::Applicat
     json = (Date.parse(start_date.to_s)..Date.parse(end_date.to_s)).each_with_object([]).with_index do |(date, arr), ind|
       lessons = all_lessons.select { |l| Date.parse(l.start_time.to_s) == date}
 
-      data = { column: ind, day: date.day, month: date.month }
+      data = { column: ind, day: date.day, month: date.month, year: date.year }
       data[:lessons] = [] if lessons.present?
       
       lessons.each do |lesson|

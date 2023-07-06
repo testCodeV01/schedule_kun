@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Cookies } from 'react-cookie';
 import { CookieKeys } from '@/config/CookieKeys';
 import Router from 'next/router';
+import { ErrorCode } from '@/config/ErrorCodes';
 
 export const ApiConfig = {
   domain: `${process.env.APP_API_DOMAIN}`,
@@ -34,7 +35,9 @@ const onErrorOccurred = (e: any, reject: any) => {
   }
 
   const errorCode = e.response.status;
-  // const dataCode = e.response.data.code;
+  const dataCode = e.response.data.code;
+
+  console.log(e.response.data);
 
   switch (true) {
     case errorCode === 401:
@@ -42,6 +45,9 @@ const onErrorOccurred = (e: any, reject: any) => {
       break;
     case errorCode === 404:
       Router.replace({ pathname: '/404' });
+      break;
+    case errorCode === 409 && [ErrorCode.invalid_lesson_params].includes(dataCode):
+      reject(e);
       break;
     case errorCode === 409:
       Router.replace({ pathname: '/409' });

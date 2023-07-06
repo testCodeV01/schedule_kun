@@ -24,6 +24,8 @@ body,
 
   --color-sunday: #ea73b8;
   --color-saturday: #7ea1f5;
+
+  --color-error: #cc5555;
 }
 
 .color-combo-default {
@@ -34,6 +36,10 @@ body,
 .color-combo-disabled {
   background-color: #ddd !important;
   color: #fff !important;
+}
+
+.color-combo-error {
+  color: var(--color-error) !important;
 }
 
 .color-combo-main {

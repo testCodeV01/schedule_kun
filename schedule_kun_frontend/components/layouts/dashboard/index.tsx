@@ -1,9 +1,12 @@
 import { Button, Container, Dropdown, Form, Nav, NavDropdown, Navbar, Offcanvas } from 'react-bootstrap';
 
 import styles from './styles.module.css';
+import { Route } from '@/config/Route';
+import Router from 'next/router';
 
 const Dashboard = ({ children }: { children: any }) => {
   const expand = 'lg';
+  const today = new Date();
 
   return (
     <>
@@ -24,7 +27,7 @@ const Dashboard = ({ children }: { children: any }) => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="#action1">Home</Nav.Link>
+                <Nav.Link href={Route.teacherCalendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 })}>トップ</Nav.Link>
                 <Nav.Link href="#action2">Link</Nav.Link>
                 <NavDropdown
                   title="Dropdown"
@@ -56,7 +59,12 @@ const Dashboard = ({ children }: { children: any }) => {
       <div className={`h-100 clearfix ${styles.contents}`}>
         <div className={`d-none d-${expand}-block float-start overflow-auto shadow ${styles.sidebar}`}>
           <div className="p-3">
-            <Button className={`w-100 ${styles.sideMenuButton}`}>Home</Button>
+            <Button
+              className={`w-100 ${styles.sideMenuButton}`}
+              onClick={() => Router.push(Route.teacherCalendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 }))}
+            >
+              トップ
+            </Button>
             <Button className={`w-100 ${styles.sideMenuButton}`}>Link</Button>
             <Dropdown>
               <Dropdown.Toggle className={`w-100 ${styles.sideMenuDropdown}`}>Dropdown</Dropdown.Toggle>
