@@ -10,6 +10,66 @@ body,
   /* ナビゲーションバーとサイドバーのサイズ */
   --navbar-height: 56px;
   --sidebar-width: 180px;
+  
+  --color-font-default: #212925;
+  --color-bg-default: #fff;
+
+  --color-main: #42d9d2;
+  --color-sub: #f0b48c;
+  --color-option: #fff36e;
+
+  --color-font-main: #000;
+  --color-font-sub: #fff;
+  --color-font-option: #000;
+
+  --color-sunday: #ea73b8;
+  --color-saturday: #7ea1f5;
+}
+
+.color-combo-default {
+  background-color: var(--color-bg-default) !important;
+  color: var(--color-font-default) !important;
+}
+
+.color-combo-disabled {
+  background-color: #ddd !important;
+  color: #fff !important;
+}
+
+.color-combo-main {
+  background-color: var(--color-main) !important;
+  color: var(--color-font-main) !important;
+  border-color: var(--color-main) !important;
+}
+
+.color-combo-sub {
+  background-color: var(--color-sub) !important;
+  color: var(--color-font-sub) !important;
+  border-color: var(--color-sub) !important;
+}
+
+.color-combo-option {
+  background-color: var(--color-option) !important;
+  color: var(--color-font-option) !important;
+  border-color: var(--color-option) !important;
+}
+
+.color-sunday {
+  color: var(--color-sunday) !important
+}
+
+.color-saturday {
+  color: var(--color-saturday) !important
+}
+
+.color-combo-sunday {
+  background-color: var(--color-sunday) !important;
+  color: #fff !important;
+}
+
+.color-combo-saturday {
+  background-color: var(--color-saturday) !important;
+  color: #fff !important;
 }
 
 .fs-7 {

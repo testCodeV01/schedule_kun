@@ -7,10 +7,10 @@ const Dashboard = ({ children }: { children: any }) => {
 
   return (
     <>
-      <Navbar className={styles.navbar} bg="light" expand={expand}>
+      <Navbar className={`color-combo-main ${styles.navbar}`} expand={expand}>
         <Container fluid>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-          <Navbar.Brand href="#">Navbar Offcanvas</Navbar.Brand>
+          <Navbar.Brand href="#">スケジュールくん</Navbar.Brand>
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
@@ -54,7 +54,7 @@ const Dashboard = ({ children }: { children: any }) => {
         </Container>
       </Navbar>
       <div className={`h-100 clearfix ${styles.contents}`}>
-        <div className={`d-none d-${expand}-block float-start overflow-auto ${styles.sidebar}`}>
+        <div className={`d-none d-${expand}-block float-start overflow-auto shadow ${styles.sidebar}`}>
           <div className="p-3">
             <Button className={`w-100 ${styles.sideMenuButton}`}>Home</Button>
             <Button className={`w-100 ${styles.sideMenuButton}`}>Link</Button>
