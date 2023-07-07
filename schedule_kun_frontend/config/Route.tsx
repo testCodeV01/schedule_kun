@@ -8,5 +8,6 @@ export const Route = {
   teacherInformationsPath: '/teachers/informations',
   teacherCalendarMonthPath: (query: any) => `/teachers/calendar/month?${queryString(query)}`,
   teacherCalendarWeekPath: (query: any) => `/teachers/calendar/week?${queryString(query)}`,
-  daySchedulePath: (query: any) => `/teachers/daySchedule?${queryString(query)}`
+  daySchedulePath: (query: any) => `/teachers/daySchedule?${queryString(query)}`,
+  editLessonPath: (lessonId: number) => `/teachers/daySchedule/edit/${lessonId}`
 };

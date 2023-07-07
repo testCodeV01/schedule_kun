@@ -33,7 +33,7 @@ ja:
         start_time: 開始時間
         end_time: 終了時間
         description: 詳細
-        between_time: 開始日と終了日の間
+        both_time: 開始日と終了日
       lesson_room:
         name: レッスン部屋名
       holiday:

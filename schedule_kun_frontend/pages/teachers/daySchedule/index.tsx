@@ -1,10 +1,11 @@
 import Dashboard from '@/components/layouts/dashboard';
 import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import AddScheduleArea from './addScheduleArea';
+import { Route } from '@/config/Route';
 
 const DaySchedule: NextPage = () => {
   const router = useRouter();
@@ -52,11 +53,16 @@ const DaySchedule: NextPage = () => {
           <>
             {lessonDatas.map((lessonData: any, lessonIndex: number) => {
               return (
-                <Card key={lessonIndex} className="p-1 mb-2 color-combo-default shadow-sm">
-                  <div>{lessonData.start_time}~{lessonData.end_time}</div>
-                  <div>教科：{lessonData.subject?.name} {lessonData.name}</div>
-                  <div>{lessonData.description}</div>
-                  <div>教室：{lessonData.branch?.name}校 {lessonData.lesson_room?.name}</div>
+                <Card key={lessonIndex} className="p-1 mb-2 color-combo-default shadow-sm d-flex flex-row">
+                  <div>
+                    <div>{lessonData.start_time}~{lessonData.end_time}</div>
+                    <div>教科：{lessonData.subject?.name} {lessonData.name}</div>
+                    <div>{lessonData.description}</div>
+                    <div>教室：{lessonData.branch?.name}校 {lessonData.lesson_room?.name}</div>
+                  </div>
+                  <div className="ms-auto d-flex align-items-center me-3">
+                    <Button onClick={() => router.push(Route.editLessonPath(lessonData.id))}>編集</Button>
+                  </div>
                 </Card>
               );
             })}

@@ -22,6 +22,7 @@ const AddScheduleArea = ({
 
   const [branches, setBranches] = useState([]);
   const [subjects, setSubjects] = useState([]);
+  const [lessonRooms, setLessonRooms] = useState([]);
 
   const [show, setShow] = useState(false);
 
@@ -36,11 +37,10 @@ const AddScheduleArea = ({
       .then((res) => {
         setBranches(res.data.branches);
         setSubjects(res.data.subjects);
+        setLessonRooms(res.data.lesson_rooms);console.log(res.data.lesson_rooms);
 
-        if (res.data.branches.length > 0) {
-          setBranchId(res.data.branches[0].id);
-          if (res.data.branches[0].lesson_rooms.length > 0) setLessonRoomId(res.data.branches[0].lesson_rooms[0].id);
-        }
+        if (res.data.branches.length > 0) setBranchId(res.data.branches[0].id);
+        if (res.data.lesson_rooms.length > 0) setLessonRoomId(res.data.lesson_rooms[0].id);
         if (res.data.subjects.length > 0) setSubjectId(res.data.subjects[0].id);
       });
 
@@ -59,7 +59,7 @@ const AddScheduleArea = ({
       .then(() => endAddMode())
       .catch((e: any) => {
         setErrors(e.response.data.errors);
-        console.log(e.response.data.errors);
+        setShow(false);
       });
   };
 
@@ -77,30 +77,26 @@ const AddScheduleArea = ({
           <div className='d-flex mb-3'>
             <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
               <Form.Label className='d-flex align-items-center mb-0' style={{ width: '50px' }}>場所</Form.Label>
-              <Form.Select>
+              <Form.Select onChange={(e: any) => setBranchId(Number(e.target.value))} value={branchId}>
                 {branches.map((branch: any, branchInd: number) => {
-                  return <option key={branchInd} value={branch.id} onChange={(e: any) => setBranchId(e.target.value)}>{branch.name}</option>;
+                  return <option key={branchInd} value={branch.id}>{branch.name}</option>;
                 })}
               </Form.Select>
             </FormGroup>
             <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
               <Form.Label className='d-flex align-items-center mb-0' style={{ width: '50px' }}>教室</Form.Label>
-              <Form.Select>
-                {branches.map((branch: any) => {
-                  return (
-                    branch.id === branchId && branch.lesson_rooms.map((lessonRoom: any, lessonRoomInd: number) => {
-                      return <option key={lessonRoomInd} value={lessonRoom.id} onChange={(e: any) => setLessonRoomId(e.target.value)}>{lessonRoom.name}</option>;
-                    })
-                  );
+              <Form.Select onChange={(e: any) => setLessonRoomId(Number(e.target.value))} value={lessonRoomId}>
+                {lessonRooms.map((lessonRoom: any, lessonRoomInd: number) => {
+                  return lessonRoom.branch_id === branchId && <option key={lessonRoomInd} value={lessonRoom.id}>{lessonRoom.name}</option>;
                 })}
               </Form.Select>
             </FormGroup>
           </div>
           <FormGroup className='mb-3'>
             <Form.Label>教科</Form.Label>
-            <Form.Select>
+            <Form.Select onChange={(e: any) => setSubjectId(Number(e.target.value))} value={subjectId}>
               {subjects.map((subject: any, subjectInd: number) => {
-                return <option key={subjectInd} value={subject.id} onChange={(e: any) => setSubjectId(e.target.value)}>{subject.name}</option>;
+                return <option key={subjectInd} value={subject.id}>{subject.name}</option>;
               })}
             </Form.Select>
           </FormGroup>
@@ -112,23 +108,23 @@ const AddScheduleArea = ({
           </FormGroup>
           <FormGroup className='mb-3'>
             <Form.Label>内容</Form.Label>
-            <Form.Control isInvalid={!!errors?.between_time} as="textarea" rows={10} onChange={(e: any) => {
+            <Form.Control isInvalid={!!errors?.both_time} as="textarea" rows={10} onChange={(e: any) => {
               setLesson({ ...lesson, description: e.target.value });
             }} />
-            <Form.Control.Feedback type="invalid">{errors?.between_time}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{errors?.both_time}</Form.Control.Feedback>
           </FormGroup>
-          <div className={`d-flex ${!!errors?.between_time ? 'is-invalid' : ''}`}>
+          <div className={`d-flex ${!!errors?.both_time ? 'is-invalid' : ''}`}>
             <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
               <Form.Label className='d-flex align-items-center mb-0' style={{ width: '100px' }}>開始時刻</Form.Label>
-              <TimePicker isInvalid={!!errors?.between_time} style={{ width: '150px' }} time={startTime} onChange={setStartTime} />
+              <TimePicker isInvalid={!!errors?.both_time} style={{ width: '150px' }} time={startTime} onChange={setStartTime} />
             </FormGroup>
             <span className='d-flex align-items-center mb-0 me-3'>~</span>
             <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
               <Form.Label className='d-flex align-items-center mb-0' style={{ width: '100px' }}>終了時刻</Form.Label>
-              <TimePicker isInvalid={!!errors?.between_time} style={{ width: '150px' }} time={endTime} onChange={setEndTime} />
+              <TimePicker isInvalid={!!errors?.both_time} style={{ width: '150px' }} time={endTime} onChange={setEndTime} />
             </FormGroup>
           </div>
-          <Form.Control.Feedback type="invalid">{errors?.between_time}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors?.both_time}</Form.Control.Feedback>
         </Form>
       </Card>
       <Button className='me-3' onClick={() => setShow(true)}>登録</Button>

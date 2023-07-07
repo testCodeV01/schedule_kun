@@ -39,7 +39,7 @@ class ScheduleKun::Teacher::CalendarsController < ScheduleKun::Teacher::Applicat
           description: lesson.description,
           start_time: lesson.start_time.strftime("%H:%M"),
           end_time: lesson.end_time.strftime("%H:%M"),
-          lesson_room: lesson.lesson_room.name
+          lesson_room: lesson.lesson_room.present? ? lesson.lesson_room.name : ''
         }
       end
 

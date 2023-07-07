@@ -33,7 +33,7 @@ Rails.application.routes.draw do
         get "week"
       end
 
-      resources :lessons, only: [:index, :create, :new]
+      resources :lessons, only: [:index, :create, :new, :edit, :update]
     end
   end
 end

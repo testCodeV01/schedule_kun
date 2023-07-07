@@ -4,6 +4,6 @@ class LessonRoom < ApplicationRecord
   has_many :events
 
   def client_attributes
-    default_client_attributes.except(:branch_id)
+    default_client_attributes
   end
 end
