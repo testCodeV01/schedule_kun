@@ -65,7 +65,8 @@ const Dashboard = ({ children }: { children: any }) => {
             >
               トップ
             </Button>
-            <Button className={`w-100 ${styles.sideMenuButton}`}>Link</Button>
+            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => Router.push(Route.teacherStudentsPath)}>生徒一覧</Button>
+            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => Router.push(Route.teacherLessonRoomsPath)}>ルーム一覧</Button>
             <Dropdown>
               <Dropdown.Toggle className={`w-100 ${styles.sideMenuDropdown}`}>Dropdown</Dropdown.Toggle>
               <Dropdown.Menu>
