@@ -1,16 +1,19 @@
 import { Button, Container, Dropdown, Form, Nav, NavDropdown, Navbar, Offcanvas } from 'react-bootstrap';
 
 import styles from './styles.module.css';
+import { Route } from '@/config/Route';
+import Router from 'next/router';
 
 const Dashboard = ({ children }: { children: any }) => {
   const expand = 'lg';
+  const today = new Date();
 
   return (
     <>
-      <Navbar className={styles.navbar} bg="light" expand={expand}>
+      <Navbar className={`color-combo-main ${styles.navbar}`} expand={expand}>
         <Container fluid>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-          <Navbar.Brand href="#">Navbar Offcanvas</Navbar.Brand>
+          <Navbar.Brand href="#">スケジュールくん</Navbar.Brand>
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
@@ -24,7 +27,7 @@ const Dashboard = ({ children }: { children: any }) => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="#action1">Home</Nav.Link>
+                <Nav.Link href={Route.teacherCalendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 })}>トップ</Nav.Link>
                 <Nav.Link href="#action2">Link</Nav.Link>
                 <NavDropdown
                   title="Dropdown"
@@ -54,10 +57,16 @@ const Dashboard = ({ children }: { children: any }) => {
         </Container>
       </Navbar>
       <div className={`h-100 clearfix ${styles.contents}`}>
-        <div className={`d-none d-${expand}-block float-start overflow-auto ${styles.sidebar}`}>
+        <div className={`d-none d-${expand}-block float-start overflow-auto shadow ${styles.sidebar}`}>
           <div className="p-3">
-            <Button className={`w-100 ${styles.sideMenuButton}`}>Home</Button>
-            <Button className={`w-100 ${styles.sideMenuButton}`}>Link</Button>
+            <Button
+              className={`w-100 ${styles.sideMenuButton}`}
+              onClick={() => Router.push(Route.teacherCalendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 }))}
+            >
+              トップ
+            </Button>
+            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => Router.push(Route.teacherStudentsPath)}>生徒一覧</Button>
+            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => Router.push(Route.teacherLessonRoomsPath)}>ルーム一覧</Button>
             <Dropdown>
               <Dropdown.Toggle className={`w-100 ${styles.sideMenuDropdown}`}>Dropdown</Dropdown.Toggle>
               <Dropdown.Menu>

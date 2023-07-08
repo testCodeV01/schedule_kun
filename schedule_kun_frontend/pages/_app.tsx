@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { SSRProvider } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@/styles/datepicker.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

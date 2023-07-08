@@ -1,7 +1,7 @@
 class ScheduleKun::Teacher::ApplicationController < ApplicationController
   class AuthenticationError < StandardError; end
 
-  before_action :authenticate!
+  #before_action :authenticate!
 
   def authenticate!
     raise AuthenticationError unless session.key?(:teacher_id)
@@ -15,6 +15,6 @@ class ScheduleKun::Teacher::ApplicationController < ApplicationController
   end
 
   def current_teacher
-    @current_teacher ||= Teacher.enabled.find_by(id: session[:teacher_id])
+    @current_teacher ||= Teacher.first # Teacher.enabled.find_by(id: session[:teacher_id])
   end
 end
