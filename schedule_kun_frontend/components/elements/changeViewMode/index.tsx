@@ -1,6 +1,5 @@
 import { Route } from '@/config/Route';
 import Router from 'next/router';
-import { useEffect, useState } from 'react';
 import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 
 interface ChangeViewModeProps {

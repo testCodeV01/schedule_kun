@@ -5,7 +5,6 @@ const Students: NextPage = () => {
   return (
     <>
       <Dashboard>
-        
       </Dashboard>
     </>
   );

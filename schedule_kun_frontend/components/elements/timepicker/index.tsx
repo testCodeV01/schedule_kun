@@ -11,6 +11,7 @@ const TimePicker = ({
   isInvalid = false,
 }: {
   time: Date,
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: any) => void;
   style?: any;
   isInvalid?: boolean;
@@ -24,6 +25,7 @@ const TimePicker = ({
 
   useEffect(() => {
     setUpdata(update?false:true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invalidClass]);
 
   return (

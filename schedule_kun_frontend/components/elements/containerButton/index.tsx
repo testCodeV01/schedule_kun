@@ -9,7 +9,7 @@ const ContainerButton = ({
 }: {
   children?: any;
   className: string;
-  onClick?: (e: any) => void;
+  onClick?: () => void;
 }) => {
   return (
     <>

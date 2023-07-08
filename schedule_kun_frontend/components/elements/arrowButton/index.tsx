@@ -10,7 +10,7 @@ const ArrowButton = ({
   arrowColor,
 }: {
   className?: string;
-  onClick?: (e: any) => void;
+  onClick?: () => void;
   disabled?: boolean;
   direction: 'left' | 'right';
   arrowColor?: string;

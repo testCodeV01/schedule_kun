@@ -42,6 +42,7 @@ const WeekSchedule: NextPage = () => {
     if (!onset) return;
 
     router.push(Route.teacherCalendarWeekPath({ year: year, month: month, day: day }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onset, year, month, day]);
 
   const changeToMonth = () => {

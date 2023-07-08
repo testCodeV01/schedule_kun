@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-import { Button } from 'react-bootstrap';
 import ArrowButton from '../arrowButton';
 
 export const MonthPicker = ({
@@ -12,7 +11,9 @@ export const MonthPicker = ({
 }: {
   year: number;
   month: number,
+  // eslint-disable-next-line no-unused-vars
   setYear: (value: number) => void;
+  // eslint-disable-next-line no-unused-vars
   setMonth: (value: number) => void;
   disable?: boolean;
 }) => {

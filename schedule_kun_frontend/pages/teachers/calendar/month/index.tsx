@@ -1,12 +1,9 @@
 import Dashboard from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
 import { Card, ListGroup } from 'react-bootstrap';
-import { Key, useContext, useEffect, useState } from 'react';
+import { Key, useEffect, useState } from 'react';
 import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
-import { ChangeViewMode } from '../ChangeViewMode';
 import { MonthPicker } from '@/components/elements/monthpicker';
-import { CookieKeys } from '@/config/CookieKeys';
-import { Cookies } from 'react-cookie';
 import { useRouter } from 'next/router';
 import { Route } from '@/config/Route';
 import ArrowButton from '@/components/elements/arrowButton';
@@ -46,6 +43,7 @@ const MonthSchedule: NextPage = () => {
     if (!onset) return;
 
     router.push(Route.teacherCalendarMonthPath({ year: year, month: month }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onset, year, month]);
 
   const changeToWeek = (day: number) => {

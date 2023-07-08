@@ -15,8 +15,11 @@ const WeekPicker = ({
   year: number;
   month: number;
   day: number;
+  // eslint-disable-next-line no-unused-vars
   setYear: (value: number) => void;
+  // eslint-disable-next-line no-unused-vars
   setMonth: (value: number) => void;
+  // eslint-disable-next-line no-unused-vars
   setDay: (value: number) => void;
   disable?: boolean;
 }) => {
