@@ -99,7 +99,7 @@ const DaySchedule: NextPage = () => {
 
       <Modal show={showDelete} onHide={() => setShowDelete(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>確認</Modal.Title>
         </Modal.Header>
         <Modal.Body>このレッスン内容の登録を削除しても良いですか？</Modal.Body>
         <Modal.Footer>

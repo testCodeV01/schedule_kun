@@ -88,7 +88,11 @@ const EditLesson: NextPage = () => {
             <div className='d-flex mb-3'>
               <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
                 <Form.Label className='d-flex align-items-center mb-0' style={{ width: '50px' }}>場所</Form.Label>
-                <Form.Select onChange={(e: any) => setBranchId(Number(e.target.value))} value={branchId}>
+                <Form.Select onChange={(e: any) => {
+                  setBranchId(Number(e.target.value));
+                  const lessonRoom: any = lessonRooms.find((lessonRoom: any) => lessonRoom.branch_id === Number(e.target.value));
+                  setLessonRoomId(lessonRoom.id);
+                }} value={branchId}>
                   {branches.map((branch: any, branchInd: number) => {
                     return <option key={branchInd} value={branch.id}>{branch.name}</option>;
                   })}
@@ -143,7 +147,7 @@ const EditLesson: NextPage = () => {
 
       <Modal show={showDelete} onHide={() => setShowDelete(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>確認</Modal.Title>
         </Modal.Header>
         <Modal.Body>このレッスン内容の登録を削除しても良いですか？</Modal.Body>
         <Modal.Footer>
@@ -158,7 +162,7 @@ const EditLesson: NextPage = () => {
 
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>確認</Modal.Title>
         </Modal.Header>
         <Modal.Body>この内容で登録しても良いですか？</Modal.Body>
         <Modal.Footer>

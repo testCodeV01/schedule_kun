@@ -112,7 +112,7 @@ const MonthSchedule: NextPage = () => {
                             })
                           )}
                           {columnData.lessons_count > 2 && (
-                            <div className="mb-2 color-combo-default">
+                            <div className="mb-2">
                               <span>他{columnData.lessons_count - 2}件</span>
                             </div>
                           )}
