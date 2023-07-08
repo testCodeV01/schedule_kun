@@ -42,7 +42,7 @@ class Lesson < ApplicationRecord
   private
 
     def validate_schedule_span
-      overlap_lessons = self.class.enabled.where(teacher_id: teacher_id).overlap_time(start_time, end_time).where.not(id: id)
+      overlap_lessons = self.class.where(teacher_id: teacher_id).overlap_time(start_time, end_time).where.not(id: id).enabled  
       errors.add(:both_time, "を確認してください。既に登録済みのレッスンとかぶってしまうようです。") if overlap_lessons.present?
     end
 end

@@ -1,3 +1,4 @@
+import ContainerButton from '@/components/elements/containerButton';
 import TimePicker from '@/components/elements/timepicker';
 import Dashboard from '@/components/layouts/dashboard';
 import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
@@ -5,6 +6,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Button, Card, Form, FormGroup, Modal } from 'react-bootstrap';
+import { BsFillTrash3Fill } from 'react-icons/bs';
 
 const EditLesson: NextPage = () => {
   const router = useRouter();
@@ -23,6 +25,7 @@ const EditLesson: NextPage = () => {
   const [lessonRooms, setLessonRooms] = useState([]);
 
   const [show, setShow] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
   const [errors, setErrors] = useState<any>({});
 
@@ -59,6 +62,14 @@ const EditLesson: NextPage = () => {
       });
   };
 
+  const deleteLesson = () => {
+    ScheduleKunApiClient.delete(`/schedule_kun/teacher/lessons/${router.query.lessonId}`)
+      .then(() => router.back())
+      .catch(() => {
+        setShowDelete(false);
+      });
+  };
+
   const cancel = () => {
     router.back();
   };
@@ -68,9 +79,12 @@ const EditLesson: NextPage = () => {
       <Dashboard>
         <Card className="p-3 mb-2 shadow-sm color-combo-default" style={{ width: '500px' }}>
           <Form>
-            <Card className='p-1 mb-3 shadow-sm' style={{ width: '200px' }}>
-              {router.query.year}年{router.query.month}月{router.query.day}日
-            </Card>
+            <div className='d-flex'>
+              <Card className='p-1 mb-3 shadow-sm' style={{ width: '200px' }}>
+                {router.query.year}年{router.query.month}月{router.query.day}日
+              </Card>
+              <ContainerButton className="ms-auto mb-3" onClick={() => setShowDelete(true)}><BsFillTrash3Fill /></ContainerButton>
+            </div>
             <div className='d-flex mb-3'>
               <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
                 <Form.Label className='d-flex align-items-center mb-0' style={{ width: '50px' }}>場所</Form.Label>
@@ -105,10 +119,9 @@ const EditLesson: NextPage = () => {
             </FormGroup>
             <FormGroup className='mb-3'>
               <Form.Label>内容</Form.Label>
-              <Form.Control value={lesson.description} isInvalid={!!errors?.both_time} as="textarea" rows={10} onChange={(e: any) => {
+              <Form.Control value={lesson.description} as="textarea" rows={10} onChange={(e: any) => {
                 setLesson({ ...lesson, description: e.target.value });
               }} />
-              <Form.Control.Feedback type="invalid">{errors?.both_time}</Form.Control.Feedback>
             </FormGroup>
             <div className={`d-flex ${!!errors?.both_time ? 'is-invalid' : ''}`}>
               <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
@@ -124,9 +137,24 @@ const EditLesson: NextPage = () => {
             <Form.Control.Feedback type="invalid">{errors?.both_time}</Form.Control.Feedback>
           </Form>
         </Card>
-        <Button className='me-3' onClick={() => setShow(true)}>登録</Button>
+        <Button className='me-3' onClick={() => setShow(true)}>更新</Button>
         <Button variant="danger" onClick={cancel}>キャンセル</Button>
       </Dashboard>
+
+      <Modal show={showDelete} onHide={() => setShowDelete(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>このレッスン内容の登録を削除しても良いですか？</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDelete(false)}>
+            キャンセル
+          </Button>
+          <Button variant="primary" onClick={deleteLesson}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>

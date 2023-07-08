@@ -113,6 +113,18 @@ class ScheduleKun::Teacher::LessonsController < ScheduleKun::Teacher::Applicatio
     render_409 "#{e}"
   end
 
+  # DELETE /schedule_kun/teacher/lessons/:id
+  def destroy
+    @lesson = Lesson.enabled.find_by(id: params[:id])
+    raise LessonNotFound if @lesson.nil?
+
+    @lesson.delete_update(current_teacher)
+
+    render status: 200
+  rescue StandardError => e
+    render_409 "#{e}"
+  end
+
   private
 
     def lesson_params

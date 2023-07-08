@@ -108,10 +108,9 @@ const AddScheduleArea = ({
           </FormGroup>
           <FormGroup className='mb-3'>
             <Form.Label>内容</Form.Label>
-            <Form.Control isInvalid={!!errors?.both_time} as="textarea" rows={10} onChange={(e: any) => {
+            <Form.Control as="textarea" rows={10} onChange={(e: any) => {
               setLesson({ ...lesson, description: e.target.value });
             }} />
-            <Form.Control.Feedback type="invalid">{errors?.both_time}</Form.Control.Feedback>
           </FormGroup>
           <div className={`d-flex ${!!errors?.both_time ? 'is-invalid' : ''}`}>
             <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
