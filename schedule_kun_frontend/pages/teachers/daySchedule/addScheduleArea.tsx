@@ -37,7 +37,7 @@ const AddScheduleArea = ({
       .then((res) => {
         setBranches(res.data.branches);
         setSubjects(res.data.subjects);
-        setLessonRooms(res.data.lesson_rooms);console.log(res.data.lesson_rooms);
+        setLessonRooms(res.data.lesson_rooms);
 
         if (res.data.branches.length > 0) setBranchId(res.data.branches[0].id);
         if (res.data.lesson_rooms.length > 0) setLessonRoomId(res.data.lesson_rooms[0].id);

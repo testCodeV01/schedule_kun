@@ -41,7 +41,6 @@ export const MonthPicker = ({
 
   const changeYear = (value: number) => {
     date.setFullYear(value);
-    console.log(value);
 
     setDate(new Date(date));
     setMonth(date.getMonth() + 1);

@@ -37,8 +37,6 @@ const onErrorOccurred = (e: any, reject: any) => {
   const errorCode = e.response.status;
   const dataCode = e.response.data.code;
 
-  console.log(e.response.data);
-
   switch (true) {
     case errorCode === 401:
       Router.replace({ pathname: '/401' });
