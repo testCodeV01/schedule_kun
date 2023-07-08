@@ -13,6 +13,7 @@
 .flatpickr-current-month {
   display: flex !important;
   justify-content: center;
+  font-size: 100% !important;
 }
 
 .cur-year {

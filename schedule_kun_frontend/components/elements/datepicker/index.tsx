@@ -11,6 +11,7 @@ export const DatePicker = ({
   onChange
 }: {
   date: Date;
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: any) => void;
 }) => {
   return (

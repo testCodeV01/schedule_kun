@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Cookies } from 'react-cookie';
 import { CookieKeys } from '@/config/CookieKeys';
 import Router from 'next/router';
+import { ErrorCode } from '@/config/ErrorCodes';
 
 export const ApiConfig = {
   domain: `${process.env.APP_API_DOMAIN}`,
@@ -16,6 +17,10 @@ export const ScheduleKunApiUrl = (path: string) => {
     : `${ApiConfig.domain}/${path}`;
 };
 
+const queryString = (hash: any) => {
+  return Object.keys(hash).map((key) => `${key}=${hash[key]}`).join('&');
+};
+
 const onErrorOccurred = (e: any, reject: any) => {
   if (!e.response) {
     if (!navigator.onLine) {
@@ -23,16 +28,14 @@ const onErrorOccurred = (e: any, reject: any) => {
       return;
     }
 
-    if (e.message === 'canceled') {
-      return;
-    }
+    if (e.message === 'canceled') return;
 
     Router.push('/500');
     return;
   }
 
   const errorCode = e.response.status;
-  // const dataCode = e.response.data.code;
+  const dataCode = e.response.data.code;
 
   switch (true) {
     case errorCode === 401:
@@ -40,6 +43,9 @@ const onErrorOccurred = (e: any, reject: any) => {
       break;
     case errorCode === 404:
       Router.replace({ pathname: '/404' });
+      break;
+    case errorCode === 409 && [ErrorCode.invalid_lesson_params].includes(dataCode):
+      reject(e);
       break;
     case errorCode === 409:
       Router.replace({ pathname: '/409' });
@@ -53,12 +59,13 @@ export const ScheduleKunApiClient = () => {};
 
 ScheduleKunApiClient.get = function get<T = any, D = any>(
   path: string,
+  query: Object = {},
   config: AxiosRequestConfig<D> = {}
 ) {
   return new Promise<AxiosResponse<T, D>>((resolve, reject) => {
     axios({
       method: 'GET',
-      url: ScheduleKunApiUrl(path),
+      url: `${ScheduleKunApiUrl(path)}?${queryString(query)}`,
       headers: {
         'Content-Type': 'application/json'
       },

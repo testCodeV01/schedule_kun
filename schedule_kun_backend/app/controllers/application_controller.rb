@@ -32,6 +32,12 @@ class ApplicationController < ActionController::API
     render json: res, status: 404
   end
 
+  def render_409(res)
+    Rails.logger.error error_message(res)
+
+    render json: res, status: 409
+  end
+
   def render_500(res)
     Rails.logger.error error_message(res)
 

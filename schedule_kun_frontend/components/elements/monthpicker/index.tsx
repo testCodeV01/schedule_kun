@@ -1,22 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
-import { Button } from 'react-bootstrap';
+import ArrowButton from '../arrowButton';
 
 export const MonthPicker = ({
-  date,
-  onChangeDate,
+  year,
+  month,
+  setYear,
+  setMonth,
+  disable,
 }: {
-  date: Date;
-  onChangeDate: (value: any) => void;
+  year: number;
+  month: number,
+  // eslint-disable-next-line no-unused-vars
+  setYear: (value: number) => void;
+  // eslint-disable-next-line no-unused-vars
+  setMonth: (value: number) => void;
+  disable?: boolean;
 }) => {
-  // const [date, setDate] = useState<Date>(new Date());
-  const [year, setYear] = useState(date.getFullYear());
-  const [month, setMonth] = useState(date.getMonth() + 1);
+  const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    const newDate = new Date(`${year}/${month}/1`);
+    setDate(newDate);
+  }, [year, month]);
 
   const prevClick = () => {
     date.setMonth(date.getMonth() - 1);
 
-    onChangeDate(date);
+    setDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
@@ -24,67 +35,57 @@ export const MonthPicker = ({
   const nextClick = () => {
     date.setMonth(date.getMonth() + 1);
 
-    onChangeDate(date);
+    setDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
 
   const changeYear = (value: number) => {
     date.setFullYear(value);
-    console.log(value);
 
-    onChangeDate(date);
+    setDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
 
   const yearUp = () => {
-    date.setFullYear(year + 1);
+    date.setFullYear(date.getFullYear() + 1);
 
-    onChangeDate(date);
+    setDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
 
   const yearDown = () => {
-    date.setFullYear(year - 1);
+    date.setFullYear(date.getFullYear() - 1);
 
-    onChangeDate(date);
+    setDate(new Date(date));
     setMonth(date.getMonth() + 1);
     setYear(date.getFullYear());
   };
 
   return (
     <>
-      <div className="flatpickr-months">
-        <Button className={styles.monthpicker_prev_month} onClick={prevClick}>
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
-            <g></g>
-            <path d="M5.207 8.471l7.146 7.147-0.707 0.707-7.853-7.854 7.854-7.853 0.707 0.707-7.147 7.146z"></path>
-          </svg>
-        </Button>
-        <div className="flatpickr-month">
+      <div className="row flatpickr-months w-100">
+        <ArrowButton direction='left' className="col-2" onClick={prevClick} disabled={disable} />
+        <div className="flatpickr-month col-8 overflow-auto">
           <div className="flatpickr-current-month">
             <span className="cur-month">{month}月 </span>
             <div className="numInputWrapper">
               <input
-                className="numInput cur-year"
+                className={`numInput cur-year ${styles.numInput}`}
                 type="number"
-                value={year}
+                value={`${year}`}
                 onChange={(e: any) => changeYear(e.target.value)}
+                disabled={disable}
               />
               <span className="arrowUp" onClick={yearUp}></span>
               <span className="arrowDown" onClick={yearDown}></span>
             </div>
           </div>
         </div>
-        <Button className={styles.monthpicker_next_month} onClick={nextClick}>
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
-            <g></g>
-            <path d="M13.207 8.472l-7.854 7.854-0.707-0.707 7.146-7.146-7.146-7.148 0.707-0.707 7.854 7.854z"></path>
-          </svg>
-        </Button>
+        <ArrowButton direction='right' className='col-2' onClick={nextClick} disabled={disable} />
       </div>
     </>
-  )
+  );
 };

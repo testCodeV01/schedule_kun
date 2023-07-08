@@ -27,6 +27,13 @@ Rails.application.routes.draw do
       post "login" => "sessions#login"
       delete "logout" => "sessions#logout"
       get "auth" => "sessions#auth"
+
+      namespace :calendars do
+        get "month"
+        get "week"
+      end
+
+      resources :lessons, only: [:index, :new, :edit, :create, :update, :destroy]
     end
   end
 end
