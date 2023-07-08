@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins ["localhost:3010"]
+    origins ["localhost:3010", "https://schedule-kun-frontend.vercel.app/"]
 
     resource "*",
       headers: :any,
