@@ -7,7 +7,7 @@ RSpec.describe LessonRoom, type: :model do
     subject { lesson_room.client_attributes }
 
     it "所定のアトリビュートが取得できること" do
-      expect(subject.keys).to match_array %i(id branch_id name)
+      expect(subject.keys).to match_array [:id, :branch_id, :name]
     end
   end
 end

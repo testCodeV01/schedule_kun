@@ -13,7 +13,7 @@ RSpec.describe Teacher, type: :model do
     subject { teacher.client_attributes }
 
     it "所定のアトリビュートが取得できること" do
-      expect(subject.keys).to match_array %i(id email name password school_id)
+      expect(subject.keys).to match_array [:id, :email, :name, :password, :school_id]
     end
   end
 end
