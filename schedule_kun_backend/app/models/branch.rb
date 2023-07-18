@@ -7,6 +7,6 @@ class Branch < ApplicationRecord
   has_many :teachers, through: :branch_teachers
 
   def client_attributes
-    default_client_attributes.except(:school_id)
+    default_client_attributes
   end
 end

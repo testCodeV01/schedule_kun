@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :student_guardian do
-    student { nil }
-    guardian { nil }
+    association :student
+    association :guardian
   end
 end
