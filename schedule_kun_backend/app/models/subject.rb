@@ -3,6 +3,6 @@ class Subject < ApplicationRecord
   has_many :lessons
 
   def client_attributes
-    default_client_attributes.except(:school_id)
+    default_client_attributes
   end
 end

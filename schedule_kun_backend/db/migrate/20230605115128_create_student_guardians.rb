@@ -11,5 +11,8 @@ class CreateStudentGuardians < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :student_guardians, :student_id, name: "idx_student_guardians_1"
+    add_index :student_guardians, :guardian_id, name: "idx_student_guardians_2"
   end
 end
