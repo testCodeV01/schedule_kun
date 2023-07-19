@@ -1,5 +1,12 @@
 name: ScheduleKun Test
 on: push
+env:
+  DATABASE_HOST: schedule_kun_database
+  DATABASE_PORT: 5432
+  DATABASE_USERNAME: admin
+  DATABASE_PASSWORD: password
+  DATABASE_RAILS_MAX_THREADS: 5
+  TEST_DATABASE: schedule-kun-test
 jobs:
   backend:
     runs-on: ubuntu-latest
@@ -12,12 +19,6 @@ jobs:
         ports:
           - 35432:5432
         env:
-          DATABASE_HOST: schedule_kun_database
-          DATABASE_PORT: 5432
-          DATABASE_USERNAME: admin
-          DATABASE_PASSWORD: password
-          DATABASE_RAILS_MAX_THREADS: 5
-          TEST_DATABASE: schedule-kun-test
           POSTGRES_USER: admin
           POSTGRES_PASSWORD: password
     steps:
