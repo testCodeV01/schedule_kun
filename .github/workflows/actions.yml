@@ -41,6 +41,8 @@ jobs:
         run: bundle exec rails db:seed_fu RAILS_ENV=test
       - name: run rspec
         run: bundle exec rspec
+      - name: run rubocop
+        run: bundle exec rubocop
   frontend:
     runs-on: ubuntu-latest
     defaults:
