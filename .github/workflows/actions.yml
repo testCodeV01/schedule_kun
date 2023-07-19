@@ -7,6 +7,8 @@ env:
   DATABASE_PASSWORD: password
   DATABASE_RAILS_MAX_THREADS: 5
   TEST_DATABASE: schedule-kun-test
+  PRODUCTION_DATABASE: .
+  DEVELOP_DATABASE: .
 jobs:
   backend:
     runs-on: ubuntu-latest
