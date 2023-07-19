@@ -1,7 +1,7 @@
 name: ScheduleKun Test
 on: push
 env:
-  DATABASE_HOST: schedule_kun_database
+  DATABASE_HOST: 127.0.0.1
   DATABASE_PORT: 5432
   DATABASE_USERNAME: admin
   DATABASE_PASSWORD: password
