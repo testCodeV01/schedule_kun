@@ -56,5 +56,5 @@ jobs:
           node-version: 20
       - name: yarn install
         run: yarn install
-      - name: yarn lint
-        run: yarn lint
+      - name: yarn build
+        run: yarn build
