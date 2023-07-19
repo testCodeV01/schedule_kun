@@ -22,6 +22,7 @@ AllCops:
     - 'actiontext/test/dummy/**/*'
     - '**/node_modules/**/*'
     - 'db/schema.rb'
+    - 'db/fixtures/*.rb'
 
 Performance:
   Exclude:
@@ -338,3 +339,15 @@ Performance/RedundantStringChars:
 
 Performance/StringInclude:
   Enabled: true
+
+Metrics/AbcSize:
+  Max: 100
+
+Metrics/CyclomaticComplexity:
+  Max: 40
+
+Metrics/MethodLength:
+  Max: 50
+
+Metrics/PerceivedComplexity:
+  Max: 25

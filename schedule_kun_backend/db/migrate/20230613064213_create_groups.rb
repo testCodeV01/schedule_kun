@@ -11,5 +11,7 @@ class CreateGroups < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :groups, :branch_id, name: "idx_groups_1"
   end
 end

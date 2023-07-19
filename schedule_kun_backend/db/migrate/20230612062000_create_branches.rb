@@ -14,5 +14,7 @@ class CreateBranches < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :branches, :school_id, name: "idx_branches_1"
   end
 end
