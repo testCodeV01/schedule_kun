@@ -41,6 +41,9 @@ jobs:
         run: bundle exec rspec
   frontend:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: schedule_kun_frontend
     steps:
       - name: react eslint
         run: yarn lint
