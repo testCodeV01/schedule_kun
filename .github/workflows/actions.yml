@@ -1,5 +1,7 @@
 name: ScheduleKun Test
-on: push
+on:
+  - push
+  - pull_request
 env:
   DATABASE_HOST: 127.0.0.1
   DATABASE_PORT: 5432
