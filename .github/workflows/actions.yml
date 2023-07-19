@@ -45,5 +45,14 @@ jobs:
       run:
         working-directory: schedule_kun_frontend
     steps:
-      - name: react eslint
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: yarn install
+        run: yarn install
+      - name: yarn lint
         run: yarn lint
