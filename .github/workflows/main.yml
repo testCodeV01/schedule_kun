@@ -1,0 +1,13 @@
+name: ScheduleKun Test
+on: push
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: rails rspec
+        run: bundle exec rails db:seed_fu RAILS_ENV=test; bundle exec rspec
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: react eslint
+        run: yarn lint
