@@ -11,5 +11,8 @@ class CreateBranchTeachers < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :branch_teachers, :branch_id, name: "idx_branch_teachers_1"
+    add_index :branch_teachers, :teacher_id, name: "idx_branch_teachers_2"
   end
 end

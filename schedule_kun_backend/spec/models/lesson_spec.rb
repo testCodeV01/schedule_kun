@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Lesson, type: :model do
-  let(:time) { Time.parse("#{Time.zone.now.strftime("%Y/%m/%d")} 13:00:00") }
+  let(:time) { Time.parse("#{Time.zone.now.strftime("%Y/%m/%d")} 16:00:00") }
   let(:lesson) { create(:lesson) }
 
   describe "validations" do
@@ -42,7 +42,7 @@ RSpec.describe Lesson, type: :model do
     end
 
     context "既に登録済みのレッスンがある時" do
-      let(:time) { Time.parse("#{Time.zone.now.strftime("%Y/%m/%d")} 13:00:00") }
+      let(:time) { Time.parse("#{Time.zone.now.strftime("%Y/%m/%d")} 16:00:00") }
       let(:teacher) { lesson.teacher }
       let!(:lesson1) { create(:lesson, start_time: time - 1.hour, end_time: time, teacher: teacher) }
       let!(:lesson2) { create(:lesson, start_time: time + 1.hour, end_time: time + 2.hour, teacher: teacher) }

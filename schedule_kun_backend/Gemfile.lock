@@ -229,6 +229,9 @@ GEM
       rubocop-capybara (~> 2.17)
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
+    seed-fu (2.3.9)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
     simplecov (0.22.0)
@@ -269,6 +272,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
+  seed-fu
   shoulda-matchers (~> 5.0)
   simplecov
   tzinfo-data

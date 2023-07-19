@@ -91,4 +91,10 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  # テスト時のseedデータ
+  # config.before(:suite) do
+  #   fixture_path = "#{Rails.root}/db/fixtures/test"
+  #   SeedFu.seed(fixture_path)
+  # end
 end
