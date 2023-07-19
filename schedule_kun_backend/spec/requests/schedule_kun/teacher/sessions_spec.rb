@@ -18,7 +18,7 @@ RSpec.describe "ScheduleKun::Teacher::Sessions", type: :request do
     context "success" do
       it "ステータス200を返すこと" do
         login_params = { email: teacher.email, password: teacher.password, password_confirmation: teacher.password }
-        post schedule_kun_teacher_login_path, params: login_params  
+        post schedule_kun_teacher_login_path, params: login_params
         expect(response).to have_http_status(200)
       end
     end
