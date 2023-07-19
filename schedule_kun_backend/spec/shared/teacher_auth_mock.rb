@@ -1,5 +1,5 @@
 RSpec.shared_context "teacher_auth_mock" do |target_controller|
-  let!(:teacher) { create(:teacher) }
+  let!(:teacher) { Teacher.enabled.first }
 
   before do
     allow_any_instance_of(target_controller).to receive(:authenticate!).and_return(true)

@@ -116,4 +116,71 @@ RSpec.describe Lesson, type: :model do
       expect(subject.keys).to match_array %i[id teacher_id lesson_room_id branch_id name description start_time end_time lesson_date subject_id]
     end
   end
+
+  describe "#when" do
+    subject { Lesson.when(Time.zone.now) }
+
+    it "開始時間が今日のレッスンのみ取得できること" do
+      expect(subject.map { |lesson| lesson.start_time.strftime("%Y/%m/%d") }.uniq).to eq([Time.zone.now.strftime("%Y/%m/%d")]).or eq([])
+    end
+
+    it "終了時間が今日のレッスンのみ取得できること" do
+      expect(subject.map { |lesson| lesson.end_time.strftime("%Y/%m/%d") }.uniq).to eq([Time.zone.now.strftime("%Y/%m/%d")]).or eq([])
+    end
+  end
+
+  describe "#overlap_time" do
+    let(:time) { Time.parse("#{Time.zone.now.strftime("%Y/%m/%d")} 16:00:00") }
+    let(:teacher) { lesson.teacher }
+    let!(:lesson1) { create(:lesson, start_time: time - 1.hour, end_time: time) }
+    let!(:lesson2) { create(:lesson, start_time: time + 1.hour, end_time: time + 2.hour) }
+
+    context "第一引数と第二引数の時間の間に終了時間があるレッスンがある場合" do
+      subject { Lesson.overlap_time(time - 5.minutes, time + 30.minutes) }
+
+      it "該当のレッスンが取得できること" do
+        expect(subject.map(&:id)).to eq [lesson1.id]
+      end
+    end
+
+    context "第一引数の時間と等しい終了時間のレッスンがある場合" do
+      subject { Lesson.overlap_time(time, time + 30.minutes) }
+
+      it "取得されないこと" do
+        expect(subject.map(&:id).blank?).to be_truthy
+      end
+    end
+
+    context "第二引数の時間と等しい開始時間のレッスンがある場合" do
+      subject { Lesson.overlap_time(time + 30.minutes, time + 1.hour) }
+
+      it "取得されないこと" do
+        expect(subject.map(&:id).blank?).to be_truthy
+      end
+    end
+
+    context "第二引数の時間より前に開始時間のあるレッスンがある場合" do
+      subject { Lesson.overlap_time(time + 30.minutes, time + 1.hour + 5.minutes) }
+
+      it "該当のレッスンが取得できること" do
+        expect(subject.map(&:id)).to eq [lesson2.id]
+      end
+    end
+
+    context "第一引数の時間より前に開始時間があり、第二引数の時間より後に終了時間のあるレッスンがある場合" do
+      subject { Lesson.overlap_time(time - 30.minutes, time - 5.minutes) }
+
+      it "該当のレッスンが取得できること" do
+        expect(subject.map(&:id)).to eq [lesson1.id]
+      end
+    end
+
+    context "第一引数の時間より後に開始時間があり、第二引数より前に終了時間のあるレッスンがある場合" do
+      subject { Lesson.overlap_time(time - 1.hour - 5.minutes, time + 5.minutes) }
+
+      it "該当のレッスンが取得できること" do
+        expect(subject.map(&:id)).to eq [lesson1.id]
+      end
+    end
+  end
 end

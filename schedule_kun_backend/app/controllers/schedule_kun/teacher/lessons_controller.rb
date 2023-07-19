@@ -50,7 +50,7 @@ module ScheduleKun
         render_404 e.to_s
       end
 
-      # POSt /schedule_kun/teacher/lessons
+      # POST /schedule_kun/teacher/lessons
       def create
         @lesson = current_teacher.lessons.build(lesson_params)
         @lesson.save!

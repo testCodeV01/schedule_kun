@@ -116,18 +116,18 @@ const AddScheduleArea = ({
               setLesson({ ...lesson, description: e.target.value });
             }} />
           </FormGroup>
-          <div className={`d-flex ${!!errors?.both_time ? 'is-invalid' : ''}`}>
+          <div className={`d-flex ${!!errors?.start_time ? 'is-invalid' : ''}`}>
             <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
               <Form.Label className='d-flex align-items-center mb-0' style={{ width: '100px' }}>開始時刻</Form.Label>
-              <TimePicker isInvalid={!!errors?.both_time} style={{ width: '150px' }} time={startTime} onChange={setStartTime} />
+              <TimePicker isInvalid={!!errors?.start_time} style={{ width: '150px' }} time={startTime} onChange={setStartTime} />
             </FormGroup>
             <span className='d-flex align-items-center mb-0 me-3'>~</span>
             <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
               <Form.Label className='d-flex align-items-center mb-0' style={{ width: '100px' }}>終了時刻</Form.Label>
-              <TimePicker isInvalid={!!errors?.both_time} style={{ width: '150px' }} time={endTime} onChange={setEndTime} />
+              <TimePicker isInvalid={!!errors?.start_time} style={{ width: '150px' }} time={endTime} onChange={setEndTime} />
             </FormGroup>
           </div>
-          <Form.Control.Feedback type="invalid">{errors?.both_time}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors?.start_time}</Form.Control.Feedback>
         </Form>
       </Card>
       <Button className='me-3' onClick={() => setShow(true)}>登録</Button>
