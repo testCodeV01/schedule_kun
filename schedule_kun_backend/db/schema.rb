@@ -39,7 +39,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "idx_branch_teachers_1"
     t.index ["branch_id"], name: "index_branch_teachers_on_branch_id"
+    t.index ["teacher_id"], name: "idx_branch_teachers_2"
     t.index ["teacher_id"], name: "index_branch_teachers_on_teacher_id"
   end
 
@@ -55,6 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["school_id"], name: "idx_branches_1"
     t.index ["school_id"], name: "index_branches_on_school_id"
   end
 
@@ -64,8 +67,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
     t.string "place", default: "", null: false
-    t.datetime "start_time", precision: nil, default: "2023-06-13 16:26:45", null: false
-    t.datetime "end_time", precision: nil, default: "2023-06-13 16:26:45", null: false
+    t.datetime "start_time", precision: nil, default: "2023-08-19 18:47:22", null: false
+    t.datetime "end_time", precision: nil, default: "2023-08-19 18:47:22", null: false
     t.integer "delf", limit: 2, default: 0
     t.integer "deleted_account_type", limit: 2, default: 0
     t.datetime "deleted_at"
@@ -87,13 +90,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "idx_groups_1"
     t.index ["branch_id"], name: "index_groups_on_branch_id"
   end
 
   create_table "guardians", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "password", default: "", null: false
     t.string "name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "password_digest", default: "", null: false
+    t.string "remember_digest"
     t.integer "delf", limit: 2, default: 0
     t.integer "deleted_account_type", limit: 2, default: 0
     t.datetime "deleted_at"
@@ -106,7 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
 
   create_table "holidays", force: :cascade do |t|
     t.bigint "school_id"
-    t.datetime "day", precision: nil, default: "2023-06-13 00:00:00", null: false
+    t.datetime "day", precision: nil, default: "2023-08-19 00:00:00", null: false
     t.integer "delf", limit: 2, default: 0
     t.integer "deleted_account_type", limit: 2, default: 0
     t.datetime "deleted_at"
@@ -139,7 +144,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "idx_lesson_students_1"
     t.index ["lesson_id"], name: "index_lesson_students_on_lesson_id"
+    t.index ["student_id"], name: "idx_lesson_students_2"
     t.index ["student_id"], name: "index_lesson_students_on_student_id"
   end
 
@@ -149,8 +156,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.bigint "branch_id", null: false
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
-    t.datetime "start_time", precision: nil, default: "2023-06-13 16:26:45", null: false
-    t.datetime "end_time", precision: nil, default: "2023-06-13 16:26:45", null: false
+    t.datetime "start_time", precision: nil, default: "2023-08-19 18:47:21", null: false
+    t.datetime "end_time", precision: nil, default: "2023-08-19 18:47:21", null: false
     t.integer "delf", limit: 2, default: 0
     t.integer "deleted_account_type", limit: 2, default: 0
     t.datetime "deleted_at"
@@ -163,6 +170,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.index ["lesson_room_id"], name: "idx_lessons_4"
     t.index ["lesson_room_id"], name: "index_lessons_on_lesson_room_id"
     t.index ["start_time"], name: "idx_lessons_1"
+    t.index ["subject_id"], name: "idx_lessons_subject_id"
     t.index ["subject_id"], name: "index_lessons_on_subject_id"
     t.index ["teacher_id"], name: "idx_lessons_3"
     t.index ["teacher_id"], name: "index_lessons_on_teacher_id"
@@ -191,7 +199,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "idx_student_groups_2"
     t.index ["group_id"], name: "index_student_groups_on_group_id"
+    t.index ["student_id"], name: "idx_student_groups_1"
     t.index ["student_id"], name: "index_student_groups_on_student_id"
   end
 
@@ -204,14 +214,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.integer "deleted_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["guardian_id"], name: "idx_student_guardians_2"
     t.index ["guardian_id"], name: "index_student_guardians_on_guardian_id"
+    t.index ["student_id"], name: "idx_student_guardians_1"
     t.index ["student_id"], name: "index_student_guardians_on_student_id"
   end
 
   create_table "students", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "password", default: "", null: false
     t.string "name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "password_digest", default: "", null: false
+    t.string "remember_digest"
     t.integer "delf", limit: 2, default: 0
     t.integer "deleted_account_type", limit: 2, default: 0
     t.datetime "deleted_at"
@@ -237,9 +250,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   end
 
   create_table "teachers", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "password", default: "", null: false
     t.string "name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "password_digest", default: "", null: false
+    t.string "remember_digest"
     t.integer "delf", limit: 2, default: 0
     t.integer "deleted_account_type", limit: 2, default: 0
     t.datetime "deleted_at"

@@ -2,6 +2,9 @@ html,
 body,
 #__next {
   height: 100%;
+
+  font-family: "Segoe UI", "Meiryo", "system-ui", "-apple-system", "BlinkMacSystemFont", "sans-serif";
+  font-size: 15px;
 }
 
 :root {

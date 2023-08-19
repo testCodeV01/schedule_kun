@@ -1,4 +1,6 @@
 class Student < ApplicationRecord
+  has_secure_password
+
   has_many :student_guardians, dependent: :destroy
   has_many :guardians, through: :student_guardians
   has_many :absences, dependent: :destroy
