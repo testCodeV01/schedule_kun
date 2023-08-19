@@ -5,19 +5,19 @@ module Breath
     class InvalidPasswordConfirmation < StandardError; end
     class TargetNotFound < StandardError; end
     class InvalidPassword < StandardError; end
-  
+
     included do
-      target_class = self.to_s.split("::")[-2].constantize
+      target_class = to_s.split("::")[-2].constantize
       target_name = target_class.to_s.underscore
       current_target = "current_#{target_name}"
 
-      skip_before_action :authenticate!, only: %i(new login logout)
+      skip_before_action :authenticate!, only: %i[new login logout]
 
       # GET /schedule_kun/target
       define_method :new do
-        render status:200
+        render status: 200
       end
-    
+
       # POST /schedule_kun/target/login
       define_method :login do
         raise InvalidPasswordConfirmation if params[:password] != params[:password_confirmation]
@@ -25,24 +25,24 @@ module Breath
         object = target_class.enabled.find_by(**{ "#{target_class.auth_attribute}": params[target_class.auth_attribute.to_sym] })
         raise TargetNotFound if object.nil?
         raise InvalidPassword unless object.authenticate(params[:password])
-    
+
         object.remember
         cookies.permanent.signed["#{target_name}_id".to_sym] = object.id
         cookies.permanent[:remember_token] = object.remember_token
-    
+
         render status: 200
       rescue StandardError => e
-        render_401 "#{e}"
+        render_401 e.to_s
       end
-    
+
       # DELETE /schedule_kun/target/logout
       define_method :logout do
         send(current_target).forget
         @current_target = nil
-        
+
         cookies.delete("#{target_name}_id".to_sym)
         cookies.delete(:remember_token)
-    
+
         render statud: 200
       end
     end
