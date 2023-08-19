@@ -3,12 +3,12 @@ import type { NextPage } from 'next';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 
 import { Key, useEffect, useState } from 'react';
-import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
 import { useRouter } from 'next/router';
 import WeekPicker from '@/components/elements/weekpicker';
 import { Route } from '@/config/Route';
 
 import styles from './styles.module.css';
+import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 
 const WeekSchedule: NextPage = () => {
   const router = useRouter();
@@ -30,8 +30,8 @@ const WeekSchedule: NextPage = () => {
     setMonth(Number(router.query.month));
     setDay(Number(router.query.day));
 
-    ScheduleKunApiClient.get(
-      '/schedule_kun/teacher/calendars/week',
+    TeachersClient.get(
+      '/calendars/week',
       { year: router.query.year, month: router.query.month, day: router.query.day }
     ).then((res) => {
       setLessonDatas(res.data);

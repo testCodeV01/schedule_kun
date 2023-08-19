@@ -1,5 +1,4 @@
 import Dashboard from '@/components/layouts/dashboard';
-import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -8,6 +7,7 @@ import AddScheduleArea from './addScheduleArea';
 import { Route } from '@/config/Route';
 import ContainerButton from '@/components/elements/containerButton';
 import { BsFillTrash3Fill } from 'react-icons/bs';
+import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 
 const DaySchedule: NextPage = () => {
   const router = useRouter();
@@ -41,8 +41,8 @@ const DaySchedule: NextPage = () => {
     if (addMode) return;
     if (deleteId > 0) return;
 
-    ScheduleKunApiClient.get(
-      '/schedule_kun/teacher/lessons',
+    TeachersClient.get(
+      '/lessons',
       { year: year, month: month, day: day }
     ).then((res) => {
       setLessonDatas(res.data);
@@ -52,7 +52,7 @@ const DaySchedule: NextPage = () => {
   const deleteLesson = () => {
     if (deleteId < 0) return;
 
-    ScheduleKunApiClient.delete(`/schedule_kun/teacher/lessons/${deleteId}`)
+    TeachersClient.delete(`/lessons/${deleteId}`)
       .then(() => {
         setShowDelete(false);
         setDeleteId(-1);

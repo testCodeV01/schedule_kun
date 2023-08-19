@@ -1,4 +1,4 @@
-class ScheduleKun::Student::SessionsController < ScheduleKun::Student::ApplicationController
+class ScheduleKun::Students::SessionsController < ScheduleKun::Students::ApplicationController
   class InvalidPasswordConfirmationError < StandardError; end
   class StudentNotFoundError < StandardError; end
 

@@ -1,5 +1,5 @@
 import TimePicker from '@/components/elements/timepicker';
-import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
+import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Button, Card, Form, FormGroup, Modal } from 'react-bootstrap';
@@ -33,7 +33,7 @@ const AddScheduleArea = ({
     if (!router.query.month) return;
     if (!router.query.day) return;
 
-    ScheduleKunApiClient.get('/schedule_kun/teacher/lessons/new')
+    TeachersClient.get('/lessons/new')
       .then((res) => {
         setBranches(res.data.branches);
         setSubjects(res.data.subjects);
@@ -53,7 +53,7 @@ const AddScheduleArea = ({
     if (lessonRoomId < 0) return;
     if (subjectId < 0) return;
 
-    ScheduleKunApiClient.post('/schedule_kun/teacher/lessons', {
+    TeachersClient.post('/lessons', {
       lesson: { ...lesson, start_time: startTime, end_time: endTime, branch_id: branchId, lesson_room_id: lessonRoomId, subject_id: subjectId }
     })
       .then(() => endAddMode())

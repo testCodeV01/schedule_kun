@@ -1,7 +1,7 @@
 import ContainerButton from '@/components/elements/containerButton';
 import TimePicker from '@/components/elements/timepicker';
 import Dashboard from '@/components/layouts/dashboard';
-import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
+import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -32,7 +32,7 @@ const EditLesson: NextPage = () => {
   useEffect(() => {
     if (!router.query.lessonId) return;
 
-    ScheduleKunApiClient.get(`/schedule_kun/teacher/lessons/${router.query.lessonId}/edit`)
+    TeachersClient.get(`/lessons/${router.query.lessonId}/edit`)
       .then((res) => {
         setBranches(res.data.branches);
         setSubjects(res.data.subjects);
@@ -52,7 +52,7 @@ const EditLesson: NextPage = () => {
     if (lessonRoomId < 0) return;
     if (subjectId < 0) return;
 
-    ScheduleKunApiClient.put(`/schedule_kun/teacher/lessons/${router.query.lessonId}`, {
+    TeachersClient.put(`/lessons/${router.query.lessonId}`, {
       lesson: { ...lesson, start_time: startTime, end_time: endTime, branch_id: branchId, lesson_room_id: lessonRoomId, subject_id: subjectId }
     })
       .then(() => router.back())
@@ -63,7 +63,7 @@ const EditLesson: NextPage = () => {
   };
 
   const deleteLesson = () => {
-    ScheduleKunApiClient.delete(`/schedule_kun/teacher/lessons/${router.query.lessonId}`)
+    TeachersClient.delete(`/lessons/${router.query.lessonId}`)
       .then(() => router.back())
       .catch(() => {
         setShowDelete(false);

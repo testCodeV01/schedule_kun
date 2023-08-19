@@ -1,32 +1,43 @@
-import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
+import { Route } from '@/config/Route';
+import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-const Login: NextPage = () => {
+const TeacherLogin: NextPage = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   useEffect(() => {
-    ScheduleKunApiClient.get('/schedule_kun/teacher');
+    TeachersClient.get('/');
   }, []);
 
   const submit = () => {
-    ScheduleKunApiClient.post('/schedule_kun/teacher/login', {
+    TeachersClient.post('/login', {
       sessions: {
         email: email,
         password: password,
         password_confirmation: passwordConfirmation,
       }
-    });
+    })
+      .then(() => {
+        const today = new Date();
+
+        router.push(Route.teacherCalendarMonthPath({
+          year: today.getFullYear(), month: today.getMonth() + 1
+        }));
+      });
   };
 
   const auth = () => {
-    ScheduleKunApiClient.get('/schedule_kun/teacher/auth');
+    TeachersClient.get('/auth');
   };
 
   const logout = () => {
-    ScheduleKunApiClient.delete('/schedule_kun/teacher/logout');
+    TeachersClient.delete('/logout');
   };
 
   return (
@@ -42,4 +53,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default TeacherLogin;

@@ -1,4 +1,4 @@
-class ScheduleKun::Guardian::ApplicationController < ApplicationController
+class ScheduleKun::Guardians::ApplicationController < ApplicationController
   class AuthenticationError < StandardError; end
 
   before_action :authenticate!

@@ -1,6 +1,6 @@
 module ScheduleKun
-  module Teacher
-    class CalendarsController < ScheduleKun::Teacher::ApplicationController
+  module Teachers
+    class CalendarsController < ScheduleKun::Teachers::ApplicationController
       class DateNotFoundError < StandardError; end
 
       # GET /schedule_kun/teacher/calendars/month

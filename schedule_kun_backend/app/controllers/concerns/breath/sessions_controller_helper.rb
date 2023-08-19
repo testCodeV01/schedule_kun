@@ -7,7 +7,7 @@ module Breath
     class InvalidPassword < StandardError; end
 
     included do
-      target_class = to_s.split("::")[-2].constantize
+      target_class = to_s.split("::")[-2].singularize.constantize
       target_name = target_class.to_s.underscore
       current_target = "current_#{target_name}"
 
@@ -20,11 +20,11 @@ module Breath
 
       # POST /schedule_kun/target/login
       define_method :login do
-        raise InvalidPasswordConfirmation if params[:password] != params[:password_confirmation]
+        raise InvalidPasswordConfirmation if sessions_params[:password] != sessions_params[:password_confirmation]
 
-        object = target_class.enabled.find_by(**{ "#{target_class.auth_attribute}": params[target_class.auth_attribute.to_sym] })
+        object = target_class.enabled.find_by(**{ "#{target_class.auth_attribute}": sessions_params[target_class.auth_attribute.to_sym] })
         raise TargetNotFound if object.nil?
-        raise InvalidPassword unless object.authenticate(params[:password])
+        raise InvalidPassword unless object.authenticate(sessions_params[:password])
 
         object.remember
         cookies.permanent.signed["#{target_name}_id".to_sym] = object.id
@@ -44,6 +44,10 @@ module Breath
         cookies.delete(:remember_token)
 
         render statud: 200
+      end
+
+      define_method :sessions_params do
+        params.require(:sessions).permit(target_class.auth_attribute.to_sym, :password, :password_confirmation)
       end
     end
   end

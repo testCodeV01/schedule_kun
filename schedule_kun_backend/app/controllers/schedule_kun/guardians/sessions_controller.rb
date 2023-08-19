@@ -1,4 +1,4 @@
-class ScheduleKun::Guardian::SessionsController < ScheduleKun::Guardian::ApplicationController
+class ScheduleKun::Guardians::SessionsController < ScheduleKun::Guardians::ApplicationController
   class InvalidPasswordConfirmationError < StandardError; end
   class GuardianNotFoundError < StandardError; end
 

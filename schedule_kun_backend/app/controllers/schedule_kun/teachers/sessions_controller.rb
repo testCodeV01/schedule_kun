@@ -1,4 +1,4 @@
-class ScheduleKun::Teacher::SessionsController < ScheduleKun::Teacher::ApplicationController
+class ScheduleKun::Teachers::SessionsController < ScheduleKun::Teachers::ApplicationController
   include Breath::SessionsControllerHelper
 
   # GET /schedule_kun/teacher/auth

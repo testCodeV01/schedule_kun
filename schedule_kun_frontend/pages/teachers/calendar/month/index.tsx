@@ -2,13 +2,13 @@ import Dashboard from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
 import { Card, ListGroup } from 'react-bootstrap';
 import { Key, useEffect, useState } from 'react';
-import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
 import { MonthPicker } from '@/components/elements/monthpicker';
 import { useRouter } from 'next/router';
 import { Route } from '@/config/Route';
 import ArrowButton from '@/components/elements/arrowButton';
 
 import styles from './styles.module.css';
+import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 
 const MonthSchedule: NextPage = () => {
   const [loading, setLoading] = useState<boolean|undefined>(false);
@@ -28,7 +28,7 @@ const MonthSchedule: NextPage = () => {
 
     setLoading(true);
 
-    ScheduleKunApiClient.get('/schedule_kun/teacher/calendars/month',
+    TeachersClient.get('/calendars/month',
       { year: router.query.year, month: router.query.month }
     )
       .then((res) => {

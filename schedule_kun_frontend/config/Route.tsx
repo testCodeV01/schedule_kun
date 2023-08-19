@@ -5,6 +5,7 @@ const queryString = (hash: any) => {
 };
 
 export const Route = {
+  teacherLoginPath: '/teachers/login',
   teacherInformationsPath: '/teachers/informations',
   teacherCalendarMonthPath: (query: any) => `/teachers/calendar/month?${queryString(query)}`,
   teacherCalendarWeekPath: (query: any) => `/teachers/calendar/week?${queryString(query)}`,

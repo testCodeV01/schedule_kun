@@ -1,6 +1,6 @@
 module ScheduleKun
-  module Teacher
-    class LessonsController < ScheduleKun::Teacher::ApplicationController
+  module Teachers
+    class LessonsController < ScheduleKun::Teachers::ApplicationController
       class DateNotFoundError < StandardError; end
       class LessonNotFound < StandardError; end
       class InvalidParams < StandardError; end
