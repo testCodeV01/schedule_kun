@@ -10,7 +10,7 @@ const Error409: NextPage = () => {
     <>
       <div>
         <span>409エラーです。</span>
-        <button onClick={() => router.push(Route.teacherLoginPath)}>移動</button>
+        <button onClick={() => router.push(Route.teachers.loginPath)}>移動</button>
       </div>
     </>
   );

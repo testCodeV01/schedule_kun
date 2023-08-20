@@ -3,10 +3,15 @@ import { Button, Container, Dropdown, Form, Nav, NavDropdown, Navbar, Offcanvas 
 import styles from './styles.module.css';
 import { Route } from '@/config/Route';
 import Router from 'next/router';
+import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 
 const Dashboard = ({ children }: { children: any }) => {
   const expand = 'lg';
   const today = new Date();
+
+  const logout = () => {
+    TeachersClient.delete('logout').then(() => Router.push(Route.teachers.loginPath));
+  };
 
   return (
     <>
@@ -27,7 +32,7 @@ const Dashboard = ({ children }: { children: any }) => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href={Route.teacherCalendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 })}>トップ</Nav.Link>
+                <Nav.Link href={Route.teachers.calendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 })}>トップ</Nav.Link>
                 <Nav.Link href="#action2">Link</Nav.Link>
                 <NavDropdown
                   title="Dropdown"
@@ -38,8 +43,8 @@ const Dashboard = ({ children }: { children: any }) => {
                     Another action
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">
-                    Something else here
+                  <NavDropdown.Item onClick={logout}>
+                    ログアウト
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
@@ -61,12 +66,12 @@ const Dashboard = ({ children }: { children: any }) => {
           <div className="p-3">
             <Button
               className={`w-100 ${styles.sideMenuButton}`}
-              onClick={() => Router.push(Route.teacherCalendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 }))}
+              onClick={() => Router.push(Route.teachers.calendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 }))}
             >
               トップ
             </Button>
-            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => Router.push(Route.teacherStudentsPath)}>生徒一覧</Button>
-            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => Router.push(Route.teacherLessonRoomsPath)}>ルーム一覧</Button>
+            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => Router.push(Route.teachers.studentsPath)}>生徒一覧</Button>
+            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => Router.push(Route.teachers.lessonRoomsPath)}>ルーム一覧</Button>
             <Dropdown>
               <Dropdown.Toggle className={`w-100 ${styles.sideMenuDropdown}`}>Dropdown</Dropdown.Toggle>
               <Dropdown.Menu>

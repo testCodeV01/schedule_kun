@@ -12,7 +12,7 @@ body,
 
   /* ナビゲーションバーとサイドバーのサイズ */
   --navbar-height: 56px;
-  --sidebar-width: 180px;
+  --sidebar-width: 150px;
   
   --color-font-default: #212925;
   --color-bg-default: #fff;

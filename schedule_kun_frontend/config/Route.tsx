@@ -1,16 +1,17 @@
-import Router from 'next/router';
-
 const queryString = (hash: any) => {
   return Object.keys(hash).map((key) => `${key}=${hash[key]}`).join('&');
 };
 
-export const Route = {
-  teacherLoginPath: '/teachers/login',
-  teacherInformationsPath: '/teachers/informations',
-  teacherCalendarMonthPath: (query: any) => `/teachers/calendar/month?${queryString(query)}`,
-  teacherCalendarWeekPath: (query: any) => `/teachers/calendar/week?${queryString(query)}`,
-  daySchedulePath: (query: any) => `/teachers/daySchedule?${queryString(query)}`,
-  editLessonPath: (lessonId: number) => `/teachers/daySchedule/edit/${lessonId}`,
-  teacherStudentsPath: '/teachers/students',
-  teacherLessonRoomsPath: '/teachers/lessonRooms',
+export const Route = () => {};
+
+Route.teachers = {
+  loginPath: '/teachers/login',
+  informationsPath: '/teachers/informations',
+  calendarMonthPath: (query: any) => `/teachers/calendar/month?${queryString(query)}`,
+  calendarWeekPath: (query: any) => `/teachers/calendar/week?${queryString(query)}`,
+  lessonsPath: (query: any) => `/teachers/lessons?${queryString(query)}`,
+  createLessonPath: (query: any) => `/teachers/lessons/new?${queryString(query)}`,
+  editLessonPath: (lessonId: number) => `/teachers/lessons/edit/${lessonId}`,
+  studentsPath: '/teachers/students',
+  lessonRoomsPath: '/teachers/lessonRooms',
 };

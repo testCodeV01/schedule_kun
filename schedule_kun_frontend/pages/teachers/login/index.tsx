@@ -3,6 +3,7 @@ import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { Button, Card, Container, Form, Navbar } from 'react-bootstrap';
 
 const TeacherLogin: NextPage = () => {
   const router = useRouter();
@@ -26,29 +27,44 @@ const TeacherLogin: NextPage = () => {
       .then(() => {
         const today = new Date();
 
-        router.push(Route.teacherCalendarMonthPath({
+        router.push(Route.teachers.calendarMonthPath({
           year: today.getFullYear(), month: today.getMonth() + 1
         }));
       });
   };
 
-  const auth = () => {
-    TeachersClient.get('/auth');
-  };
+  // const auth = () => {
+  //   TeachersClient.get('/auth');
+  // };
 
-  const logout = () => {
-    TeachersClient.delete('/logout');
-  };
+  // const logout = () => {
+  //   TeachersClient.delete('/logout');
+  // };
 
   return (
     <>
-      <div>wellcome!!</div>
-      <input required onChange={(e) => setEmail(e.target.value)} className='ml-4'/>
-      <input required onChange={(e) => setPassword(e.target.value)} className='ml-4'/>
-      <input required onChange={(e) => setPasswordConfirmation(e.target.value)} className='ml-4'/>
-      <div><button onClick={submit}>クリック</button></div>
-      <div><button onClick={auth}>クリック２</button></div>
-      <div><button onClick={logout}>ログアウト</button></div>
+      <Navbar className='color-combo-main'>
+        <Container fluid>
+          welcom
+        </Container>
+      </Navbar>
+      <Card className="p-5 m-auto mt-5" style={{ width: '500px', height: '500px' }}>
+        <Form.Group className="mb-3">
+          <Form.Label>メールアドレス</Form.Label>
+          <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>パスワード</Form.Label>
+          <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>パスワード確認</Form.Label>
+          <Form.Control type="password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
+        </Form.Group>
+        <Button onClick={submit}>ログイン</Button>
+        {/* <Button onClick={auth}>クリック2</Button>
+        <Button onClick={logout}>ログアウト</Button> */}
+      </Card>
     </>
   );
 };

@@ -42,16 +42,16 @@ const MonthSchedule: NextPage = () => {
   useEffect(() => {
     if (!onset) return;
 
-    router.push(Route.teacherCalendarMonthPath({ year: year, month: month }));
+    router.push(Route.teachers.calendarMonthPath({ year: year, month: month }));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onset, year, month]);
 
-  const changeToWeek = (day: number) => {
-    router.push(Route.teacherCalendarWeekPath({ year: year, month: month, day: day }));
+  const changeToWeek = (vMonth: number, day: number) => {
+    router.push(Route.teachers.calendarWeekPath({ year: year, month: vMonth, day: day }));
   };
 
   const toDaySchedule = (day: number) => {
-    router.push(Route.daySchedulePath({ year: year, month: month, day: day }));
+    router.push(Route.teachers.lessonsPath({ year: year, month: month, day: day }));
   };
 
   return (
@@ -85,7 +85,7 @@ const MonthSchedule: NextPage = () => {
               <ListGroup.Item className={`pt-0 pb-0 ${styles.monthArea}`} key={rowIndex}>
                 <div className="row">
                   <div className='p-0 border-end color-combo-sub' style={{ width: '50px' }}>
-                    <ArrowButton direction='right' className='h-100 w-100 p-0' onClick={() => changeToWeek(rowData[0].day)} arrowColor="var(--color-font-sub)" />
+                    <ArrowButton direction='right' className='h-100 w-100 p-0' onClick={() => changeToWeek(rowData[0].month, rowData[0].day)} arrowColor="var(--color-font-sub)" />
                   </div>
                   {rowData.map((columnData: any, colIndex: Key) => {
                     return (

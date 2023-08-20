@@ -3,7 +3,6 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Button, Card, Modal } from 'react-bootstrap';
-import AddScheduleArea from './addScheduleArea';
 import { Route } from '@/config/Route';
 import ContainerButton from '@/components/elements/containerButton';
 import { BsFillTrash3Fill } from 'react-icons/bs';
@@ -22,8 +21,6 @@ const DaySchedule: NextPage = () => {
   const [showDelete, setShowDelete] = useState(false);
   const [deleteId, setDeleteId] = useState(-1);
 
-  const [addMode, setAddMode] = useState(false);
-
   useEffect(() => {
     if (!router.query.year) return;
     if (!router.query.month) return;
@@ -38,7 +35,6 @@ const DaySchedule: NextPage = () => {
 
   useEffect(() => {
     if (!onset) return;
-    if (addMode) return;
     if (deleteId > 0) return;
 
     TeachersClient.get(
@@ -47,7 +43,7 @@ const DaySchedule: NextPage = () => {
     ).then((res) => {
       setLessonDatas(res.data);
     });
-  }, [year, month, day, onset, addMode, deleteId]);
+  }, [year, month, day, onset, deleteId]);
 
   const deleteLesson = () => {
     if (deleteId < 0) return;
@@ -65,36 +61,31 @@ const DaySchedule: NextPage = () => {
   return (
     <>
       <Dashboard>
-        {addMode && (
-          <AddScheduleArea endAddMode={() => setAddMode(false)} />
-        )}
-        {!addMode && (
-          <>
-            {lessonDatas.map((lessonData: any, lessonIndex: number) => {
-              return (
-                <Card key={lessonIndex} className="p-1 mb-2 color-combo-default shadow-sm d-flex flex-row">
-                  <div>
-                    <div>{lessonData.start_time}~{lessonData.end_time}</div>
-                    <div>教科：{lessonData.subject?.name} {lessonData.name}</div>
-                    <div>{lessonData.description}</div>
-                    <div>教室：{lessonData.branch?.name}校 {lessonData.lesson_room?.name}</div>
-                  </div>
-                  <div className="ms-auto d-flex align-items-center me-3">
-                    <ContainerButton className="ms-auto mb-3" onClick={() => {
-                      setDeleteId(lessonData.id);
-                      setShowDelete(true);
-                    }}
-                    >
-                      <BsFillTrash3Fill />
-                    </ContainerButton>
-                    <Button onClick={() => router.push(Route.editLessonPath(lessonData.id))}>編集</Button>
-                  </div>
-                </Card>
-              );
-            })}
-            <Button className='me-3' onClick={() => setAddMode(true)}>追加</Button>
-          </>
-        )}
+        {lessonDatas.map((lessonData: any, lessonIndex: number) => {
+          return (
+            <Card key={lessonIndex} className="p-1 mb-2 color-combo-default shadow-sm d-flex flex-row">
+              <div>
+                <div>{lessonData.start_time}~{lessonData.end_time}</div>
+                <div>教科：{lessonData.subject?.name} {lessonData.name}</div>
+                <div>{lessonData.description}</div>
+                <div>教室：{lessonData.branch?.name}校 {lessonData.lesson_room?.name}</div>
+              </div>
+              <div className="ms-auto d-flex align-items-center me-3">
+                <ContainerButton className="ms-auto mb-3" onClick={() => {
+                  setDeleteId(lessonData.id);
+                  setShowDelete(true);
+                }}
+                >
+                  <BsFillTrash3Fill />
+                </ContainerButton>
+                <Button onClick={() => router.push(Route.teachers.editLessonPath(lessonData.id))}>編集</Button>
+              </div>
+            </Card>
+          );
+        })}
+        <Button className='me-3' onClick={() => router.push(Route.teachers.createLessonPath({
+          year: router.query.year, month: router.query.month, day: router.query.day
+        }))}>追加</Button>
       </Dashboard>
 
       <Modal show={showDelete} onHide={() => setShowDelete(false)}>

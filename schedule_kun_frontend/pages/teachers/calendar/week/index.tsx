@@ -41,16 +41,16 @@ const WeekSchedule: NextPage = () => {
   useEffect(() => {
     if (!onset) return;
 
-    router.push(Route.teacherCalendarWeekPath({ year: year, month: month, day: day }));
+    router.push(Route.teachers.calendarWeekPath({ year: year, month: month, day: day }));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onset, year, month, day]);
 
   const changeToMonth = () => {
-    router.push(Route.teacherCalendarMonthPath({ year: year, month: month }));
+    router.push(Route.teachers.calendarMonthPath({ year: year, month: month }));
   };
 
   const toDaySchedule = (selectedDay: number) => {
-    router.push(Route.daySchedulePath({ year: year, month: month, day: selectedDay }));
+    router.push(Route.teachers.lessonsPath({ year: year, month: month, day: selectedDay }));
   };
 
   return (

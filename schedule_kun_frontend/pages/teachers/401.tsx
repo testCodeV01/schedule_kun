@@ -1,6 +1,7 @@
 import { Route } from '@/config/Route';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { Button } from 'react-bootstrap';
 
 const Error401: NextPage = () => {
   const router = useRouter();
@@ -9,7 +10,7 @@ const Error401: NextPage = () => {
     <>
       <div>
         <span>401エラーです。</span>
-        <button onClick={() => router.push(Route.teacherLoginPath)}>移動</button>
+        <Button onClick={() => router.push(Route.teachers.loginPath)}>移動</Button>
       </div>
     </>
   );

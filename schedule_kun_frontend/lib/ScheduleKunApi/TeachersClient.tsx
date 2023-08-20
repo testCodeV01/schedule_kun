@@ -42,10 +42,10 @@ const onErrorOccurred = (e: any, reject: any) => {
 
   switch (true) {
     case errorCode === 401:
-      Router.replace({ pathname: `${target}/401` });
+      Router.replace({ pathname: `/${target}/401` });
       break;
     case errorCode === 404:
-      Router.replace({ pathname: `${target}/404` });
+      Router.replace({ pathname: `/${target}/404` });
       break;
     case errorCode === 409 && [ErrorCode.invalid_lesson_params].includes(dataCode):
       reject(e);

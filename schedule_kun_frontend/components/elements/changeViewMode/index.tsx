@@ -20,7 +20,7 @@ export const ChangeViewMode = ({ mode }: ChangeViewModeProps) => {
           variant='outline-success'
           checked={mode === 'month'}
           onClick={() => {
-            Router.push(Route.teacherCalendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 }));
+            Router.push(Route.teachers.calendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 }));
           }}
         >
           月
@@ -33,7 +33,7 @@ export const ChangeViewMode = ({ mode }: ChangeViewModeProps) => {
           variant='outline-success'
           checked={mode === 'week'}
           onClick={() => {
-            Router.push(Route.teacherCalendarWeekPath({ year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate() }));
+            Router.push(Route.teachers.calendarWeekPath({ year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate() }));
           }}
         >
           週
