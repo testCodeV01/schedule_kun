@@ -1,4 +1,3 @@
-import Dashboard from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
 import { Card, ListGroup } from 'react-bootstrap';
 import { Key, useEffect, useState } from 'react';
@@ -9,6 +8,7 @@ import ArrowButton from '@/components/elements/arrowButton';
 
 import styles from './styles.module.css';
 import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
+import { Dashboard } from '@/components/layouts/dashboard';
 
 const MonthSchedule: NextPage = () => {
   const [loading, setLoading] = useState<boolean|undefined>(false);
@@ -56,7 +56,7 @@ const MonthSchedule: NextPage = () => {
 
   return (
     <>
-      <Dashboard>
+      <Dashboard.teachers>
         {/* <DatePicker date={date} onChange={setDate} /> */}
         <div className="p-2" style={{ width: '300px' }}>
           <MonthPicker
@@ -123,7 +123,7 @@ const MonthSchedule: NextPage = () => {
             );
           })}
         </ListGroup>
-      </Dashboard>
+      </Dashboard.teachers>
     </>
   );
 };

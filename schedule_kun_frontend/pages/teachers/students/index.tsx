@@ -1,11 +1,11 @@
-import Dashboard from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import { NextPage } from 'next';
 
 const Students: NextPage = () => {
   return (
     <>
-      <Dashboard>
-      </Dashboard>
+      <Dashboard.teachers>
+      </Dashboard.teachers>
     </>
   );
 };

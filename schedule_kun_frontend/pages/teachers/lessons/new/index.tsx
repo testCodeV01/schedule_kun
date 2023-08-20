@@ -1,5 +1,5 @@
 import TimePicker from '@/components/elements/timepicker';
-import Dashboard from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import { Route } from '@/config/Route';
 import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 import { useRouter } from 'next/router';
@@ -71,7 +71,7 @@ const CreateLesson = () => {
 
   return (
     <>
-      <Dashboard>
+      <Dashboard.teachers>
         <Card className="p-3 mb-2 shadow-sm color-combo-default" style={{ width: '500px' }}>
           <Form>
             <Card className='p-1 mb-3 shadow-sm' style={{ width: '200px' }}>
@@ -135,7 +135,7 @@ const CreateLesson = () => {
         </Card>
         <Button className='me-3' onClick={() => setShow(true)}>登録</Button>
         <Button variant="danger" onClick={cancel}>キャンセル</Button>
-      </Dashboard>
+      </Dashboard.teachers>
 
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>

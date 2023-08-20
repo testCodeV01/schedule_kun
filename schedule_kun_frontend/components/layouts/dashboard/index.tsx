@@ -5,7 +5,9 @@ import { Route } from '@/config/Route';
 import Router from 'next/router';
 import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 
-const Dashboard = ({ children }: { children: any }) => {
+export const Dashboard = () => {};
+
+Dashboard.teachers = ({ children }: { children: any }) => {
   const expand = 'lg';
   const today = new Date();
 
@@ -92,5 +94,3 @@ const Dashboard = ({ children }: { children: any }) => {
     </>
   );
 };
-
-export default Dashboard;

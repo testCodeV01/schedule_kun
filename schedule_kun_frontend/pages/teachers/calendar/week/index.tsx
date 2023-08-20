@@ -1,4 +1,4 @@
-import Dashboard from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 
@@ -55,7 +55,7 @@ const WeekSchedule: NextPage = () => {
 
   return (
     <>
-      <Dashboard>
+      <Dashboard.teachers>
         <div className='d-flex p-2'>
           <div style={{ width: '300px' }}>
             <WeekPicker
@@ -111,7 +111,7 @@ const WeekSchedule: NextPage = () => {
             </div>
           </ListGroup.Item>
         </ListGroup>
-      </Dashboard>
+      </Dashboard.teachers>
     </>
   );
 };

@@ -1,11 +1,11 @@
-import Dashboard from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
 import { Card } from 'react-bootstrap';
 
 const Informations: NextPage = () => {
   return (
     <>
-      <Dashboard>
+      <Dashboard.teachers>
         <Card>
           <Card.Header>
             お知らせ
@@ -37,7 +37,7 @@ const Informations: NextPage = () => {
             </Card>
           </Card.Body>
         </Card>
-      </Dashboard>
+      </Dashboard.teachers>
     </>
   );
 };

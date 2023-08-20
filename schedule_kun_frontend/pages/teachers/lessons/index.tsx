@@ -1,4 +1,3 @@
-import Dashboard from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -7,6 +6,7 @@ import { Route } from '@/config/Route';
 import ContainerButton from '@/components/elements/containerButton';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
+import { Dashboard } from '@/components/layouts/dashboard';
 
 const DaySchedule: NextPage = () => {
   const router = useRouter();
@@ -60,7 +60,7 @@ const DaySchedule: NextPage = () => {
 
   return (
     <>
-      <Dashboard>
+      <Dashboard.teachers>
         {lessonDatas.map((lessonData: any, lessonIndex: number) => {
           return (
             <Card key={lessonIndex} className="p-1 mb-2 color-combo-default shadow-sm d-flex flex-row">
@@ -86,7 +86,7 @@ const DaySchedule: NextPage = () => {
         <Button className='me-3' onClick={() => router.push(Route.teachers.createLessonPath({
           year: router.query.year, month: router.query.month, day: router.query.day
         }))}>追加</Button>
-      </Dashboard>
+      </Dashboard.teachers>
 
       <Modal show={showDelete} onHide={() => setShowDelete(false)}>
         <Modal.Header closeButton>

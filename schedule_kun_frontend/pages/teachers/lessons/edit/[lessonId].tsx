@@ -1,6 +1,6 @@
 import ContainerButton from '@/components/elements/containerButton';
 import TimeSpanSelector from '@/components/elements/timeSpanSelector';
-import Dashboard from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -76,7 +76,7 @@ const EditLesson: NextPage = () => {
 
   return (
     <>
-      <Dashboard>
+      <Dashboard.teachers>
         <Card className="p-3 mb-2 shadow-sm color-combo-default" style={{ width: '500px' }}>
           <Form>
             <div className='d-flex'>
@@ -138,7 +138,7 @@ const EditLesson: NextPage = () => {
         </Card>
         <Button className='me-3' onClick={() => setShow(true)}>更新</Button>
         <Button variant="danger" onClick={cancel}>キャンセル</Button>
-      </Dashboard>
+      </Dashboard.teachers>
 
       <Modal show={showDelete} onHide={() => setShowDelete(false)}>
         <Modal.Header closeButton>
