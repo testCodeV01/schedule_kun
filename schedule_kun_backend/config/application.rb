@@ -34,5 +34,7 @@ module ScheduleKunBackend
     config.middleware.use ActionDispatch::Session::CookieStore
 
     config.paths.add "lib", eager_load: true
+
+    config.breath_expires = 3.month
   end
 end

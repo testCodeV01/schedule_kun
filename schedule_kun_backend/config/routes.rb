@@ -22,10 +22,7 @@ Rails.application.routes.draw do
       get "auth" => "sessions#auth"
     end
 
-    namespace :teachers do
-      get "/" => "sessions#new"
-      post "login" => "sessions#login"
-      delete "logout" => "sessions#logout"
+    breath :teachers do
       get "auth" => "sessions#auth"
 
       namespace :calendars do
