@@ -4,6 +4,11 @@ const queryString = (hash: any) => {
 
 export const Route = () => {};
 
+Route.regular = {
+  topPath: '/',
+  loginPath: '/login',
+};
+
 Route.teachers = {
   loginPath: '/teachers/login',
   informationsPath: '/teachers/informations',

@@ -7,6 +7,19 @@ import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 
 export const Dashboard = () => {};
 
+Dashboard.regular = ({ children }: { children: any }) => {
+  return (
+    <>
+      <Navbar className='color-combo-main'>
+        <Container fluid>
+          welcom
+        </Container>
+      </Navbar>
+      {children}
+    </>
+  );
+};
+
 Dashboard.teachers = ({ children }: { children: any }) => {
   const expand = 'lg';
   const today = new Date();
