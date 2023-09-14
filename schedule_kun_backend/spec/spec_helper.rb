@@ -94,8 +94,7 @@ RSpec.configure do |config|
 
   # テスト時のseedデータ
   # --> 手動で入れるようにした。（bundle exec rails db:seed_fu RAILS_ENV=test)
-  # config.before(:suite) do
-  #   fixture_path = "#{Rails.root}/db/fixtures/test"
-  #   SeedFu.seed(fixture_path)
-  # end
+  config.before(:suite) do
+    SeedFu.seed
+  end
 end

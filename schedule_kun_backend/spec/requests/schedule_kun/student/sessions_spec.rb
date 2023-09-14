@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "ScheduleKun::Student::Sessions", type: :request do
+RSpec.describe "ScheduleKun::Students::Sessions", type: :request do
   describe "GET /index" do
     pending "add some examples (or delete) #{__FILE__}"
   end
