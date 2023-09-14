@@ -1,40 +1,44 @@
-class ScheduleKun::Guardians::SessionsController < ScheduleKun::Guardians::ApplicationController
-  class InvalidPasswordConfirmationError < StandardError; end
-  class GuardianNotFoundError < StandardError; end
+module ScheduleKun
+  module Guardians
+    class SessionsController < ScheduleKun::Guardians::ApplicationController
+      class InvalidPasswordConfirmationError < StandardError; end
+      class GuardianNotFoundError < StandardError; end
 
-  skip_before_action :authenticate!, only: %i(new login logout)
+      skip_before_action :authenticate!, only: %i[new login logout]
 
-  # GET /schedule_kun/guardians
-  def new
-    render status:200
-  end
+      # GET /schedule_kun/guardians
+      def new
+        render status: 200
+      end
 
-  # POST /schedule_kun/guardians/login
-  def login
-    raise InvalidPasswordConfirmationError if params[:password] != params[:password_confirmation]
-    
-    guardian = Guardian.enabled.find_by(email: params[:email])
-    raise GuardianNotFoundError if guardian.nil?
+      # POST /schedule_kun/guardians/login
+      def login
+        raise InvalidPasswordConfirmationError if params[:password] != params[:password_confirmation]
 
-    session[:guardian_id] = guardian.id
+        guardian = Guardian.enabled.find_by(email: params[:email])
+        raise GuardianNotFoundError if guardian.nil?
 
-    render status: 200
-  rescue StandardError => e
-    render_401 "#{e}"
-  end
+        session[:guardian_id] = guardian.id
 
-  # GET /schedule_kun/guardians/auth
-  def auth
-    json = { current_guardian: current_guardian&.client_attributes }
+        render status: 200
+      rescue StandardError => e
+        render_401 e.to_s
+      end
 
-    render json: json, status: 200
-  end
+      # GET /schedule_kun/guardians/auth
+      def auth
+        json = { current_guardian: current_guardian&.client_attributes }
 
-  # DELETE /schedule_kun/guardians/logout
-  def logout
-    reset_session
-    @current_guardian = nil
+        render json: json, status: 200
+      end
 
-    render statud: 200
+      # DELETE /schedule_kun/guardians/logout
+      def logout
+        reset_session
+        @current_guardian = nil
+
+        render statud: 200
+      end
+    end
   end
 end

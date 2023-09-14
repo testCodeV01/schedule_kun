@@ -156,7 +156,7 @@ RSpec.describe "ScheduleKun::Teachers::Lessons", type: :request do
     context "failure" do
       context "存在しないレッスンIDが指定された場合" do
         it "409エラーを返すこと" do
-          put schedule_kun_teachers_lesson_path(99999), params: query
+          put schedule_kun_teachers_lesson_path(99_999), params: query
           expect(response).to have_http_status(409)
         end
       end
@@ -208,7 +208,7 @@ RSpec.describe "ScheduleKun::Teachers::Lessons", type: :request do
 
     context "failure" do
       it "存在しないレッスンIDが指定された場合、409エラーを返すこと" do
-        delete schedule_kun_teachers_lesson_path(99999)
+        delete schedule_kun_teachers_lesson_path(99_999)
         expect(response).to have_http_status(409)
       end
     end
