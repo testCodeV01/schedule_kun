@@ -1,14 +1,14 @@
-import Dashboard from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 
 import { Key, useEffect, useState } from 'react';
-import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
 import { useRouter } from 'next/router';
 import WeekPicker from '@/components/elements/weekpicker';
 import { Route } from '@/config/Route';
 
 import styles from './styles.module.css';
+import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 
 const WeekSchedule: NextPage = () => {
   const router = useRouter();
@@ -30,8 +30,8 @@ const WeekSchedule: NextPage = () => {
     setMonth(Number(router.query.month));
     setDay(Number(router.query.day));
 
-    ScheduleKunApiClient.get(
-      '/schedule_kun/teacher/calendars/week',
+    TeachersClient.get(
+      '/calendars/week',
       { year: router.query.year, month: router.query.month, day: router.query.day }
     ).then((res) => {
       setLessonDatas(res.data);
@@ -41,21 +41,21 @@ const WeekSchedule: NextPage = () => {
   useEffect(() => {
     if (!onset) return;
 
-    router.push(Route.teacherCalendarWeekPath({ year: year, month: month, day: day }));
+    router.push(Route.teachers.calendarWeekPath({ year: year, month: month, day: day }));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onset, year, month, day]);
 
   const changeToMonth = () => {
-    router.push(Route.teacherCalendarMonthPath({ year: year, month: month }));
+    router.push(Route.teachers.calendarMonthPath({ year: year, month: month }));
   };
 
   const toDaySchedule = (selectedDay: number) => {
-    router.push(Route.daySchedulePath({ year: year, month: month, day: selectedDay }));
+    router.push(Route.teachers.lessonsPath({ year: year, month: month, day: selectedDay }));
   };
 
   return (
     <>
-      <Dashboard>
+      <Dashboard.teachers>
         <div className='d-flex p-2'>
           <div style={{ width: '300px' }}>
             <WeekPicker
@@ -111,7 +111,7 @@ const WeekSchedule: NextPage = () => {
             </div>
           </ListGroup.Item>
         </ListGroup>
-      </Dashboard>
+      </Dashboard.teachers>
     </>
   );
 };

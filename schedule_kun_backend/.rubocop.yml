@@ -23,6 +23,7 @@ AllCops:
     - '**/node_modules/**/*'
     - 'db/schema.rb'
     - 'db/fixtures/*.rb'
+    - 'db/seeds.rb'
 
 Performance:
   Exclude:

@@ -8,24 +8,21 @@ Rails.application.routes.draw do
   post "/" => "sessions#create"
 
   namespace :schedule_kun do
-    namespace :student do
+    namespace :students do
       get "/" => "sessions#new"
       post "login" => "sessions#login"
       delete "logout" => "sessions#logout"
       get "auth" => "sessions#auth"
     end
 
-    namespace :guardian do
+    namespace :guardians do
       get "/" => "sessions#new"
       post "login" => "sessions#login"
       delete "logout" => "sessions#logout"
       get "auth" => "sessions#auth"
     end
 
-    namespace :teacher do
-      get "/" => "sessions#new"
-      post "login" => "sessions#login"
-      delete "logout" => "sessions#logout"
+    breath :teachers do
       get "auth" => "sessions#auth"
 
       namespace :calendars do

@@ -1,12 +1,12 @@
-import Dashboard from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import { NextPage } from 'next';
 
 const LessonRooms: NextPage = () => {
   return (
     <>
-      <Dashboard>
+      <Dashboard.teachers>
 
-      </Dashboard>
+      </Dashboard.teachers>
     </>
   );
 };

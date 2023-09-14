@@ -1,7 +1,7 @@
 import ContainerButton from '@/components/elements/containerButton';
-import TimePicker from '@/components/elements/timepicker';
-import Dashboard from '@/components/layouts/dashboard';
-import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
+import TimeSpanSelector from '@/components/elements/timeSpanSelector';
+import { Dashboard } from '@/components/layouts/dashboard';
+import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -32,7 +32,7 @@ const EditLesson: NextPage = () => {
   useEffect(() => {
     if (!router.query.lessonId) return;
 
-    ScheduleKunApiClient.get(`/schedule_kun/teacher/lessons/${router.query.lessonId}/edit`)
+    TeachersClient.get(`/lessons/${router.query.lessonId}/edit`)
       .then((res) => {
         setBranches(res.data.branches);
         setSubjects(res.data.subjects);
@@ -52,7 +52,7 @@ const EditLesson: NextPage = () => {
     if (lessonRoomId < 0) return;
     if (subjectId < 0) return;
 
-    ScheduleKunApiClient.put(`/schedule_kun/teacher/lessons/${router.query.lessonId}`, {
+    TeachersClient.put(`/lessons/${router.query.lessonId}`, {
       lesson: { ...lesson, start_time: startTime, end_time: endTime, branch_id: branchId, lesson_room_id: lessonRoomId, subject_id: subjectId }
     })
       .then(() => router.back())
@@ -63,7 +63,7 @@ const EditLesson: NextPage = () => {
   };
 
   const deleteLesson = () => {
-    ScheduleKunApiClient.delete(`/schedule_kun/teacher/lessons/${router.query.lessonId}`)
+    TeachersClient.delete(`/lessons/${router.query.lessonId}`)
       .then(() => router.back())
       .catch(() => {
         setShowDelete(false);
@@ -76,7 +76,7 @@ const EditLesson: NextPage = () => {
 
   return (
     <>
-      <Dashboard>
+      <Dashboard.teachers>
         <Card className="p-3 mb-2 shadow-sm color-combo-default" style={{ width: '500px' }}>
           <Form>
             <div className='d-flex'>
@@ -127,23 +127,18 @@ const EditLesson: NextPage = () => {
                 setLesson({ ...lesson, description: e.target.value });
               }} />
             </FormGroup>
-            <div className={`d-flex ${!!errors?.start_time ? 'is-invalid' : ''}`}>
-              <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
-                <Form.Label className='d-flex align-items-center mb-0' style={{ width: '100px' }}>開始時刻</Form.Label>
-                <TimePicker isInvalid={!!errors?.start_time} style={{ width: '150px' }} time={startTime} onChange={setStartTime} />
-              </FormGroup>
-              <span className='d-flex align-items-center mb-0 me-3'>~</span>
-              <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
-                <Form.Label className='d-flex align-items-center mb-0' style={{ width: '100px' }}>終了時刻</Form.Label>
-                <TimePicker isInvalid={!!errors?.start_time} style={{ width: '150px' }} time={endTime} onChange={setEndTime} />
-              </FormGroup>
-            </div>
-            <Form.Control.Feedback type="invalid">{errors?.start_time}</Form.Control.Feedback>
+            <TimeSpanSelector
+              startTime={startTime}
+              endTime={endTime}
+              setStartTime={setStartTime}
+              setEndTime={setEndTime}
+              errors={errors}
+            />
           </Form>
         </Card>
         <Button className='me-3' onClick={() => setShow(true)}>更新</Button>
         <Button variant="danger" onClick={cancel}>キャンセル</Button>
-      </Dashboard>
+      </Dashboard.teachers>
 
       <Modal show={showDelete} onHide={() => setShowDelete(false)}>
         <Modal.Header closeButton>

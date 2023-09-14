@@ -1,4 +1,6 @@
 class Student < ApplicationRecord
+  include BreathModel
+
   has_many :student_guardians, dependent: :destroy
   has_many :guardians, through: :student_guardians
   has_many :absences, dependent: :destroy
@@ -11,7 +13,9 @@ class Student < ApplicationRecord
   validates :password, presence: true
   validates :name, presence: true
 
+  attr_breath :email
+
   def client_attributes
-    default_client_attributes
+    default_client_attributes.except(:password_digest, :remember_digest)
   end
 end

@@ -1,9 +1,9 @@
 module ScheduleKun
-  module Teacher
-    class CalendarsController < ScheduleKun::Teacher::ApplicationController
+  module Teachers
+    class CalendarsController < ScheduleKun::Teachers::ApplicationController
       class DateNotFoundError < StandardError; end
 
-      # GET /schedule_kun/teacher/calendars/month
+      # GET /schedule_kun/teachers/calendars/month
       def month
         raise DateNotFoundError if params[:year].blank? || params[:month].blank?
 
@@ -59,7 +59,7 @@ module ScheduleKun
         render_404 e.to_s
       end
 
-      # GET /schedule_kun/teacher/calendars/week
+      # GET /schedule_kun/teachers/calendars/week
       def week
         raise DateNotFoundError if params[:year].blank? || params[:month].blank? || params[:day].blank?
 

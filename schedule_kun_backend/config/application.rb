@@ -28,9 +28,13 @@ module ScheduleKunBackend
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.filter_parameters += [/password/, /digest/]
+
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
 
     config.paths.add "lib", eager_load: true
+
+    config.breath_expires = 3.month
   end
 end

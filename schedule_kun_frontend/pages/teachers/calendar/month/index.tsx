@@ -1,14 +1,14 @@
-import Dashboard from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
 import { Card, ListGroup } from 'react-bootstrap';
 import { Key, useEffect, useState } from 'react';
-import { ScheduleKunApiClient } from '@/lib/ScheduleKunApiClient';
 import { MonthPicker } from '@/components/elements/monthpicker';
 import { useRouter } from 'next/router';
 import { Route } from '@/config/Route';
 import ArrowButton from '@/components/elements/arrowButton';
 
 import styles from './styles.module.css';
+import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
+import { Dashboard } from '@/components/layouts/dashboard';
 
 const MonthSchedule: NextPage = () => {
   const [loading, setLoading] = useState<boolean|undefined>(false);
@@ -28,7 +28,7 @@ const MonthSchedule: NextPage = () => {
 
     setLoading(true);
 
-    ScheduleKunApiClient.get('/schedule_kun/teacher/calendars/month',
+    TeachersClient.get('/calendars/month',
       { year: router.query.year, month: router.query.month }
     )
       .then((res) => {
@@ -42,21 +42,21 @@ const MonthSchedule: NextPage = () => {
   useEffect(() => {
     if (!onset) return;
 
-    router.push(Route.teacherCalendarMonthPath({ year: year, month: month }));
+    router.push(Route.teachers.calendarMonthPath({ year: year, month: month }));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onset, year, month]);
 
-  const changeToWeek = (day: number) => {
-    router.push(Route.teacherCalendarWeekPath({ year: year, month: month, day: day }));
+  const changeToWeek = (vMonth: number, day: number) => {
+    router.push(Route.teachers.calendarWeekPath({ year: year, month: vMonth, day: day }));
   };
 
   const toDaySchedule = (day: number) => {
-    router.push(Route.daySchedulePath({ year: year, month: month, day: day }));
+    router.push(Route.teachers.lessonsPath({ year: year, month: month, day: day }));
   };
 
   return (
     <>
-      <Dashboard>
+      <Dashboard.teachers>
         {/* <DatePicker date={date} onChange={setDate} /> */}
         <div className="p-2" style={{ width: '300px' }}>
           <MonthPicker
@@ -85,7 +85,7 @@ const MonthSchedule: NextPage = () => {
               <ListGroup.Item className={`pt-0 pb-0 ${styles.monthArea}`} key={rowIndex}>
                 <div className="row">
                   <div className='p-0 border-end color-combo-sub' style={{ width: '50px' }}>
-                    <ArrowButton direction='right' className='h-100 w-100 p-0' onClick={() => changeToWeek(rowData[0].day)} arrowColor="var(--color-font-sub)" />
+                    <ArrowButton direction='right' className='h-100 w-100 p-0' onClick={() => changeToWeek(rowData[0].month, rowData[0].day)} arrowColor="var(--color-font-sub)" />
                   </div>
                   {rowData.map((columnData: any, colIndex: Key) => {
                     return (
@@ -123,7 +123,7 @@ const MonthSchedule: NextPage = () => {
             );
           })}
         </ListGroup>
-      </Dashboard>
+      </Dashboard.teachers>
     </>
   );
 };
