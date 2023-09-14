@@ -5,7 +5,7 @@ module ScheduleKun
       class LessonNotFound < StandardError; end
       class InvalidParams < StandardError; end
 
-      # GET /schedule_kun/teacher/lessons
+      # GET /schedule_kun/teachers/lessons
       def index
         raise DateNotFoundError if params[:year].blank? || params[:month].blank? || params[:day].blank?
 
@@ -26,7 +26,7 @@ module ScheduleKun
         render_404 e.to_s
       end
 
-      # GET /schedule_kun/teacher/lessons/new
+      # GET /schedule_kun/teachers/lessons/new
       def new
         branches = current_teacher.branches.enabled
         subjects = current_teacher.school.subjects.enabled
@@ -50,7 +50,7 @@ module ScheduleKun
         render_404 e.to_s
       end
 
-      # POST /schedule_kun/teacher/lessons
+      # POST /schedule_kun/teachers/lessons
       def create
         @lesson = current_teacher.lessons.build(lesson_params)
         @lesson.save!
@@ -67,7 +67,7 @@ module ScheduleKun
         render_409 e.to_s
       end
 
-      # GET /schedule_kun/teacher/lessons/:id/edit
+      # GET /schedule_kun/teachers/lessons/:id/edit
       def edit
         lesson = current_teacher.lessons.enabled.where(id: params[:id]).eager_load(:lesson_room, :branch, :subject).first
         raise LessonNotFound if lesson.nil?
@@ -96,7 +96,7 @@ module ScheduleKun
         render_404 e.to_s
       end
 
-      # PUT /schedule_kun/teacher/lessons/:id
+      # PUT /schedule_kun/teachers/lessons/:id
       def update
         @lesson = Lesson.enabled.find_by(id: params[:id])
         raise LessonNotFound if @lesson.nil?
@@ -115,7 +115,7 @@ module ScheduleKun
         render_409 e.to_s
       end
 
-      # DELETE /schedule_kun/teacher/lessons/:id
+      # DELETE /schedule_kun/teachers/lessons/:id
       def destroy
         @lesson = Lesson.enabled.find_by(id: params[:id])
         raise LessonNotFound if @lesson.nil?

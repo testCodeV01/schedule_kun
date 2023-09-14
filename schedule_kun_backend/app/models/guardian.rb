@@ -9,6 +9,6 @@ class Guardian < ApplicationRecord
   validates :name, presence: true
 
   def client_attributes
-    default_client_attributes
+    default_client_attributes.except(:password_digest, :remember_digest)
   end
 end

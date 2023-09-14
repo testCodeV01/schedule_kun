@@ -15,6 +15,6 @@ class Teacher < ApplicationRecord
   attr_breath :email
 
   def client_attributes
-    default_client_attributes
+    default_client_attributes.except(:password_digest, :remember_digest)
   end
 end

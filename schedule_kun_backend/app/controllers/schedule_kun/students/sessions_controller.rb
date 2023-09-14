@@ -4,12 +4,12 @@ class ScheduleKun::Students::SessionsController < ScheduleKun::Students::Applica
 
   skip_before_action :authenticate!, only: %i(new login logout)
 
-  # GET /schedule_kun/student
+  # GET /schedule_kun/students
   def new
     render status:200
   end
 
-  # POST /schedule_kun/student/login
+  # POST /schedule_kun/students/login
   def login
     raise InvalidPasswordConfirmationError if params[:password] != params[:password_confirmation]
     
@@ -23,14 +23,14 @@ class ScheduleKun::Students::SessionsController < ScheduleKun::Students::Applica
     render_401 "#{e}"
   end
 
-  # GET /schedule_kun/student/auth
+  # GET /schedule_kun/students/auth
   def auth
     json = { current_student: current_student&.client_attributes }
 
     render json: json, status: 200
   end
 
-  # DELETE /schedule_kun/student/logout
+  # DELETE /schedule_kun/students/logout
   def logout
     reset_session
     @current_student = nil

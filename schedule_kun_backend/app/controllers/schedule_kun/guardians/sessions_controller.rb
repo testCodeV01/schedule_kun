@@ -4,12 +4,12 @@ class ScheduleKun::Guardians::SessionsController < ScheduleKun::Guardians::Appli
 
   skip_before_action :authenticate!, only: %i(new login logout)
 
-  # GET /schedule_kun/guardian
+  # GET /schedule_kun/guardians
   def new
     render status:200
   end
 
-  # POST /schedule_kun/guardian/login
+  # POST /schedule_kun/guardians/login
   def login
     raise InvalidPasswordConfirmationError if params[:password] != params[:password_confirmation]
     
@@ -23,14 +23,14 @@ class ScheduleKun::Guardians::SessionsController < ScheduleKun::Guardians::Appli
     render_401 "#{e}"
   end
 
-  # GET /schedule_kun/guardian/auth
+  # GET /schedule_kun/guardians/auth
   def auth
     json = { current_guardian: current_guardian&.client_attributes }
 
     render json: json, status: 200
   end
 
-  # DELETE /schedule_kun/guardian/logout
+  # DELETE /schedule_kun/guardians/logout
   def logout
     reset_session
     @current_guardian = nil

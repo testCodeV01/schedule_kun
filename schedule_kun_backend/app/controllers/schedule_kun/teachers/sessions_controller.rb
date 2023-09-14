@@ -1,7 +1,7 @@
 class ScheduleKun::Teachers::SessionsController < ScheduleKun::Teachers::ApplicationController
   include Breath::SessionsControllerHelper
 
-  # GET /schedule_kun/teacher/auth
+  # GET /schedule_kun/teachers/auth
   def auth
     json = { current_teacher: current_teacher&.client_attributes }
 
