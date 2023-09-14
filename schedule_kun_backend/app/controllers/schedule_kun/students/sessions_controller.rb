@@ -3,6 +3,7 @@ module ScheduleKun
     class SessionsController < ScheduleKun::Students::ApplicationController
       class InvalidPasswordConfirmationError < StandardError; end
       class StudentNotFoundError < StandardError; end
+      class InvalidPassword < StandardError; end
 
       skip_before_action :authenticate!, only: %i[new login logout]
 
@@ -17,6 +18,7 @@ module ScheduleKun
 
         student = Student.enabled.find_by(email: params[:email])
         raise StudentNotFoundError if student.nil?
+        raise InvalidPassword unless student.authenticate(params[:password])
 
         session[:student_id] = student.id
 

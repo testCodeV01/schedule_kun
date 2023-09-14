@@ -3,6 +3,7 @@ module ScheduleKun
     class SessionsController < ScheduleKun::Guardians::ApplicationController
       class InvalidPasswordConfirmationError < StandardError; end
       class GuardianNotFoundError < StandardError; end
+      class InvalidPassword < StandardError; end
 
       skip_before_action :authenticate!, only: %i[new login logout]
 
@@ -17,6 +18,7 @@ module ScheduleKun
 
         guardian = Guardian.enabled.find_by(email: params[:email])
         raise GuardianNotFoundError if guardian.nil?
+        raise InvalidPassword unless guardian.authenticate(params[:password])
 
         session[:guardian_id] = guardian.id
 
