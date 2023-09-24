@@ -1,5 +1,6 @@
 class Lesson < ApplicationRecord
   include DateValidator
+  include SoftDeleter
 
   belongs_to :branch
   belongs_to :teacher, optional: true

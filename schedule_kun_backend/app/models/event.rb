@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   include DateValidator
+  include SoftDeleter
 
   belongs_to :lesson_room, optional: true
   belongs_to :teacher, optional: true

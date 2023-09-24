@@ -50,7 +50,7 @@
         t.id = teacher_id
         t.name = "シード教師_#{teacher_id}"
         t.email = "teacher_#{teacher_id}@school#{school_id}.com"
-        t.password = SecureRandom.alphanumeric(10)
+        t.password = "Password01"
         t.school_id = school_id
       end
 

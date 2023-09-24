@@ -120,7 +120,7 @@ module ScheduleKun
         @lesson = Lesson.enabled.find_by(id: params[:id])
         raise LessonNotFound if @lesson.nil?
 
-        @lesson.delete_update(current_teacher)
+        @lesson.soft_delete(current_teacher)
 
         render status: 200
       rescue StandardError => e

@@ -13,7 +13,7 @@ module Breath
 
       skip_before_action :authenticate!, only: %i[new login logout]
 
-      # GET /schedule_kun/target
+      # GET /schedule_kun/target/login
       define_method :new do
         render status: 200
       end

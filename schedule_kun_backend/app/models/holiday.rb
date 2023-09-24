@@ -1,4 +1,6 @@
 class Holiday < ApplicationRecord
+  include SoftDeleter
+
   belongs_to :school
 
   validates :day, presence: true, uniqueness: { scope: :school_id }
