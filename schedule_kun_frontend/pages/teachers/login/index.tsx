@@ -21,7 +21,6 @@ const TeacherLogin: NextPage = () => {
       sessions: {
         email: email,
         password: password,
-        password_confirmation: passwordConfirmation,
       }
     })
       .then(() => {
@@ -56,10 +55,6 @@ const TeacherLogin: NextPage = () => {
         <Form.Group className="mb-3">
           <Form.Label>パスワード</Form.Label>
           <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>パスワード確認</Form.Label>
-          <Form.Control type="password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
         </Form.Group>
         <Button onClick={submit}>ログイン</Button>
         {/* <Button onClick={auth}>クリック2</Button>
