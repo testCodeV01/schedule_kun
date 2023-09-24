@@ -1,5 +1,5 @@
 class Teacher < ApplicationRecord
-  include BreathModel
+  include Breath::Model
   include SoftDeleter
 
   belongs_to :school

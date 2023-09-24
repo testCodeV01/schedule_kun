@@ -13,7 +13,7 @@ const TeacherLogin: NextPage = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   useEffect(() => {
-    TeachersClient.get('/');
+    TeachersClient.get('/login');
   }, []);
 
   const submit = () => {

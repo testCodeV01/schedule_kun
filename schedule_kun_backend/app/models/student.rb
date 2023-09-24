@@ -1,5 +1,5 @@
 class Student < ApplicationRecord
-  include BreathModel
+  include Breath::Model
   include SoftDeleter
 
   has_many :student_guardians, dependent: :destroy
