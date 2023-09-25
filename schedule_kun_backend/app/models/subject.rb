@@ -1,4 +1,6 @@
 class Subject < ApplicationRecord
+  include SoftDeleter
+
   belongs_to :school
   has_many :lessons
 
