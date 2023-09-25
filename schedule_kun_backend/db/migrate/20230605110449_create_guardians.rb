@@ -6,9 +6,9 @@ class CreateGuardians < ActiveRecord::Migration[7.0]
       t.string :password_digest, null: false, default: ""
       t.string :remember_digest
 
-      t.integer :deleter_type, limit: 2, default: 0 # 0:Teacher, 1:Student, 2:Guardian
-      t.integer :deleter_id
-      t.datetime :deleted_at
+      t.string :deleter_type, comment: "論理削除を実行したモデル名"
+      t.integer :deleter_id, comment: "論理削除を実行したモデルのID"
+      t.datetime :deleted_at, comment: "論理削除の実行日時"
 
       t.timestamps
     end
