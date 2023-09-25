@@ -18,9 +18,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.bigint "student_id"
     t.bigint "lesson_id"
     t.string "description", default: "", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lesson_id"], name: "idx_absences_2"
@@ -32,9 +32,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "branch_teachers", force: :cascade do |t|
     t.bigint "branch_id", null: false
     t.bigint "teacher_id", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "idx_branch_teachers_1"
@@ -49,9 +49,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "zip_code", default: "", null: false
     t.string "address", default: "", null: false
     t.string "phone_number", default: "", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "idx_branches_1"
@@ -64,11 +64,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
     t.string "place", default: "", null: false
-    t.datetime "start_time", precision: nil, default: "2023-09-25 21:39:26", null: false
-    t.datetime "end_time", precision: nil, default: "2023-09-25 21:39:26", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.datetime "start_time", precision: nil, default: "2023-09-25 21:46:02", null: false
+    t.datetime "end_time", precision: nil, default: "2023-09-25 21:46:02", null: false
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lesson_room_id"], name: "idx_events_1"
@@ -80,9 +80,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "groups", force: :cascade do |t|
     t.bigint "branch_id"
     t.string "name", default: "", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "idx_groups_1"
@@ -94,9 +94,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "email", default: "", null: false
     t.string "password_digest", default: "", null: false
     t.string "remember_digest"
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email", "deleted_at"], name: "index_guardians_on_email_and_deleted_at", unique: true
@@ -106,9 +106,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "holidays", force: :cascade do |t|
     t.bigint "school_id"
     t.datetime "day", precision: nil, default: "2023-09-25 00:00:00", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id", "day"], name: "index_holidays_on_school_id_and_day", unique: true
@@ -119,9 +119,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "lesson_rooms", force: :cascade do |t|
     t.bigint "branch_id", null: false
     t.string "name", default: "", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_lesson_rooms_on_branch_id"
@@ -130,9 +130,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "lesson_students", force: :cascade do |t|
     t.bigint "lesson_id"
     t.bigint "student_id"
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lesson_id"], name: "idx_lesson_students_1"
@@ -147,11 +147,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.bigint "branch_id", null: false
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
-    t.datetime "start_time", precision: nil, default: "2023-09-25 21:39:26", null: false
-    t.datetime "end_time", precision: nil, default: "2023-09-25 21:39:26", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.datetime "start_time", precision: nil, default: "2023-09-25 21:46:02", null: false
+    t.datetime "end_time", precision: nil, default: "2023-09-25 21:46:02", null: false
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "subject_id"
@@ -172,9 +172,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "address", default: "", null: false
     t.string "phone_number", default: "", null: false
     t.string "description", default: "", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -182,9 +182,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "student_groups", force: :cascade do |t|
     t.bigint "student_id"
     t.bigint "group_id"
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "idx_student_groups_2"
@@ -196,9 +196,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "student_guardians", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "guardian_id", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["guardian_id"], name: "idx_student_guardians_2"
@@ -212,9 +212,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "email", default: "", null: false
     t.string "password_digest", default: "", null: false
     t.string "remember_digest"
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email", "deleted_at"], name: "index_students_on_email_and_deleted_at", unique: true
@@ -224,9 +224,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "subjects", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "school_id"
@@ -239,9 +239,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "email", default: "", null: false
     t.string "password_digest", default: "", null: false
     t.string "remember_digest"
-    t.string "deleter_type", comment: "論理削除を実行したモデル名"
-    t.integer "deleter_id", comment: "論理削除を実行したモデルのID"
-    t.datetime "deleted_at", comment: "論理削除の実行日時"
+    t.string "deleter_type"
+    t.integer "deleter_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "school_id"

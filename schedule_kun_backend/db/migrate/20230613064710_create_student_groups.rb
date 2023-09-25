@@ -4,9 +4,9 @@ class CreateStudentGroups < ActiveRecord::Migration[7.0]
       t.references :student, foreign_key: true
       t.references :group, foreign_key: true
 
-      t.string :deleter_type, comment: "論理削除を実行したモデル名"
-      t.integer :deleter_id, comment: "論理削除を実行したモデルのID"
-      t.datetime :deleted_at, comment: "論理削除の実行日時"
+      t.string :deleter_type
+      t.integer :deleter_id
+      t.datetime :deleted_at
 
       t.timestamps
     end
