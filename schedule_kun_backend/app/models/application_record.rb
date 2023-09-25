@@ -6,8 +6,8 @@ class ApplicationRecord < ActiveRecord::Base
     def default_client_attributes
       attributes.symbolize_keys.except(
         :deleted_at,
-        :deleted_account_id,
-        :deleted_account_type,
+        :deleter_id,
+        :deleter_type,
         :created_at,
         :updated_at,
       )

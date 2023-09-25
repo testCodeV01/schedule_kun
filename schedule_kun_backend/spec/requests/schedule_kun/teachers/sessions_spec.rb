@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "ScheduleKun::Teachers::Sessions", type: :request do
-  describe "GET /schedule_kun/teachers" do
+  describe "GET /schedule_kun/teachers/login" do
     it "ステータス200を返すこと" do
-      get schedule_kun_teachers_path
+      get schedule_kun_teachers_login_path
       expect(response).to have_http_status(200)
     end
   end
@@ -17,21 +17,21 @@ RSpec.describe "ScheduleKun::Teachers::Sessions", type: :request do
 
     context "success" do
       it "ステータス200を返すこと" do
-        login_params = { sessions: { email: teacher.email, password: "Password01", password_confirmation: "Password01" } }
+        login_params = { sessions: { email: teacher.email, password: "Password01" } }
         post schedule_kun_teachers_login_path, params: login_params
         expect(response).to have_http_status(200)
       end
     end
 
     context "failure" do
-      it "パスワード確認がパスワードと一致しなかった場合に401エラーとなること" do
-        login_params = { sessions: { email: teacher.email, password: "Password01", password_confirmation: "password02" } }
+      it "パスワードが間違っていた場合に401エラーとなること" do
+        login_params = { sessions: { email: teacher.email, password: "Password02" } }
         post schedule_kun_teachers_login_path, params: login_params
         expect(response).to have_http_status(401)
       end
 
       it "Eメールが間違っていたら401エラーとなること" do
-        login_params = { sessions: { email: "teacher@sample.com", password: "Password01", password_confirmation: "Password01" } }
+        login_params = { sessions: { email: "teacher@sample.com", password: "Password01" } }
         post schedule_kun_teachers_login_path, params: login_params
         expect(response).to have_http_status(401)
       end
