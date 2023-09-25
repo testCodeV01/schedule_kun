@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.bigint "student_id"
     t.bigint "lesson_id"
     t.string "description", default: "", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "branch_teachers", force: :cascade do |t|
     t.bigint "branch_id", null: false
     t.bigint "teacher_id", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "zip_code", default: "", null: false
     t.string "address", default: "", null: false
     t.string "phone_number", default: "", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -64,9 +64,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
     t.string "place", default: "", null: false
-    t.datetime "start_time", precision: nil, default: "2023-09-24 21:05:40", null: false
-    t.datetime "end_time", precision: nil, default: "2023-09-24 21:05:40", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.datetime "start_time", precision: nil, default: "2023-09-25 21:46:02", null: false
+    t.datetime "end_time", precision: nil, default: "2023-09-25 21:46:02", null: false
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "groups", force: :cascade do |t|
     t.bigint "branch_id"
     t.string "name", default: "", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -94,7 +94,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "email", default: "", null: false
     t.string "password_digest", default: "", null: false
     t.string "remember_digest"
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -105,8 +105,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
 
   create_table "holidays", force: :cascade do |t|
     t.bigint "school_id"
-    t.datetime "day", precision: nil, default: "2023-09-24 00:00:00", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.datetime "day", precision: nil, default: "2023-09-25 00:00:00", null: false
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -119,7 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "lesson_rooms", force: :cascade do |t|
     t.bigint "branch_id", null: false
     t.string "name", default: "", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -130,7 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "lesson_students", force: :cascade do |t|
     t.bigint "lesson_id"
     t.bigint "student_id"
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -147,9 +147,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.bigint "branch_id", null: false
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
-    t.datetime "start_time", precision: nil, default: "2023-09-24 21:05:40", null: false
-    t.datetime "end_time", precision: nil, default: "2023-09-24 21:05:40", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.datetime "start_time", precision: nil, default: "2023-09-25 21:46:02", null: false
+    t.datetime "end_time", precision: nil, default: "2023-09-25 21:46:02", null: false
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -172,7 +172,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "address", default: "", null: false
     t.string "phone_number", default: "", null: false
     t.string "description", default: "", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -182,7 +182,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "student_groups", force: :cascade do |t|
     t.bigint "student_id"
     t.bigint "group_id"
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -196,7 +196,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "student_guardians", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "guardian_id", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -212,7 +212,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "email", default: "", null: false
     t.string "password_digest", default: "", null: false
     t.string "remember_digest"
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -224,7 +224,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
   create_table "subjects", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "description", default: "", null: false
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -239,7 +239,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_114335) do
     t.string "email", default: "", null: false
     t.string "password_digest", default: "", null: false
     t.string "remember_digest"
-    t.integer "deleter_type", limit: 2, default: 0
+    t.string "deleter_type"
     t.integer "deleter_id"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
