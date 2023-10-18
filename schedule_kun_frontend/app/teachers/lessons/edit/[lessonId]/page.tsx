@@ -51,7 +51,7 @@ const EditLesson: NextPage<{ params: any }> = ({ params }) => {
         setStartTime(new Date(`${res.data.lesson.lesson_date} ${res.data.lesson.start_time}`));
         setEndTime(new Date(`${res.data.lesson.lesson_date} ${res.data.lesson.end_time}`));
       });
-  }, []);
+  }, [TeachersClient, params]);
 
   const submit = () => {
     if (branchId < 0) return;

@@ -40,7 +40,7 @@ const MonthSchedule: NextPage = () => {
       }).then(() => {
         setLoading(false);
       });
-  }, []);
+  }, [TeachersClient, params]);
 
   useEffect(() => {
     if (!onset) return;

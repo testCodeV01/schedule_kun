@@ -16,7 +16,7 @@ const TeacherLogin: NextPage = () => {
 
   useEffect(() => {
     TeachersClient.get('/login');
-  }, []);
+  }, [TeachersClient]);
 
   const submit = () => {
     TeachersClient.post('/login', {

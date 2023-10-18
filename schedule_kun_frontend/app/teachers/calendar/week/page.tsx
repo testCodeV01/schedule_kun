@@ -42,7 +42,7 @@ const WeekSchedule: NextPage = () => {
     ).then((res) => {
       setLessonDatas(res.data);
     }).then(() => setOnset(true));
-  }, []);
+  }, [TeachersClient, params]);
 
   useEffect(() => {
     if (!onset) return;

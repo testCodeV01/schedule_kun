@@ -51,7 +51,7 @@ const CreateLesson: NextPage = () => {
 
     setStartTime(new Date(`${params.get('year')}/${params.get('month')}/${params.get('day')}`));
     setEndTime(new Date(`${params.get('year')}/${params.get('month')}/${params.get('day')}`));
-  }, []);
+  }, [TeachersClient, params]);
 
   const submit = () => {
     if (branchId < 0) return;

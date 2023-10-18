@@ -37,7 +37,7 @@ const DaySchedule: NextPage = () => {
     setDay(Number(params.get('day')));
 
     setOnset(true);
-  }, []);
+  }, [params]);
 
   useEffect(() => {
     if (!onset) return;
@@ -49,7 +49,7 @@ const DaySchedule: NextPage = () => {
     ).then((res) => {
       setLessonDatas(res.data);
     });
-  }, [year, month, day, onset, deleteId]);
+  }, [year, month, day, onset, deleteId, TeachersClient]);
 
   const deleteLesson = () => {
     if (deleteId < 0) return;
