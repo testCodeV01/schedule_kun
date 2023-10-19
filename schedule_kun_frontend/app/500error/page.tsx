@@ -5,7 +5,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
 import { Button, Card } from 'react-bootstrap';
 
-const Error: NextPage = () => {
+const Error500: NextPage = () => {
   const router = useRouter();
 
   return (
@@ -19,4 +19,4 @@ const Error: NextPage = () => {
   );
 };
 
-export default Error;
+export default Error500;

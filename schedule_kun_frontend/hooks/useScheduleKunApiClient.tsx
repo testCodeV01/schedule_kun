@@ -53,6 +53,9 @@ export const useScheduleKunApiClient = () => {
       case errorCode === 409:
         router.replace('/409');
         break;
+      case errorCode === 500:
+        router.replace('/500error');
+        break;
       default:
         return reject(e);
     }
