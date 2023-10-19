@@ -2,12 +2,12 @@ import { Button, Container, Dropdown, Form, Nav, NavDropdown, Navbar, Offcanvas 
 
 import styles from './styles.module.css';
 import { Route } from '@/config/Route';
-import Router from 'next/router';
-import { TeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
+import { useTeachersClient } from '@/hooks/ScheduleKunApi/useTeachersClient';
+import { useRouter } from 'next/navigation';
 
 export const Dashboard = () => {};
 
-Dashboard.regular = ({ children }: { children: any }) => {
+const RegularDashboard = ({ children }: { children: any }) => {
   return (
     <>
       <Navbar className='color-combo-main'>
@@ -20,12 +20,15 @@ Dashboard.regular = ({ children }: { children: any }) => {
   );
 };
 
-Dashboard.teachers = ({ children }: { children: any }) => {
+const TeachersDashboard = ({ children }: { children: any }) => {
   const expand = 'lg';
   const today = new Date();
 
+  const router = useRouter();
+  const TeachersClient = useTeachersClient();
+
   const logout = () => {
-    TeachersClient.delete('logout').then(() => Router.push(Route.teachers.loginPath));
+    TeachersClient.delete('logout').then(() => router.push(Route.teachers.loginPath));
   };
 
   return (
@@ -81,12 +84,12 @@ Dashboard.teachers = ({ children }: { children: any }) => {
           <div className="p-3">
             <Button
               className={`w-100 ${styles.sideMenuButton}`}
-              onClick={() => Router.push(Route.teachers.calendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 }))}
+              onClick={() => router.push(Route.teachers.calendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 }))}
             >
               トップ
             </Button>
-            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => Router.push(Route.teachers.studentsPath)}>生徒一覧</Button>
-            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => Router.push(Route.teachers.lessonRoomsPath)}>ルーム一覧</Button>
+            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => router.push(Route.teachers.studentsPath)}>生徒一覧</Button>
+            <Button className={`w-100 ${styles.sideMenuButton}`} onClick={() => router.push(Route.teachers.lessonRoomsPath)}>ルーム一覧</Button>
             <Dropdown>
               <Dropdown.Toggle className={`w-100 ${styles.sideMenuDropdown}`}>Dropdown</Dropdown.Toggle>
               <Dropdown.Menu>
@@ -107,3 +110,6 @@ Dashboard.teachers = ({ children }: { children: any }) => {
     </>
   );
 };
+
+Dashboard.regular = RegularDashboard;
+Dashboard.teachers = TeachersDashboard;

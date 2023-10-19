@@ -1,5 +1,5 @@
 import { Route } from '@/config/Route';
-import Router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 
 interface ChangeViewModeProps {
@@ -7,6 +7,8 @@ interface ChangeViewModeProps {
 }
 
 export const ChangeViewMode = ({ mode }: ChangeViewModeProps) => {
+  const router = useRouter();
+
   const today = new Date();
 
   return (
@@ -20,7 +22,7 @@ export const ChangeViewMode = ({ mode }: ChangeViewModeProps) => {
           variant='outline-success'
           checked={mode === 'month'}
           onClick={() => {
-            Router.push(Route.teachers.calendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 }));
+            router.push(Route.teachers.calendarMonthPath({ year: today.getFullYear(), month: today.getMonth() + 1 }));
           }}
         >
           月
@@ -33,7 +35,7 @@ export const ChangeViewMode = ({ mode }: ChangeViewModeProps) => {
           variant='outline-success'
           checked={mode === 'week'}
           onClick={() => {
-            Router.push(Route.teachers.calendarWeekPath({ year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate() }));
+            router.push(Route.teachers.calendarWeekPath({ year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate() }));
           }}
         >
           週
