@@ -36,7 +36,7 @@ export const useTeachersClient = () => {
 
       if (e.message === 'canceled') return;
 
-      router.push('/500');
+      router.push(`/${target}/500`);
       return;
     }
 
@@ -54,7 +54,11 @@ export const useTeachersClient = () => {
         reject(e);
         break;
       case errorCode === 409:
-        router.replace(`${target}/409`);
+        router.replace(`/${target}/409`);
+        break;
+      case errorCode === 500:
+        // router.replace(`/${target}/500`);
+        throw new Error('エラーが発生しました。');
         break;
       default:
         return reject(e);
