@@ -1,7 +1,8 @@
 'use client';
 
+import { Dashboard } from '@/components/layouts/dashboard';
 import { Route } from '@/config/Route';
-import { useTeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
+import { useTeachersClient } from '@/hooks/ScheduleKunApi/useTeachersClient';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -16,7 +17,8 @@ const TeacherLogin: NextPage = () => {
 
   useEffect(() => {
     TeachersClient.get('/login');
-  }, [TeachersClient]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const submit = () => {
     TeachersClient.post('/login', {
@@ -44,24 +46,21 @@ const TeacherLogin: NextPage = () => {
 
   return (
     <>
-      <Navbar className='color-combo-main'>
-        <Container fluid>
-          welcom
-        </Container>
-      </Navbar>
-      <Card className="p-5 m-auto mt-5" style={{ width: '500px', height: '500px' }}>
-        <Form.Group className="mb-3">
-          <Form.Label>メールアドレス</Form.Label>
-          <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>パスワード</Form.Label>
-          <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </Form.Group>
-        <Button onClick={submit}>ログイン</Button>
-        {/* <Button onClick={auth}>クリック2</Button>
-        <Button onClick={logout}>ログアウト</Button> */}
-      </Card>
+      <Dashboard.regular>
+        <Card className="p-5 m-auto mt-5" style={{ width: '500px', height: '500px' }}>
+          <Form.Group className="mb-3">
+            <Form.Label>メールアドレス</Form.Label>
+            <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>パスワード</Form.Label>
+            <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </Form.Group>
+          <Button onClick={submit}>ログイン</Button>
+          {/* <Button onClick={auth}>クリック2</Button>
+          <Button onClick={logout}>ログアウト</Button> */}
+        </Card>
+      </Dashboard.regular>
     </>
   );
 };

@@ -8,13 +8,12 @@ import { Route } from '@/config/Route';
 import ArrowButton from '@/components/elements/arrowButton';
 
 import styles from './styles.module.css';
-import { useTeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
-import { useDashboard } from '@/components/layouts/dashboard';
+import { useTeachersClient } from '@/hooks/ScheduleKunApi/useTeachersClient';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Dashboard } from '@/components/layouts/dashboard';
 
 const MonthSchedule: NextPage = () => {
   const TeachersClient = useTeachersClient();
-  const Dashboard = useDashboard();
   const params = useSearchParams();
 
   const [loading, setLoading] = useState<boolean|undefined>(false);
@@ -40,7 +39,8 @@ const MonthSchedule: NextPage = () => {
       }).then(() => {
         setLoading(false);
       });
-  }, [TeachersClient, params]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
 
   useEffect(() => {
     if (!onset) return;

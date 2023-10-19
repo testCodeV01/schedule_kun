@@ -1,12 +1,10 @@
 'use client';
 
-import { useDashboard } from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
 import { Card } from 'react-bootstrap';
 
 const Informations: NextPage = () => {
-  const Dashboard = useDashboard();
-
   return (
     <>
       <Dashboard.teachers>

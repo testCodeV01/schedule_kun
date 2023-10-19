@@ -1,6 +1,6 @@
 'use client';
 
-import { useDashboard } from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import { Route } from '@/config/Route';
 import { useRouter } from 'next/navigation';
 import { Button, Card } from 'react-bootstrap';
@@ -8,7 +8,6 @@ import { Button, Card } from 'react-bootstrap';
 
 export default function Home() {
   const router = useRouter();
-  const Dashboard = useDashboard();
 
   return (
     <>

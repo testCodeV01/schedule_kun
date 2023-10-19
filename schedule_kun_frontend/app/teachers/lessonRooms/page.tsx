@@ -1,11 +1,9 @@
 'use client';
 
-import { useDashboard } from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import { NextPage } from 'next';
 
 const LessonRooms: NextPage = () => {
-  const Dashboard = useDashboard();
-
   return (
     <>
       <Dashboard.teachers>

@@ -6,15 +6,14 @@ import { Button, Card, Modal } from 'react-bootstrap';
 import { Route } from '@/config/Route';
 import ContainerButton from '@/components/elements/containerButton';
 import { BsFillTrash3Fill } from 'react-icons/bs';
-import { useTeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
-import { useDashboard } from '@/components/layouts/dashboard';
+import { useTeachersClient } from '@/hooks/ScheduleKunApi/useTeachersClient';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Dashboard } from '@/components/layouts/dashboard';
 
 const DaySchedule: NextPage = () => {
   const router = useRouter();
   const params = useSearchParams();
   const TeachersClient = useTeachersClient();
-  const Dashboard = useDashboard();
 
   const today = new Date();
   const [year, setYear] = useState(today.getFullYear());
@@ -49,7 +48,8 @@ const DaySchedule: NextPage = () => {
     ).then((res) => {
       setLessonDatas(res.data);
     });
-  }, [year, month, day, onset, deleteId, TeachersClient]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [year, month, day, onset, deleteId]);
 
   const deleteLesson = () => {
     if (deleteId < 0) return;

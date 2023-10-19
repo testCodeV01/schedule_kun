@@ -1,9 +1,9 @@
 'use client';
 
 import TimePicker from '@/components/elements/timepicker';
-import { useDashboard } from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import { Route } from '@/config/Route';
-import { useTeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
+import { useTeachersClient } from '@/hooks/ScheduleKunApi/useTeachersClient';
 import { NextPage } from 'next';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,6 @@ import { Button, Card, Form, FormGroup, Modal } from 'react-bootstrap';
 const CreateLesson: NextPage = () => {
   const router = useRouter();
   const TeachersClient = useTeachersClient();
-  const Dashboard = useDashboard();
   const params = useSearchParams();
 
   const [lesson, setLesson] = useState({
@@ -51,7 +50,8 @@ const CreateLesson: NextPage = () => {
 
     setStartTime(new Date(`${params.get('year')}/${params.get('month')}/${params.get('day')}`));
     setEndTime(new Date(`${params.get('year')}/${params.get('month')}/${params.get('day')}`));
-  }, [TeachersClient, params]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
 
   const submit = () => {
     if (branchId < 0) return;

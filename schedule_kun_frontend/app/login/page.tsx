@@ -1,6 +1,6 @@
 'use client';
 
-import { useDashboard } from '@/components/layouts/dashboard';
+import { Dashboard } from '@/components/layouts/dashboard';
 import { Route } from '@/config/Route';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
@@ -8,7 +8,6 @@ import { Button, Card } from 'react-bootstrap';
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const Dashboard = useDashboard();
 
   return (
     <>

@@ -2,8 +2,8 @@
 
 import ContainerButton from '@/components/elements/containerButton';
 import TimeSpanSelector from '@/components/elements/timeSpanSelector';
-import { useDashboard } from '@/components/layouts/dashboard';
-import { useTeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
+import { Dashboard } from '@/components/layouts/dashboard';
+import { useTeachersClient } from '@/hooks/ScheduleKunApi/useTeachersClient';
 import type { NextPage } from 'next';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -13,7 +13,6 @@ import { BsFillTrash3Fill } from 'react-icons/bs';
 const EditLesson: NextPage<{ params: any }> = ({ params }) => {
   const router = useRouter();
   const TeachersClient = useTeachersClient();
-  const Dashboard = useDashboard();
   const query = useSearchParams();
 
   const [lesson, setLesson] = useState({
@@ -51,7 +50,8 @@ const EditLesson: NextPage<{ params: any }> = ({ params }) => {
         setStartTime(new Date(`${res.data.lesson.lesson_date} ${res.data.lesson.start_time}`));
         setEndTime(new Date(`${res.data.lesson.lesson_date} ${res.data.lesson.end_time}`));
       });
-  }, [TeachersClient, params]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const submit = () => {
     if (branchId < 0) return;

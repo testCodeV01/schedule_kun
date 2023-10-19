@@ -1,31 +1,28 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { CookieKeys } from '@/config/CookieKeys';
 import { ErrorCode } from '@/config/ErrorCodes';
-import { Cookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
+import { Cookies } from 'react-cookie';
 
 export const ApiConfig = {
   domain: `${process.env.APP_API_DOMAIN}`,
   csrf_header_key: 'x-csrf-token',
 };
 
-const target = 'teachers';
-const baseUrl = `${ApiConfig.domain}/schedule_kun/${target}`;
-
-export const TeachersApiUrl = (path: string) => {
+export const ScheduleKunApiUrl = (path: string) => {
   return path.match(/^\//g)
-    ? `${baseUrl}${path}`
-    : `${baseUrl}/${path}`;
+    ? `${ApiConfig.domain}${path}`
+    : `${ApiConfig.domain}/${path}`;
 };
 
-const queryString = (hash: any) => {
-  return Object.keys(hash).map((key) => `${key}=${hash[key]}`).join('&');
-};
-
-export const useTeachersClient = () => {
+export const useScheduleKunApiClient = () => {
   const body = () => {};
   const router = useRouter();
   const cookies = new Cookies();
+
+  const queryString = (hash: any) => {
+    return Object.keys(hash).map((key) => `${key}=${hash[key]}`).join('&');
+  };
 
   const onErrorOccurred = (e: any, reject: any) => {
     if (!e.response) {
@@ -45,16 +42,16 @@ export const useTeachersClient = () => {
 
     switch (true) {
       case errorCode === 401:
-        router.replace(`/${target}/401`);
+        router.replace('/401');
         break;
       case errorCode === 404:
-        router.replace(`/${target}/404`);
+        router.replace('/404');
         break;
       case errorCode === 409 && [ErrorCode.invalid_lesson_params].includes(dataCode):
         reject(e);
         break;
       case errorCode === 409:
-        router.replace(`${target}/409`);
+        router.replace('/409');
         break;
       default:
         return reject(e);
@@ -69,7 +66,7 @@ export const useTeachersClient = () => {
     return new Promise<AxiosResponse<T, D>>((resolve, reject) => {
       axios({
         method: 'GET',
-        url: `${TeachersApiUrl(path)}?${queryString(query)}`,
+        url: `${ScheduleKunApiUrl(path)}?${queryString(query)}`,
         headers: {
           'Content-Type': 'application/json'
         },
@@ -97,7 +94,7 @@ export const useTeachersClient = () => {
     return new Promise<AxiosResponse<T, D>>((resolve, reject) => {
       axios({
         method: 'POST',
-        url: TeachersApiUrl(path),
+        url: ScheduleKunApiUrl(path),
         headers: {
           'Content-Type': 'application/json',
           'X-Csrf-Token': cookies.get(CookieKeys.csrf_cookie_key),
@@ -126,7 +123,7 @@ export const useTeachersClient = () => {
     return new Promise<AxiosResponse<T, D>>((resolve, reject) => {
       axios({
         method: 'PUT',
-        url: TeachersApiUrl(path),
+        url: ScheduleKunApiUrl(path),
         headers: {
           'Content-Type': 'application/json',
           'X-Csrf-Token': cookies.get(CookieKeys.csrf_cookie_key),
@@ -155,7 +152,7 @@ export const useTeachersClient = () => {
     return new Promise<AxiosResponse<T, D>>((resolve, reject) => {
       axios({
         method: 'DELETE',
-        url: TeachersApiUrl(path),
+        url: ScheduleKunApiUrl(path),
         headers: {
           'Content-Type': 'application/json',
           'X-Csrf-Token': cookies.get(CookieKeys.csrf_cookie_key),

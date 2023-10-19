@@ -1,6 +1,5 @@
 'use client';
 
-import { useDashboard } from '@/components/layouts/dashboard';
 import type { NextPage } from 'next';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 
@@ -9,13 +8,13 @@ import WeekPicker from '@/components/elements/weekpicker';
 import { Route } from '@/config/Route';
 
 import styles from './styles.module.css';
-import { useTeachersClient } from '@/lib/ScheduleKunApi/TeachersClient';
+import { useTeachersClient } from '@/hooks/ScheduleKunApi/useTeachersClient';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Dashboard } from '@/components/layouts/dashboard';
 
 const WeekSchedule: NextPage = () => {
   const router = useRouter();
   const TeachersClient = useTeachersClient();
-  const Dashboard = useDashboard();
   const params = useSearchParams();
 
   const today = new Date();
@@ -29,7 +28,7 @@ const WeekSchedule: NextPage = () => {
 
   useEffect(() => {
     if (!params.get('year')) return;
-    if (params.get('month')) return;
+    if (!params.get('month')) return;
     if (!params.get('day')) return;
 
     setYear(Number(params.get('year')));
@@ -42,7 +41,8 @@ const WeekSchedule: NextPage = () => {
     ).then((res) => {
       setLessonDatas(res.data);
     }).then(() => setOnset(true));
-  }, [TeachersClient, params]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
 
   useEffect(() => {
     if (!onset) return;
