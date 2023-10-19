@@ -6,7 +6,7 @@ import { useTeachersClient } from '@/hooks/ScheduleKunApi/useTeachersClient';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Button, Card, Container, Form, Navbar } from 'react-bootstrap';
+import { Button, Card, Form } from 'react-bootstrap';
 
 const TeacherLogin: NextPage = () => {
   const router = useRouter();
