@@ -15,7 +15,7 @@ import { Dashboard } from '@/components/layouts/dashboard';
 const WeekSchedule: NextPage = () => {
   const router = useRouter();
   const teachersClient = useTeachersClient();
-  const params = useSearchParams();
+  const query = useSearchParams();
 
   const today = new Date();
   const [year, setYear] = useState(today.getFullYear());
@@ -27,22 +27,22 @@ const WeekSchedule: NextPage = () => {
   const [onset, setOnset] = useState(false);
 
   useEffect(() => {
-    if (!params.get('year')) return;
-    if (!params.get('month')) return;
-    if (!params.get('day')) return;
+    if (!query.get('year')) return;
+    if (!query.get('month')) return;
+    if (!query.get('day')) return;
 
-    setYear(Number(params.get('year')));
-    setMonth(Number(params.get('month')));
-    setDay(Number(params.get('day')));
+    setYear(Number(query.get('year')));
+    setMonth(Number(query.get('month')));
+    setDay(Number(query.get('day')));
 
     teachersClient.get(
       '/calendars/week',
-      { year: params.get('year'), month: params.get('month'), day: params.get('day') }
+      { year: query.get('year'), month: query.get('month'), day: query.get('day') }
     ).then((res) => {
       setLessonDatas(res.data);
     }).then(() => setOnset(true));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params]);
+  }, [query]);
 
   useEffect(() => {
     if (!onset) return;

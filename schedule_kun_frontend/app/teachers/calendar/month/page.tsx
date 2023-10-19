@@ -14,7 +14,7 @@ import { Dashboard } from '@/components/layouts/dashboard';
 
 const MonthSchedule: NextPage = () => {
   const teachersClient = useTeachersClient();
-  const params = useSearchParams();
+  const query = useSearchParams();
 
   const [loading, setLoading] = useState<boolean|undefined>(false);
   const [lessonDatas, setLessonDatas] = useState([]);
@@ -25,13 +25,13 @@ const MonthSchedule: NextPage = () => {
   const [onset, setOnset] = useState(false);
 
   useEffect(() => {
-    setYear(Number(params.get('year')));
-    setMonth(Number(params.get('month')));
+    setYear(Number(query.get('year')));
+    setMonth(Number(query.get('month')));
 
     setLoading(true);
 
     teachersClient.get('/calendars/month',
-      { year: params.get('year'), month: params.get('month') }
+      { year: query.get('year'), month: query.get('month') }
     )
       .then((res) => {
         setLessonDatas(res.data);
@@ -40,7 +40,7 @@ const MonthSchedule: NextPage = () => {
         setLoading(false);
       });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params]);
+  }, [query]);
 
   useEffect(() => {
     if (!onset) return;

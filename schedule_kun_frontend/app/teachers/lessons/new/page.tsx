@@ -12,7 +12,7 @@ import { Button, Card, Form, FormGroup, Modal } from 'react-bootstrap';
 const CreateLesson: NextPage = () => {
   const router = useRouter();
   const teachersClient = useTeachersClient();
-  const params = useSearchParams();
+  const query = useSearchParams();
 
   const [lesson, setLesson] = useState({
     name: '',
@@ -33,9 +33,9 @@ const CreateLesson: NextPage = () => {
   const [errors, setErrors] = useState<any>({});
 
   useEffect(() => {
-    if (!params.get('year')) return;
-    if (!params.get('month')) return;
-    if (!params.get('day')) return;
+    if (!query.get('year')) return;
+    if (!query.get('month')) return;
+    if (!query.get('day')) return;
 
     teachersClient.get('/lessons/new')
       .then((res) => {
@@ -48,10 +48,10 @@ const CreateLesson: NextPage = () => {
         if (res.data.subjects.length > 0) setSubjectId(res.data.subjects[0].id);
       });
 
-    setStartTime(new Date(`${params.get('year')}/${params.get('month')}/${params.get('day')}`));
-    setEndTime(new Date(`${params.get('year')}/${params.get('month')}/${params.get('day')}`));
+    setStartTime(new Date(`${query.get('year')}/${query.get('month')}/${query.get('day')}`));
+    setEndTime(new Date(`${query.get('year')}/${query.get('month')}/${query.get('day')}`));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params]);
+  }, [query]);
 
   const submit = () => {
     if (branchId < 0) return;
@@ -62,7 +62,7 @@ const CreateLesson: NextPage = () => {
       lesson: { ...lesson, start_time: startTime, end_time: endTime, branch_id: branchId, lesson_room_id: lessonRoomId, subject_id: subjectId }
     })
       .then(() => router.push(Route.teachers.lessonsPath({
-        year: params.get('year'), month: params.get('month'), day: params.get('day')
+        year: query.get('year'), month: query.get('month'), day: query.get('day')
       })))
       .catch((e: any) => {
         setErrors(e.response.data.errors);
@@ -72,7 +72,7 @@ const CreateLesson: NextPage = () => {
 
   const cancel = () => {
     router.push(Route.teachers.lessonsPath({
-      year: params.get('year'), month: params.get('month'), day: params.get('day')
+      year: query.get('year'), month: query.get('month'), day: query.get('day')
     }));
   };
 
@@ -82,7 +82,7 @@ const CreateLesson: NextPage = () => {
         <Card className="p-3 mb-2 shadow-sm color-combo-default" style={{ width: '500px' }}>
           <Form>
             <Card className='p-1 mb-3 shadow-sm' style={{ width: '200px' }}>
-              {params.get('year')}年{params.get('month')}月{params.get('day')}日
+              {query.get('year')}年{query.get('month')}月{query.get('day')}日
             </Card>
             <div className='d-flex mb-3'>
               <FormGroup className='d-flex me-3' style={{ width: '200px' }}>
