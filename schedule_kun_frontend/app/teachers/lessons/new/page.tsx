@@ -11,7 +11,7 @@ import { Button, Card, Form, FormGroup, Modal } from 'react-bootstrap';
 
 const CreateLesson: NextPage = () => {
   const router = useRouter();
-  const TeachersClient = useTeachersClient();
+  const teachersClient = useTeachersClient();
   const params = useSearchParams();
 
   const [lesson, setLesson] = useState({
@@ -37,7 +37,7 @@ const CreateLesson: NextPage = () => {
     if (!params.get('month')) return;
     if (!params.get('day')) return;
 
-    TeachersClient.get('/lessons/new')
+    teachersClient.get('/lessons/new')
       .then((res) => {
         setBranches(res.data.branches);
         setSubjects(res.data.subjects);
@@ -58,7 +58,7 @@ const CreateLesson: NextPage = () => {
     if (lessonRoomId < 0) return;
     if (subjectId < 0) return;
 
-    TeachersClient.post('/lessons', {
+    teachersClient.post('/lessons', {
       lesson: { ...lesson, start_time: startTime, end_time: endTime, branch_id: branchId, lesson_room_id: lessonRoomId, subject_id: subjectId }
     })
       .then(() => router.push(Route.teachers.lessonsPath({

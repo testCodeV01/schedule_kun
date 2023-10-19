@@ -13,7 +13,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Dashboard } from '@/components/layouts/dashboard';
 
 const MonthSchedule: NextPage = () => {
-  const TeachersClient = useTeachersClient();
+  const teachersClient = useTeachersClient();
   const params = useSearchParams();
 
   const [loading, setLoading] = useState<boolean|undefined>(false);
@@ -30,7 +30,7 @@ const MonthSchedule: NextPage = () => {
 
     setLoading(true);
 
-    TeachersClient.get('/calendars/month',
+    teachersClient.get('/calendars/month',
       { year: params.get('year'), month: params.get('month') }
     )
       .then((res) => {

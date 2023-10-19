@@ -14,7 +14,7 @@ import { Dashboard } from '@/components/layouts/dashboard';
 
 const WeekSchedule: NextPage = () => {
   const router = useRouter();
-  const TeachersClient = useTeachersClient();
+  const teachersClient = useTeachersClient();
   const params = useSearchParams();
 
   const today = new Date();
@@ -35,7 +35,7 @@ const WeekSchedule: NextPage = () => {
     setMonth(Number(params.get('month')));
     setDay(Number(params.get('day')));
 
-    TeachersClient.get(
+    teachersClient.get(
       '/calendars/week',
       { year: params.get('year'), month: params.get('month'), day: params.get('day') }
     ).then((res) => {

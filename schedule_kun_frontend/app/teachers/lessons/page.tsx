@@ -13,7 +13,7 @@ import { Dashboard } from '@/components/layouts/dashboard';
 const DaySchedule: NextPage = () => {
   const router = useRouter();
   const params = useSearchParams();
-  const TeachersClient = useTeachersClient();
+  const teachersClient = useTeachersClient();
 
   const today = new Date();
   const [year, setYear] = useState(today.getFullYear());
@@ -42,7 +42,7 @@ const DaySchedule: NextPage = () => {
     if (!onset) return;
     if (deleteId > 0) return;
 
-    TeachersClient.get(
+    teachersClient.get(
       '/lessons',
       { year: year, month: month, day: day }
     ).then((res) => {
@@ -54,7 +54,7 @@ const DaySchedule: NextPage = () => {
   const deleteLesson = () => {
     if (deleteId < 0) return;
 
-    TeachersClient.delete(`/lessons/${deleteId}`)
+    teachersClient.delete(`/lessons/${deleteId}`)
       .then(() => {
         setShowDelete(false);
         setDeleteId(-1);

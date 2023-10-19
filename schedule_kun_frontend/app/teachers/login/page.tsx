@@ -10,18 +10,18 @@ import { Button, Card, Form } from 'react-bootstrap';
 
 const TeacherLogin: NextPage = () => {
   const router = useRouter();
-  const TeachersClient = useTeachersClient();
+  const teachersClient = useTeachersClient();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    TeachersClient.get('/login');
+    teachersClient.get('/login');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const submit = () => {
-    TeachersClient.post('/login', {
+    teachersClient.post('/login', {
       sessions: {
         email: email,
         password: password,
@@ -35,14 +35,6 @@ const TeacherLogin: NextPage = () => {
         }));
       });
   };
-
-  // const auth = () => {
-  //   TeachersClient.get('/auth');
-  // };
-
-  // const logout = () => {
-  //   TeachersClient.delete('/logout');
-  // };
 
   return (
     <>

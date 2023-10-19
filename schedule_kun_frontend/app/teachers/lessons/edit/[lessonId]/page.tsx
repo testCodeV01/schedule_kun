@@ -12,7 +12,7 @@ import { BsFillTrash3Fill } from 'react-icons/bs';
 
 const EditLesson: NextPage<{ params: any }> = ({ params }) => {
   const router = useRouter();
-  const TeachersClient = useTeachersClient();
+  const teachersClient = useTeachersClient();
   const query = useSearchParams();
 
   const [lesson, setLesson] = useState({
@@ -37,7 +37,7 @@ const EditLesson: NextPage<{ params: any }> = ({ params }) => {
   useEffect(() => {
     if (!params.lessonId) return;
 
-    TeachersClient.get(`/lessons/${params.lessonId}/edit`)
+    teachersClient.get(`/lessons/${params.lessonId}/edit`)
       .then((res) => {
         setBranches(res.data.branches);
         setSubjects(res.data.subjects);
@@ -58,7 +58,7 @@ const EditLesson: NextPage<{ params: any }> = ({ params }) => {
     if (lessonRoomId < 0) return;
     if (subjectId < 0) return;
 
-    TeachersClient.put(`/lessons/${params.lessonId}`, {
+    teachersClient.put(`/lessons/${params.lessonId}`, {
       lesson: { ...lesson, start_time: startTime, end_time: endTime, branch_id: branchId, lesson_room_id: lessonRoomId, subject_id: subjectId }
     })
       .then(() => router.back())
@@ -69,7 +69,7 @@ const EditLesson: NextPage<{ params: any }> = ({ params }) => {
   };
 
   const deleteLesson = () => {
-    TeachersClient.delete(`/lessons/${params.lessonId}`)
+    teachersClient.delete(`/lessons/${params.lessonId}`)
       .then(() => router.back())
       .catch(() => {
         setShowDelete(false);
